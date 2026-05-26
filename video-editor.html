@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Video Editor 2000+ Filters - Sachin AI Studio</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        :root{
+            --bg:#060810;--panel:#0b0f1a;--panel2:#111827;--border:#1e2740;
+            --accent:#00ffcc;--accent2:#7c3aed;--accent3:#f59e0b;--red:#ef4444;
+            --text:#e1e7f0;--muted:#64748b;
+        }
+        body{background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+
+        /* HEADER */
+        header{background:linear-gradient(135deg,#0a0e1a,#0d1b2e);border-bottom:1px solid rgba(0,255,204,0.2);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;z-index:100;}
+        .back-btn{color:var(--accent);text-decoration:none;font-size:1.2rem;flex-shrink:0;}
+        .header-title{font-size:1rem;font-weight:800;color:var(--accent);flex:1;}
+        .header-title span{color:var(--accent2);}
+        .hdr-btns{display:flex;gap:6px;flex-wrap:wrap;}
+        .hbtn{padding:6px 12px;border-radius:7px;border:none;cursor:pointer;font-size:0.75rem;font-weight:700;transition:all 0.2s;white-space:nowrap;}
+        .hbtn-export{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;}
+        .hbtn-open{background:var(--panel2);border:1px solid var(--border);color:var(--text);}
+        .hbtn-open:hover{border-color:var(--accent);color:var(--accent);}
+        .hbtn-export:hover{transform:scale(1.05);box-shadow:0 0 14px rgba(0,255,204,0.4);}
+
+        /* MAIN LAYOUT */
+        .editor-main{flex:1;display:flex;overflow:hidden;min-height:0;}
+
+        /* LEFT PANEL */
+        .left-panel{width:230px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+        .left-tabs{display:flex;background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
+        .ltab{flex:1;padding:8px 4px;text-align:center;font-size:0.65rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s;}
+        .ltab:hover{color:var(--text);}
+        .ltab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(0,255,204,0.05);}
+        .left-content{flex:1;overflow-y:auto;overflow-x:hidden;}
+        .tab-panel{display:none;}
+        .tab-panel.active{display:block;}
+
+        /* Filter Search */
+        .filter-search-wrap{padding:8px;border-bottom:1px solid var(--border);flex-shrink:0;}
+        .filter-search{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:8px;font-size:0.78rem;outline:none;}
+        .filter-search:focus{border-color:var(--accent);}
+        .filter-cat-bar{display:flex;gap:4px;padding:6px 8px;overflow-x:auto;border-bottom:1px solid var(--border);flex-shrink:0;}
+        .fcat-btn{padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--panel2);color:var(--muted);cursor:pointer;font-size:0.65rem;white-space:nowrap;transition:all 0.15s;}
+        .fcat-btn:hover,.fcat-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(0,255,204,0.07);}
+
+        /* Filter Grid */
+        .filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px;}
+        .filter-btn{padding:7px 4px;border-radius:7px;border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;font-size:0.68rem;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;overflow:hidden;}
+        .filter-btn:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.03);}
+        .filter-btn.active{background:linear-gradient(135deg,rgba(0,255,204,0.15),rgba(124,58,237,0.15));border-color:var(--accent);color:var(--accent);}
+        .filter-btn .fi{font-size:1rem;}
+        .filter-btn .fnum{position:absolute;top:2px;right:4px;font-size:0.55rem;color:var(--muted);}
+        .filter-count{text-align:center;padding:6px;font-size:0.7rem;color:var(--muted);}
+
+        /* Panel sections */
+        .panel-section{border-bottom:1px solid var(--border);}
+        .panel-title{padding:8px 12px;font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;background:rgba(0,0,0,0.3);display:flex;align-items:center;gap:6px;}
+
+        /* Adjustments */
+        .adjust-list{padding:8px;display:flex;flex-direction:column;gap:8px;}
+        .adj-row label{font-size:0.7rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:3px;}
+        .adj-row label span{color:var(--accent);font-weight:700;}
+        .slider{-webkit-appearance:none;width:100%;height:4px;border-radius:4px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--accent) 50%,var(--border) 50%);}
+        .slider::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 7px rgba(0,255,204,0.6);}
+
+        /* Transitions */
+        .trans-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px;}
+        .trans-btn{padding:8px 4px;border-radius:7px;border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;font-size:0.68rem;text-align:center;transition:all 0.15s;}
+        .trans-btn:hover,.trans-btn.active{border-color:var(--accent3);color:var(--accent3);background:rgba(245,158,11,0.08);}
+
+        /* Tool buttons */
+        .overlay-tools{padding:8px;display:flex;flex-direction:column;gap:5px;}
+        .otool-btn{padding:8px 10px;border-radius:7px;border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;font-size:0.75rem;transition:all 0.2s;text-align:left;display:flex;align-items:center;gap:8px;}
+        .otool-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+        .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:8px;}
+        .tgrid-btn{padding:9px 6px;border-radius:7px;border:1px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;font-size:0.68rem;text-align:center;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+        .tgrid-btn .tg-ico{font-size:1.1rem;}
+        .tgrid-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+
+        /* CENTER */
+        .center-area{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+        .preview-area{flex:1;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:0;}
+        #previewCanvas{max-width:100%;max-height:100%;display:block;background:#000;}
+        #previewVideo{display:none;}
+        .preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+        .upload-cta{pointer-events:all;text-align:center;padding:30px;}
+        .upload-cta .uico{font-size:3.5rem;margin-bottom:10px;}
+        .upload-cta h2{font-size:1.3rem;color:var(--accent);margin-bottom:6px;}
+        .upload-cta p{color:var(--muted);font-size:0.85rem;margin-bottom:16px;}
+        .upload-big-btn{padding:12px 28px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none;border-radius:10px;font-size:0.95rem;font-weight:800;cursor:pointer;transition:all 0.2s;}
+        .upload-big-btn:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(0,255,204,0.5);}
+        #overlayContainer{position:absolute;inset:0;pointer-events:none;}
+
+        /* PLAYBACK */
+        .playback-bar{background:var(--panel);border-top:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;}
+        .play-btn{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#000;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+        .play-btn:hover{transform:scale(1.1);box-shadow:0 0 14px rgba(0,255,204,0.5);}
+        .ctrl-btn{width:32px;height:32px;border-radius:8px;background:var(--panel2);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+        .ctrl-btn:hover{border-color:var(--accent);color:var(--accent);}
+        .time-display{font-size:0.82rem;color:var(--accent);font-family:monospace;min-width:85px;}
+        .vol-area{display:flex;align-items:center;gap:6px;}
+        .speed-select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:4px 7px;border-radius:6px;font-size:0.75rem;}
+        .cut-btn{padding:6px 12px;background:var(--red);color:white;border:none;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;transition:all 0.2s;}
+        .cut-btn:hover{transform:scale(1.05);}
+        .split-btn{padding:6px 12px;background:var(--accent3);color:#000;border:none;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;transition:all 0.2s;}
+        .split-btn:hover{transform:scale(1.05);}
+
+        /* TIMELINE */
+        .timeline-area{height:165px;background:var(--panel);border-top:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+        .timeline-header{display:flex;align-items:center;gap:8px;padding:5px 12px;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.3);}
+        .tl-label{font-size:0.68rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;flex:1;}
+        .tl-zbtn{width:22px;height:22px;background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:4px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;}
+        .tl-zbtn:hover{border-color:var(--accent);color:var(--accent);}
+        .timeline-scroll{flex:1;overflow-x:auto;overflow-y:hidden;position:relative;}
+        .timeline-inner{height:100%;position:relative;min-width:100%;}
+        .tl-ruler{height:20px;position:absolute;top:0;left:0;right:0;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.4);}
+        .tl-tracks{position:absolute;top:20px;left:0;right:0;bottom:0;}
+        .tl-track{height:36px;display:flex;align-items:center;position:relative;border-bottom:1px solid rgba(30,39,64,0.5);}
+        .tl-track-label{width:55px;flex-shrink:0;font-size:0.6rem;color:var(--muted);padding:0 6px;text-align:right;border-right:1px solid var(--border);height:100%;display:flex;align-items:center;justify-content:flex-end;background:rgba(0,0,0,0.3);}
+        .tl-track-content{flex:1;height:100%;position:relative;overflow:hidden;}
+        .clip-block{position:absolute;top:3px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;padding:0 7px;font-size:0.65rem;font-weight:700;color:#000;overflow:hidden;user-select:none;border:2px solid transparent;transition:border-color 0.15s;}
+        .clip-block:hover{border-color:rgba(255,255,255,0.5);}
+        .clip-block.selected{border-color:white;}
+        .clip-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .clip-rh{position:absolute;right:0;top:0;bottom:0;width:7px;cursor:ew-resize;background:rgba(0,0,0,0.3);}
+        .clip-lh{position:absolute;left:0;top:0;bottom:0;width:7px;cursor:ew-resize;background:rgba(0,0,0,0.3);}
+        .playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);pointer-events:none;z-index:10;}
+        .playhead::before{content:'';position:absolute;top:-5px;left:-5px;width:12px;height:12px;background:var(--accent);border-radius:50%;}
+
+        /* RIGHT PANEL */
+        .right-panel{width:190px;flex-shrink:0;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+        .clip-props{padding:8px;}
+        .prop-row{margin-bottom:10px;}
+        .prop-row label{font-size:0.68rem;color:var(--muted);display:block;margin-bottom:3px;}
+        .prop-input,.prop-select{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:6px 8px;border-radius:6px;font-size:0.75rem;outline:none;}
+        .prop-input:focus,.prop-select:focus{border-color:var(--accent);}
+        .del-clip-btn{width:100%;padding:7px;background:rgba(239,68,68,0.15);border:1px solid var(--red);color:var(--red);border-radius:7px;cursor:pointer;font-size:0.75rem;font-weight:700;transition:all 0.2s;}
+        .del-clip-btn:hover{background:var(--red);color:white;}
+
+        /* MODAL */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;}
+        .modal-overlay.show{display:flex;}
+        .modal-box{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;width:360px;max-width:95vw;max-height:90vh;overflow-y:auto;}
+        .modal-box h3{color:var(--accent);margin-bottom:14px;font-size:1rem;}
+        .modal-input,.modal-select{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:9px 11px;border-radius:7px;font-size:0.85rem;outline:none;margin-bottom:8px;}
+        .modal-input:focus,.modal-select:focus{border-color:var(--accent);}
+        .modal-row{display:flex;gap:7px;margin-bottom:8px;}
+        .modal-color{width:44px;height:36px;border-radius:7px;border:1px solid var(--border);cursor:pointer;}
+        .modal-btns{display:flex;gap:7px;margin-top:6px;}
+        .mbtn{flex:1;padding:9px;border-radius:7px;border:none;cursor:pointer;font-weight:700;font-size:0.82rem;transition:all 0.2s;}
+        .mbtn-ok{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;}
+        .mbtn-cancel{background:var(--panel2);color:var(--text);border:1px solid var(--border);}
+
+        /* Export modal */
+        .export-modal{width:400px;}
+        .exp-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+        .exp-opt{flex:1;min-width:80px;padding:10px 6px;border-radius:9px;border:2px solid var(--border);background:var(--panel2);color:var(--text);cursor:pointer;text-align:center;font-size:0.75rem;transition:all 0.2s;}
+        .exp-opt .eo-icon{font-size:1.4rem;display:block;margin-bottom:3px;}
+        .exp-opt:hover,.exp-opt.active{border-color:var(--accent);color:var(--accent);background:rgba(0,255,204,0.07);}
+        .progress-bar-wrap{background:var(--panel2);border-radius:7px;height:9px;overflow:hidden;margin:10px 0;display:none;}
+        .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 0.3s;width:0%;}
+        .exp-status{font-size:0.75rem;color:var(--muted);text-align:center;margin-top:6px;}
+
+        /* Chroma key */
+        .chroma-preview{width:100%;height:40px;border-radius:7px;border:1px solid var(--border);cursor:crosshair;margin-bottom:8px;background:linear-gradient(135deg,#00ff00,#005500);}
+        .color-pick-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+
+        /* Toast */
+        .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--panel);border:1px solid var(--accent);color:var(--accent);padding:10px 22px;border-radius:9px;font-size:0.85rem;font-weight:700;z-index:9999;transition:transform 0.3s;pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,0.5);}
+        .toast.show{transform:translateX(-50%) translateY(0);}
+
+        /* PIP */
+        #pipCanvas{position:absolute;border:2px solid var(--accent);border-radius:8px;cursor:move;display:none;z-index:50;}
+
+        ::-webkit-scrollbar{width:5px;height:5px;}
+        ::-webkit-scrollbar-track{background:var(--bg);}
+        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+        ::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+
+        @media(max-width:768px){.left-panel{width:180px;}.right-panel{display:none;}}
+        @media(max-width:540px){.left-panel{display:none;}}
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="back-btn">←</a>
+    <div class="header-title">🎞️ Pro <span>Video Editor</span> <small style="font-size:0.6rem;color:var(--muted);">2000+ Filters</small></div>
+    <div class="hdr-btns">
+        <button class="hbtn hbtn-open" onclick="document.getElementById('videoFileInput').click()">📁 Video</button>
+        <button class="hbtn hbtn-open" onclick="document.getElementById('imageFileInput').click()">🖼️ Image</button>
+        <button class="hbtn hbtn-open" onclick="document.getElementById('audioFileInput').click()">🎵 Audio</button>
+        <button class="hbtn hbtn-export" onclick="openExportModal()">⬇️ Export</button>
+    </div>
+    <input type="file" id="videoFileInput" accept="video/*" style="display:none" onchange="loadVideo(this)">
+    <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="addImageClip(this)">
+    <input type="file" id="audioFileInput" accept="audio/*" style="display:none" onchange="addAudioClip(this)">
+    <input type="file" id="pip2VideoInput" accept="video/*,image/*" style="display:none" onchange="loadPIP(this)">
+</header>
+
+<div class="editor-main">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <div class="left-tabs">
+            <div class="ltab active" onclick="switchTab('filters',this)">🎨 Filters</div>
+            <div class="ltab" onclick="switchTab('adjust',this)">⚙️ Adjust</div>
+            <div class="ltab" onclick="switchTab('fx',this)">✨ FX</div>
+            <div class="ltab" onclick="switchTab('text',this)">✍️ Text</div>
+            <div class="ltab" onclick="switchTab('tools',this)">🛠️ Tools</div>
+        </div>
+        <div class="left-content">
+
+            <!-- FILTERS TAB -->
+            <div class="tab-panel active" id="tab-filters">
+                <div class="filter-search-wrap">
+                    <input type="text" class="filter-search" id="filterSearch" placeholder="🔍 Filter खोजें... (2000+)" oninput="searchFilters(this.value)">
+                </div>
+                <div class="filter-cat-bar" id="filterCatBar"></div>
+                <div class="filter-count" id="filterCount">Loading...</div>
+                <div class="filter-grid" id="filterGrid"></div>
+            </div>
+
+            <!-- ADJUST TAB -->
+            <div class="tab-panel" id="tab-adjust">
+                <div class="adjust-list">
+                    <div class="adj-row"><label>Brightness <span id="bv">100</span>%</label><input type="range" class="slider" id="bS" min="0" max="200" value="100" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Contrast <span id="cv">100</span>%</label><input type="range" class="slider" id="cS" min="0" max="200" value="100" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Saturation <span id="sv">100</span>%</label><input type="range" class="slider" id="stS" min="0" max="300" value="100" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Hue <span id="hv">0</span>°</label><input type="range" class="slider" id="hS" min="0" max="360" value="0" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Blur <span id="blv">0</span>px</label><input type="range" class="slider" id="blS" min="0" max="20" value="0" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Opacity <span id="ov">100</span>%</label><input type="range" class="slider" id="oS" min="0" max="100" value="100" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Sharpness <span id="shv">0</span></label><input type="range" class="slider" id="shS" min="0" max="10" value="0" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Vignette <span id="vgv">0</span>%</label><input type="range" class="slider" id="vgS" min="0" max="100" value="0" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Noise <span id="nsv">0</span>%</label><input type="range" class="slider" id="nsS" min="0" max="100" value="0" oninput="updateAdjust()"></div>
+                    <div class="adj-row"><label>Grain <span id="grv">0</span>%</label><input type="range" class="slider" id="grS" min="0" max="100" value="0" oninput="updateAdjust()"></div>
+                    <button class="otool-btn" style="margin:8px;" onclick="resetAdjustments()">🔄 Reset All</button>
+                </div>
+            </div>
+
+            <!-- FX TAB -->
+            <div class="tab-panel" id="tab-fx">
+                <div class="panel-section">
+                    <div class="panel-title">🔀 Transitions</div>
+                    <div class="trans-grid" id="transGrid">
+                        <button class="trans-btn active" onclick="setTransition('none',this)">⛔ None</button>
+                        <button class="trans-btn" onclick="setTransition('fade',this)">🌫️ Fade</button>
+                        <button class="trans-btn" onclick="setTransition('slide-r',this)">➡️ Slide→</button>
+                        <button class="trans-btn" onclick="setTransition('slide-l',this)">⬅️ Slide←</button>
+                        <button class="trans-btn" onclick="setTransition('slide-u',this)">⬆️ Slide↑</button>
+                        <button class="trans-btn" onclick="setTransition('slide-d',this)">⬇️ Slide↓</button>
+                        <button class="trans-btn" onclick="setTransition('zoom-in',this)">🔍 Zoom In</button>
+                        <button class="trans-btn" onclick="setTransition('zoom-out',this)">🔎 Zoom Out</button>
+                        <button class="trans-btn" onclick="setTransition('wipe',this)">🧹 Wipe</button>
+                        <button class="trans-btn" onclick="setTransition('blur',this)">💨 Blur</button>
+                        <button class="trans-btn" onclick="setTransition('flip-h',this)">↔️ Flip H</button>
+                        <button class="trans-btn" onclick="setTransition('flip-v',this)">↕️ Flip V</button>
+                        <button class="trans-btn" onclick="setTransition('spin',this)">🌀 Spin</button>
+                        <button class="trans-btn" onclick="setTransition('glitch',this)">📡 Glitch</button>
+                        <button class="trans-btn" onclick="setTransition('dissolve',this)">💧 Dissolve</button>
+                        <button class="trans-btn" onclick="setTransition('flash',this)">⚡ Flash</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🎭 Animations</div>
+                    <div class="trans-grid">
+                        <button class="trans-btn" onclick="applyCanvasAnim('pulse')">💓 Pulse</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('shake')">📳 Shake</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('zoom-in-out')">🔄 Zoom</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('rotate360')">🌀 Rotate</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('bounce')">⬆️ Bounce</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('glitch')">📡 Glitch</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('none')">⛔ None</button>
+                        <button class="trans-btn" onclick="applyCanvasAnim('mirror')">🪞 Mirror</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🌈 LUT Overlays</div>
+                    <div class="trans-grid">
+                        <button class="trans-btn" onclick="applyLUT('duotone-rb')">🔵🔴 Duo R/B</button>
+                        <button class="trans-btn" onclick="applyLUT('duotone-pg')">🟣🟢 Duo P/G</button>
+                        <button class="trans-btn" onclick="applyLUT('teal-orange')">🟦🟠 Teal/Org</button>
+                        <button class="trans-btn" onclick="applyLUT('film-noir')">🎬 Film Noir</button>
+                        <button class="trans-btn" onclick="applyLUT('cross-proc')">✖️ Cross</button>
+                        <button class="trans-btn" onclick="applyLUT('bleach')">🤍 Bleach</button>
+                        <button class="trans-btn" onclick="applyLUT('split-tone')">🎨 Split Tone</button>
+                        <button class="trans-btn" onclick="applyLUT('none')">⛔ None</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">⚡ Speed & Time</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="setSpeed(0.25)">🐢 0.25x Slow</button>
+                        <button class="otool-btn" onclick="setSpeed(0.5)">🐌 0.5x Slow</button>
+                        <button class="otool-btn" onclick="setSpeed(1)">▶️ 1x Normal</button>
+                        <button class="otool-btn" onclick="setSpeed(1.5)">🐇 1.5x Fast</button>
+                        <button class="otool-btn" onclick="setSpeed(2)">⚡ 2x Fast</button>
+                        <button class="otool-btn" onclick="reverseClip()">⏪ Reverse</button>
+                        <button class="otool-btn" onclick="freezeFrame()">⏸️ Freeze Frame</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEXT TAB -->
+            <div class="tab-panel" id="tab-text">
+                <div class="overlay-tools">
+                    <button class="otool-btn" onclick="openTextModal()">✏️ Text जोड़ें</button>
+                    <button class="otool-btn" onclick="openTitleModal()">🎬 Title Card</button>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">😊 Stickers</div>
+                    <div class="tool-grid">
+                        <button class="tgrid-btn" onclick="addSticker('🔥')"><span class="tg-ico">🔥</span>Fire</button>
+                        <button class="tgrid-btn" onclick="addSticker('⭐')"><span class="tg-ico">⭐</span>Star</button>
+                        <button class="tgrid-btn" onclick="addSticker('❤️')"><span class="tg-ico">❤️</span>Heart</button>
+                        <button class="tgrid-btn" onclick="addSticker('💥')"><span class="tg-ico">💥</span>Boom</button>
+                        <button class="tgrid-btn" onclick="addSticker('✨')"><span class="tg-ico">✨</span>Sparkle</button>
+                        <button class="tgrid-btn" onclick="addSticker('🎵')"><span class="tg-ico">🎵</span>Music</button>
+                        <button class="tgrid-btn" onclick="addSticker('🌈')"><span class="tg-ico">🌈</span>Rainbow</button>
+                        <button class="tgrid-btn" onclick="addSticker('💯')"><span class="tg-ico">💯</span>100</button>
+                        <button class="tgrid-btn" onclick="addSticker('🎉')"><span class="tg-ico">🎉</span>Party</button>
+                        <button class="tgrid-btn" onclick="addSticker('😂')"><span class="tg-ico">😂</span>Laugh</button>
+                        <button class="tgrid-btn" onclick="addSticker('🚀')"><span class="tg-ico">🚀</span>Rocket</button>
+                        <button class="tgrid-btn" onclick="addSticker('👑')"><span class="tg-ico">👑</span>Crown</button>
+                        <button class="tgrid-btn" onclick="addSticker('💎')"><span class="tg-ico">💎</span>Diamond</button>
+                        <button class="tgrid-btn" onclick="addSticker('🎯')"><span class="tg-ico">🎯</span>Target</button>
+                        <button class="tgrid-btn" onclick="addSticker('⚡')"><span class="tg-ico">⚡</span>Bolt</button>
+                        <button class="tgrid-btn" onclick="addSticker('🌟')"><span class="tg-ico">🌟</span>Glow</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🎬 Subtitles</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="openSubtitleModal()">📝 Subtitle जोड़ें</button>
+                        <button class="otool-btn" onclick="clearAllOverlays()">🗑️ All Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOLS TAB -->
+            <div class="tab-panel" id="tab-tools">
+                <div class="panel-section">
+                    <div class="panel-title">✂️ Edit Tools</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="splitClip()">✂️ Split at Playhead</button>
+                        <button class="otool-btn" onclick="deleteSelectedClip()">🗑️ Delete Clip</button>
+                        <button class="otool-btn" onclick="duplicateClip()">📋 Duplicate Clip</button>
+                        <button class="otool-btn" onclick="trimSilence()">🔇 Trim Silence</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🔄 Transform</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="rotateClip(90)">↻ Rotate 90°</button>
+                        <button class="otool-btn" onclick="rotateClip(-90)">↺ Rotate -90°</button>
+                        <button class="otool-btn" onclick="flipHorizontal()">↔️ Flip Horizontal</button>
+                        <button class="otool-btn" onclick="flipVertical()">↕️ Flip Vertical</button>
+                        <button class="otool-btn" onclick="openCropModal()">✂️ Crop</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🖼️ Overlays</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="document.getElementById('pip2VideoInput').click()">🖼️ Picture-in-Picture</button>
+                        <button class="otool-btn" onclick="openChromaModal()">🟩 Chroma Key (Green Screen)</button>
+                        <button class="otool-btn" onclick="addLensFlare()">☀️ Lens Flare</button>
+                        <button class="otool-btn" onclick="addFilmGrain()">🎞️ Film Grain</button>
+                        <button class="otool-btn" onclick="addVignetteOverlay()">🔲 Vignette</button>
+                        <button class="otool-btn" onclick="addScanlines()">📺 Scanlines</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🎨 Canvas FX</div>
+                    <div class="tool-grid">
+                        <button class="tgrid-btn" onclick="applyPixelate()"><span class="tg-ico">🟫</span>Pixelate</button>
+                        <button class="tgrid-btn" onclick="applyMosaic()"><span class="tg-ico">🔲</span>Mosaic</button>
+                        <button class="tgrid-btn" onclick="applyNightVision()"><span class="tg-ico">🟢</span>Night Vision</button>
+                        <button class="tgrid-btn" onclick="applyThermal()"><span class="tg-ico">🔴</span>Thermal</button>
+                        <button class="tgrid-btn" onclick="applyOldTV()"><span class="tg-ico">📺</span>Old TV</button>
+                        <button class="tgrid-btn" onclick="applyPencil()"><span class="tg-ico">✏️</span>Pencil</button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">🎵 Audio</div>
+                    <div class="overlay-tools">
+                        <button class="otool-btn" onclick="muteClip()">🔇 Mute Clip</button>
+                        <button class="otool-btn" onclick="setSpeed(1)">📢 Unmute</button>
+                        <button class="otool-btn" onclick="fadeAudio('in')">📈 Fade In</button>
+                        <button class="otool-btn" onclick="fadeAudio('out')">📉 Fade Out</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-area">
+        <div class="preview-area" id="previewArea">
+            <canvas id="previewCanvas" width="1280" height="720"></canvas>
+            <canvas id="pipCanvas" width="320" height="180"></canvas>
+            <video id="previewVideo" playsinline style="display:none;"></video>
+            <video id="pip2Video" playsinline style="display:none;"></video>
+            <div class="preview-overlay" id="uploadCTA">
+                <div class="upload-cta">
+                    <div class="uico">🎬</div>
+                    <h2>Pro Video Editor</h2>
+                    <p>2000+ Filters · Timeline · Cuts · FX · Export</p>
+                    <button class="upload-big-btn" onclick="document.getElementById('videoFileInput').click()">📁 वीडियो खोलें</button>
+                </div>
+            </div>
+            <div id="overlayContainer" style="position:absolute;inset:0;pointer-events:none;"></div>
+        </div>
+
+        <!-- PLAYBACK BAR -->
+        <div class="playback-bar">
+            <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+            <button class="ctrl-btn" onclick="seekTo(0)">⏮</button>
+            <button class="ctrl-btn" onclick="skipBack()">⏪</button>
+            <button class="ctrl-btn" onclick="skipFwd()">⏩</button>
+            <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+            <div class="vol-area">
+                <span style="font-size:0.9rem;">🔊</span>
+                <input type="range" class="slider" style="width:70px;" id="volSlider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+                <span id="volVal" style="font-size:0.7rem;color:var(--muted);">80</span>
+            </div>
+            <select class="speed-select" id="speedSelect" onchange="setSpeed(this.value)">
+                <option value="0.25">0.25x</option>
+                <option value="0.5">0.5x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+            </select>
+            <button class="split-btn" onclick="splitClip()">✂ Split</button>
+            <button class="cut-btn" onclick="deleteSelectedClip()">🗑 Del</button>
+            <button class="ctrl-btn" style="font-size:0.7rem;width:auto;padding:0 8px;" onclick="undoAction()">↩ Undo</button>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline-area">
+            <div class="timeline-header">
+                <span class="tl-label">⏱ Timeline</span>
+                <div style="display:flex;gap:5px;">
+                    <button class="tl-zbtn" onclick="zoomTimeline(-1)">−</button>
+                    <button class="tl-zbtn" onclick="zoomTimeline(1)">+</button>
+                    <button class="tl-zbtn" onclick="zoomTimeline(0)" title="Fit">⊡</button>
+                </div>
+            </div>
+            <div class="timeline-scroll" id="tlScroll">
+                <div class="timeline-inner" id="tlInner">
+                    <canvas class="tl-ruler" id="tlRuler" height="20" style="position:absolute;top:0;left:0;"></canvas>
+                    <div class="tl-tracks" id="tlTracks">
+                        <div class="tl-track"><div class="tl-track-label">VIDEO</div><div class="tl-track-content" id="videoTrack"></div></div>
+                        <div class="tl-track"><div class="tl-track-label">AUDIO</div><div class="tl-track-content" id="audioTrack"></div></div>
+                        <div class="tl-track"><div class="tl-track-label">TEXT</div><div class="tl-track-content" id="textTrack"></div></div>
+                    </div>
+                    <div class="playhead" id="playhead" style="left:55px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+        <div class="panel-title">🎛️ Properties</div>
+        <div class="clip-props" id="clipProps">
+            <div style="color:var(--muted);font-size:0.75rem;padding:8px 0;">कोई clip select नहीं</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- TEXT MODAL -->
+<div class="modal-overlay" id="textModal">
+    <div class="modal-box">
+        <h3>✏️ Text जोड़ें</h3>
+        <input type="text" class="modal-input" id="textContent" placeholder="Text लिखें...">
+        <div class="modal-row">
+            <select class="modal-select" id="textFont" style="flex:1;">
+                <option>Arial</option><option>Georgia</option><option>Impact</option>
+                <option>Courier New</option><option>Times New Roman</option><option>Verdana</option>
+                <option>Comic Sans MS</option><option>Trebuchet MS</option>
+            </select>
+            <select class="modal-select" id="textSize" style="flex:1;">
+                <option value="20">20px</option><option value="28">28px</option>
+                <option value="36" selected>36px</option><option value="48">48px</option>
+                <option value="64">64px</option><option value="80">80px</option><option value="100">100px</option>
+            </select>
+        </div>
+        <div class="modal-row">
+            <select class="modal-select" id="textAnimation" style="flex:1;">
+                <option value="none">No Anim</option>
+                <option value="fadeIn">Fade In</option>
+                <option value="slideLeft">Slide ←</option>
+                <option value="slideRight">Slide →</option>
+                <option value="slideUp">Slide ↑</option>
+                <option value="bounce">Bounce</option>
+                <option value="glow">Glow</option>
+                <option value="shake">Shake</option>
+                <option value="typewriter">Typewriter</option>
+                <option value="float">Float</option>
+                <option value="spin">Spin</option>
+                <option value="flip">Flip</option>
+            </select>
+            <input type="color" class="modal-color" id="textColor" value="#ffffff">
+        </div>
+        <div class="modal-row">
+            <select class="modal-select" id="textPosition" style="flex:1;">
+                <option value="center">Center</option><option value="top">Top</option>
+                <option value="bottom">Bottom</option><option value="topLeft">Top Left</option>
+                <option value="topRight">Top Right</option><option value="bottomLeft">Bot Left</option>
+                <option value="bottomRight">Bot Right</option>
+            </select>
+            <select class="modal-select" id="textBg" style="flex:1;">
+                <option value="none">No BG</option><option value="black">Black</option>
+                <option value="dark">Semi-Dark</option><option value="white">White</option>
+                <option value="gradient">Gradient</option>
+            </select>
+        </div>
+        <select class="modal-select" id="textStroke">
+            <option value="none">No Stroke</option>
+            <option value="black">Black Stroke</option>
+            <option value="white">White Stroke</option>
+            <option value="color">Color Stroke</option>
+        </select>
+        <div class="modal-btns">
+            <button class="mbtn mbtn-cancel" onclick="closeModal('textModal')">रद्द</button>
+            <button class="mbtn mbtn-ok" onclick="addTextOverlay()">✅ जोड़ें</button>
+        </div>
+    </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-overlay" id="exportModal">
+    <div class="modal-box export-modal">
+        <h3>⬇️ Export करें</h3>
+        <div class="exp-row">
+            <div class="exp-opt active" onclick="selectExportFormat('webm',this)"><span class="eo-icon">🎥</span>WebM<br><small>High Quality</small></div>
+            <div class="exp-opt" onclick="selectExportFormat('gif',this)"><span class="eo-icon">🖼️</span>GIF<br><small>Animation</small></div>
+        </div>
+        <div class="exp-row">
+            <div class="exp-opt active" onclick="selectExportRes('720',this)"><span class="eo-icon">📺</span>720p<br><small>HD</small></div>
+            <div class="exp-opt" onclick="selectExportRes('1080',this)"><span class="eo-icon">🖥️</span>1080p<br><small>Full HD</small></div>
+            <div class="exp-opt" onclick="selectExportRes('480',this)"><span class="eo-icon">📱</span>480p<br><small>Mobile</small></div>
+            <div class="exp-opt" onclick="selectExportRes('360',this)"><span class="eo-icon">📡</span>360p<br><small>Small</small></div>
+        </div>
+        <div class="progress-bar-wrap" id="expProgress"><div class="progress-bar" id="expBar"></div></div>
+        <div class="exp-status" id="expStatus"></div>
+        <div class="modal-btns">
+            <button class="mbtn mbtn-cancel" onclick="closeModal('exportModal')">रद्द</button>
+            <button class="mbtn mbtn-ok" id="expStartBtn" onclick="startExport()">🚀 Export शुरू करें</button>
+        </div>
+    </div>
+</div>
+
+<!-- CROP MODAL -->
+<div class="modal-overlay" id="cropModal">
+    <div class="modal-box">
+        <h3>✂️ Crop Settings</h3>
+        <div class="modal-row">
+            <div>
+                <label style="font-size:0.75rem;color:var(--muted);">Aspect Ratio</label>
+                <select class="modal-select" id="cropRatio" style="margin-top:4px;">
+                    <option value="free">Free</option><option value="16:9">16:9</option>
+                    <option value="9:16">9:16 (Reel)</option><option value="1:1">1:1 (Square)</option>
+                    <option value="4:3">4:3</option><option value="21:9">21:9 Cinema</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-row" style="gap:10px;">
+            <div><label style="font-size:0.72rem;color:var(--muted);">X</label><input type="number" class="modal-input" id="cropX" value="0" style="margin-top:3px;"></div>
+            <div><label style="font-size:0.72rem;color:var(--muted);">Y</label><input type="number" class="modal-input" id="cropY" value="0" style="margin-top:3px;"></div>
+        </div>
+        <div class="modal-row" style="gap:10px;">
+            <div><label style="font-size:0.72rem;color:var(--muted);">Width</label><input type="number" class="modal-input" id="cropW" value="1280" style="margin-top:3px;"></div>
+            <div><label style="font-size:0.72rem;color:var(--muted);">Height</label><input type="number" class="modal-input" id="cropH" value="720" style="margin-top:3px;"></div>
+        </div>
+        <div class="modal-btns">
+            <button class="mbtn mbtn-cancel" onclick="closeModal('cropModal')">रद्द</button>
+            <button class="mbtn mbtn-ok" onclick="applyCrop()">✅ Apply</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHROMA KEY MODAL -->
+<div class="modal-overlay" id="chromaModal">
+    <div class="modal-box">
+        <h3>🟩 Chroma Key (Green Screen)</h3>
+        <div class="color-pick-row">
+            <label style="font-size:0.8rem;color:var(--muted);">Key Color:</label>
+            <input type="color" id="chromaColor" value="#00ff00" style="width:50px;height:32px;border-radius:6px;border:1px solid var(--border);cursor:pointer;">
+        </div>
+        <div class="adj-row" style="margin-bottom:10px;">
+            <label style="font-size:0.75rem;color:var(--muted);">Threshold <span id="chromaThreshVal">80</span></label>
+            <input type="range" class="slider" id="chromaThresh" min="0" max="200" value="80" oninput="document.getElementById('chromaThreshVal').textContent=this.value">
+        </div>
+        <div class="adj-row" style="margin-bottom:10px;">
+            <label style="font-size:0.75rem;color:var(--muted);">Softness <span id="chromaSoftVal">10</span></label>
+            <input type="range" class="slider" id="chromaSoft" min="0" max="50" value="10" oninput="document.getElementById('chromaSoftVal').textContent=this.value">
+        </div>
+        <div class="modal-btns">
+            <button class="mbtn mbtn-cancel" onclick="closeModal('chromaModal')">रद्द</button>
+            <button class="mbtn mbtn-ok" onclick="applyChromaKey()">✅ Apply</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// =====================================================================
+// 2000+ FILTER GENERATION ENGINE
+// =====================================================================
+const FILTER_CATEGORIES = [
+    { id:'basic', name:'⚡ Basic', icon:'⚡' },
+    { id:'film', name:'📷 Film', icon:'📷' },
+    { id:'instagram', name:'📱 Instagram', icon:'📱' },
+    { id:'cinematic', name:'🎬 Cinematic', icon:'🎬' },
+    { id:'vintage', name:'🕰️ Vintage', icon:'🕰️' },
+    { id:'mood', name:'🎭 Mood', icon:'🎭' },
+    { id:'color', name:'🌈 Color', icon:'🌈' },
+    { id:'dark', name:'🌑 Dark', icon:'🌑' },
+    { id:'bright', name:'☀️ Bright', icon:'☀️' },
+    { id:'neon', name:'💜 Neon', icon:'💜' },
+    { id:'nature', name:'🌿 Nature', icon:'🌿' },
+    { id:'artistic', name:'🎨 Art', icon:'🎨' },
+    { id:'retro', name:'🎪 Retro', icon:'🎪' },
+    { id:'horror', name:'👻 Horror', icon:'👻' },
+    { id:'dreamy', name:'💫 Dreamy', icon:'💫' },
+    { id:'food', name:'🍕 Food', icon:'🍕' },
+    { id:'portrait', name:'🤳 Portrait', icon:'🤳' },
+    { id:'travel', name:'✈️ Travel', icon:'✈️' },
+    { id:'night', name:'🌃 Night', icon:'🌃' },
+    { id:'bw', name:'⚫ B&W', icon:'⚫' },
+];
+
+function generateFilters() {
+    const filters = [];
+    let id = 0;
+
+    const push = (cat, name, icon, css) => filters.push({ id: id++, cat, name, icon, css });
+
+    // BASIC (50)
+    const basics = [
+        ['Original','🎬','none'],['Bright+','☀️','brightness(130%)'],
+        ['Bright++','🌟','brightness(160%)'],['Dark','🌑','brightness(70%)'],
+        ['Dark--','⬛','brightness(50%)'],['Contrast+','🔲','contrast(130%)'],
+        ['Contrast++','◼️','contrast(160%)'],['Contrast--','🔅','contrast(70%)'],
+        ['Saturate+','🎨','saturate(150%)'],['Saturate++','🌈','saturate(220%)'],
+        ['Saturate--','🩶','saturate(60%)'],['Desaturate','⚪','saturate(20%)'],
+        ['Hue 30','🔴','hue-rotate(30deg)'],['Hue 60','🟠','hue-rotate(60deg)'],
+        ['Hue 90','🟡','hue-rotate(90deg)'],['Hue 120','🟢','hue-rotate(120deg)'],
+        ['Hue 150','🩵','hue-rotate(150deg)'],['Hue 180','🔵','hue-rotate(180deg)'],
+        ['Hue 210','🟣','hue-rotate(210deg)'],['Hue 240','💜','hue-rotate(240deg)'],
+        ['Hue 270','🩷','hue-rotate(270deg)'],['Hue 300','🌸','hue-rotate(300deg)'],
+        ['Hue 330','❤️','hue-rotate(330deg)'],['Invert','🔄','invert(100%)'],
+        ['Invert 50','↔️','invert(50%)'],['Blur 1','💨','blur(1px)'],
+        ['Blur 2','🌫️','blur(2px)'],['Blur 4','💭','blur(4px)'],
+        ['Blur 8','🌁','blur(8px)'],['Sharp','🔪','contrast(140%) brightness(105%)'],
+        ['Ultra Sharp','⚔️','contrast(170%) brightness(108%)'],
+        ['Vivid','🌺','saturate(200%) contrast(110%)'],
+        ['Ultra Vivid','🎇','saturate(280%) contrast(115%)'],
+        ['Soft','🌸','contrast(85%) brightness(108%)'],
+        ['Matte','🎭','contrast(88%) saturate(85%) brightness(106%)'],
+        ['Fade','🌫','contrast(82%) brightness(112%) saturate(72%)'],
+        ['Clarity','💎','contrast(115%) brightness(102%) saturate(115%)'],
+        ['Pop','💥','saturate(180%) contrast(120%)'],
+        ['Natural','🍃','saturate(108%) contrast(102%) brightness(103%)'],
+        ['Crisp','❄️','contrast(125%) saturate(110%) brightness(103%)'],
+        ['Faded Film','📸','contrast(78%) brightness(115%) saturate(65%)'],
+        ['Lift','⬆️','brightness(115%) contrast(92%)'],
+        ['Crush','⬇️','brightness(88%) contrast(120%)'],
+        ['Glow','✨','brightness(115%) saturate(130%) blur(0.3px)'],
+        ['Haze','🌁','brightness(110%) contrast(90%) saturate(90%) blur(0.5px)'],
+        ['Punch','👊','saturate(170%) contrast(125%) brightness(102%)'],
+        ['Clean','🧼','saturate(95%) contrast(108%) brightness(104%)'],
+        ['Bold','💪','saturate(130%) contrast(130%)'],
+        ['Gentle','🕊️','saturate(90%) contrast(92%) brightness(106%)'],
+    ];
+    basics.forEach(([n,i,c]) => push('basic',n,i,c));
+
+    // FILM (80)
+    const filmPresets = [
+        ['Kodak Gold','📷','sepia(30%) saturate(130%) contrast(105%) brightness(108%) hue-rotate(-5deg)'],
+        ['Kodak Porta','🎞️','sepia(20%) saturate(120%) contrast(102%) brightness(106%) hue-rotate(5deg)'],
+        ['Kodak Ektar','🟠','saturate(160%) contrast(115%) hue-rotate(-8deg)'],
+        ['Fuji Velvia','🔴','saturate(200%) contrast(120%) brightness(105%) hue-rotate(-10deg)'],
+        ['Fuji Provia','🌸','saturate(140%) contrast(108%) brightness(104%)'],
+        ['Fuji Superia','🟡','saturate(115%) contrast(105%) brightness(108%) sepia(10%)'],
+        ['Ilford HP5','⚫','grayscale(100%) contrast(120%)'],
+        ['Ilford Delta','🩶','grayscale(100%) contrast(130%) brightness(95%)'],
+        ['Ilford FP4','🔘','grayscale(100%) contrast(108%) brightness(105%)'],
+        ['Agfa Vista','🟤','sepia(40%) saturate(110%) contrast(108%)'],
+        ['Agfa Ultra','🔶','saturate(180%) hue-rotate(-15deg) contrast(115%)'],
+        ['Cinestill 800','🌆','saturate(130%) contrast(115%) brightness(90%) hue-rotate(5deg)'],
+        ['Cinestill 50','🌅','saturate(120%) contrast(110%) brightness(105%) sepia(15%)'],
+        ['Portra 160','🤍','saturate(110%) contrast(95%) brightness(108%) sepia(8%)'],
+        ['Portra 400','🍑','saturate(115%) contrast(98%) brightness(110%) sepia(12%)'],
+        ['Portra 800','🌄','saturate(125%) contrast(102%) brightness(105%) sepia(18%)'],
+        ['Ektar 100','🌺','saturate(165%) contrast(118%) hue-rotate(-5deg)'],
+        ['Pro 400H','🏔️','saturate(100%) contrast(92%) brightness(112%) sepia(5%)'],
+        ['C41 Process','📽️','sepia(25%) saturate(120%) contrast(110%) brightness(105%)'],
+        ['E6 Slide','🎑','saturate(180%) contrast(125%) brightness(98%)'],
+        ['Cross Process','✖️','hue-rotate(30deg) saturate(200%) contrast(130%)'],
+        ['Expired 400','🕰️','sepia(50%) contrast(80%) brightness(110%) saturate(90%)'],
+        ['Film Noir','🎬','grayscale(80%) contrast(140%) brightness(90%)'],
+        ['Double Exp','👻','opacity(80%) saturate(150%) hue-rotate(45deg)'],
+        ['Light Leak 1','🔦','brightness(130%) hue-rotate(10deg) saturate(120%)'],
+        ['Light Leak 2','🌅','brightness(140%) hue-rotate(-20deg) saturate(130%)'],
+        ['Lomo LC-A','🔵','saturate(160%) contrast(130%) brightness(85%) vignette'],
+        ['Holga','🎠','saturate(130%) contrast(120%) blur(0.5px)'],
+        ['Polaroid','📸','sepia(20%) contrast(90%) brightness(115%) saturate(110%)'],
+        ['Disposable','📷','sepia(30%) contrast(95%) brightness(112%) saturate(105%)'],
+    ];
+    filmPresets.forEach(([n,i,c]) => push('film',n,i,c));
+    // Extra film
+    for (let j = 0; j < 50; j++) {
+        const h = (j * 7) % 360, s = 80 + (j%5)*20, b = 95 + (j%4)*5, c = 98 + (j%6)*3;
+        push('film', `Film ${j+31}`, '🎞️', `sepia(${8+j%30}%) saturate(${s}%) contrast(${c}%) brightness(${b}%) hue-rotate(${h%20-10}deg)`);
+    }
+
+    // INSTAGRAM (100)
+    const igPresets = [
+        ['Clarendon','📱','saturate(125%) contrast(115%) brightness(110%)'],
+        ['Gingham','🌸','brightness(105%) hue-rotate(350deg) sepia(10%) contrast(92%)'],
+        ['Moon','🌙','grayscale(100%) contrast(110%) brightness(115%)'],
+        ['Lark','🐦','saturate(110%) contrast(92%) brightness(108%)'],
+        ['Reyes','🏜️','sepia(25%) contrast(92%) brightness(115%) saturate(90%)'],
+        ['Juno','🌴','saturate(140%) hue-rotate(-10deg) brightness(108%)'],
+        ['Slumber','😴','saturate(85%) brightness(105%) sepia(8%)'],
+        ['Crema','☕','sepia(15%) contrast(95%) brightness(108%) saturate(100%)'],
+        ['Ludwig','🎵','saturate(90%) contrast(105%) brightness(105%)'],
+        ['Aden','🌿','hue-rotate(20deg) contrast(90%) saturate(85%) brightness(110%)'],
+        ['Perpetua','💧','hue-rotate(10deg) contrast(95%) saturate(105%) brightness(105%)'],
+        ['Amaro','🍂','hue-rotate(-10deg) contrast(90%) brightness(115%) saturate(125%)'],
+        ['Mayfair','🌺','contrast(110%) brightness(108%) saturate(115%) sepia(8%)'],
+        ['Rise','🌄','brightness(115%) sepia(20%) saturate(110%) contrast(92%)'],
+        ['Hudson','🏔️','brightness(120%) hue-rotate(-10deg) saturate(90%)'],
+        ['Valencia','🌅','sepia(30%) contrast(108%) brightness(108%) saturate(115%)'],
+        ['X Pro II','❌','saturate(180%) contrast(130%) hue-rotate(10deg)'],
+        ['Sierra','🌲','contrast(90%) brightness(112%) saturate(90%) sepia(10%)'],
+        ['Willow','🌾','grayscale(30%) contrast(95%) brightness(108%)'],
+        ['Lo Fi','📡','saturate(150%) contrast(115%) hue-rotate(-5deg)'],
+        ['Earlybird','🌅','sepia(35%) contrast(92%) brightness(112%) saturate(100%)'],
+        ['Brannan','🦌','sepia(30%) contrast(140%) brightness(90%)'],
+        ['Inkwell','🖋️','grayscale(100%) contrast(120%) sepia(10%)'],
+        ['Walden','🌊','brightness(110%) hue-rotate(-20deg) saturate(150%) sepia(10%)'],
+        ['Hefe','🔥','saturate(150%) contrast(115%) brightness(95%) hue-rotate(5deg)'],
+        ['Nashville','💛','hue-rotate(350deg) contrast(110%) brightness(110%) sepia(20%)'],
+        ['1977','🔴','contrast(110%) brightness(110%) saturate(130%) sepia(25%)'],
+        ['Kelvin','🟡','hue-rotate(10deg) saturate(150%) contrast(115%) brightness(115%)'],
+        ['Toaster','🟠','sepia(40%) saturate(130%) contrast(120%) hue-rotate(-10deg)'],
+        ['Sutro','💜','hue-rotate(270deg) saturate(130%) brightness(85%) contrast(120%)'],
+    ];
+    igPresets.forEach(([n,i,c]) => push('instagram',n,i,c));
+    for (let j = 0; j < 70; j++) {
+        const s = 90 + (j%4)*25, c2 = 90 + (j%5)*12, b = 95 + (j%4)*8, h = (j*11)%40 - 20;
+        push('instagram', `IG Style ${j+31}`, '📱', `saturate(${s}%) contrast(${c2}%) brightness(${b}%) hue-rotate(${h}deg)`);
+    }
+
+    // CINEMATIC (80)
+    const cinPresets = [
+        ['Hollywood','🎬','contrast(120%) saturate(85%) brightness(92%)'],
+        ['Blockbuster','🍿','contrast(125%) saturate(110%) brightness(88%) hue-rotate(-5deg)'],
+        ['Teal & Orange','🎨','saturate(120%) contrast(115%) hue-rotate(-10deg)'],
+        ['Cold Grade','🧊','hue-rotate(200deg) saturate(110%) brightness(95%) contrast(110%)'],
+        ['Warm Grade','🔥','hue-rotate(-10deg) saturate(115%) brightness(105%) contrast(108%)'],
+        ['Bleach Bypass','🤍','grayscale(30%) contrast(130%) brightness(88%)'],
+        ['Day for Night','🌙','brightness(60%) hue-rotate(200deg) saturate(120%) contrast(115%)'],
+        ['Saving Private','🎖️','grayscale(60%) contrast(130%) brightness(88%) sepia(20%)'],
+        ['Mad Max','🏜️','saturate(80%) contrast(130%) brightness(95%) sepia(20%)'],
+        ['Matrix','🟢','hue-rotate(120deg) saturate(160%) contrast(115%) brightness(90%)'],
+        ['Avengers','💥','saturate(150%) contrast(125%) brightness(95%)'],
+        ['Joker','🃏','saturate(110%) contrast(130%) hue-rotate(20deg) brightness(90%)'],
+        ['Interstellar','🌌','contrast(125%) brightness(85%) saturate(75%)'],
+        ['Blade Runner','🌆','hue-rotate(30deg) saturate(130%) brightness(85%) contrast(125%)'],
+        ['Dunkirk','🪖','grayscale(40%) contrast(125%) brightness(92%) sepia(15%)'],
+        ['La La Land','💃','saturate(130%) contrast(105%) brightness(110%) hue-rotate(-5deg)'],
+        ['Moonlight','🌊','hue-rotate(210deg) saturate(140%) brightness(85%) contrast(120%)'],
+        ['Parasite','🪲','contrast(120%) saturate(90%) brightness(88%)'],
+        ['1917','🌑','grayscale(20%) contrast(128%) brightness(88%) sepia(10%)'],
+        ['Roma','🔘','grayscale(15%) contrast(115%) brightness(95%) sepia(8%)'],
+    ];
+    cinPresets.forEach(([n,i,c]) => push('cinematic',n,i,c));
+    for (let j = 0; j < 60; j++) {
+        const gs = j%5*6, s = 75+j%5*10, c2 = 110+j%6*5, b = 85+j%4*5;
+        push('cinematic', `Cinema ${j+21}`, '🎬', `grayscale(${gs}%) saturate(${s}%) contrast(${c2}%) brightness(${b}%)`);
+    }
+
+    // VINTAGE (80)
+    for (let j = 0; j < 80; j++) {
+        const sep = 15 + j%5*12, s = 80+j%4*15, c2 = 85+j%6*8, b = 100+j%4*5;
+        push('vintage', `Vintage ${j+1}`, '🕰️', `sepia(${sep}%) saturate(${s}%) contrast(${c2}%) brightness(${b}%)`);
+    }
+
+    // MOOD (100)
+    const moods = ['Nostalgic','Melancholy','Joyful','Romantic','Epic','Mysterious','Peaceful','Intense','Dreamy','Gritty'];
+    moods.forEach((m,i) => {
+        for (let j = 0; j < 10; j++) {
+            const h = (i*36 + j*7)%360;
+            push('mood', `${m} ${j+1}`, '🎭', `hue-rotate(${h}deg) saturate(${100+i*15+j*5}%) contrast(${95+j*3}%) brightness(${95+j*2}%)`);
+        }
+    });
+
+    // COLOR themes (100)
+    const colorNames = [['Red','🔴',0],['Orange','🟠',30],['Yellow','🟡',60],['Green','🟢',120],['Teal','🩵',160],['Blue','🔵',200],['Purple','🟣',270],['Pink','🩷',310],['Crimson','❤️‍🔥',350],['Gold','✨',45]];
+    colorNames.forEach(([name,icon,h]) => {
+        for (let j = 0; j < 10; j++) {
+            push('color', `${name} ${j+1}`, icon, `hue-rotate(${h+j*5}deg) saturate(${130+j*15}%) contrast(${105+j*3}%)`);
+        }
+    });
+
+    // DARK (80)
+    for (let j = 0; j < 80; j++) {
+        const b = 40+j%5*10, c2 = 115+j%5*8, h = (j*13)%360;
+        push('dark', `Dark ${j+1}`, '🌑', `brightness(${b}%) contrast(${c2}%) hue-rotate(${h}deg) saturate(${70+j%4*15}%)`);
+    }
+
+    // BRIGHT (80)
+    for (let j = 0; j < 80; j++) {
+        const b = 120+j%5*12, c2 = 90+j%5*5, s = 105+j%4*15;
+        push('bright', `Bright ${j+1}`, '☀️', `brightness(${b}%) contrast(${c2}%) saturate(${s}%)`);
+    }
+
+    // NEON (80)
+    for (let j = 0; j < 80; j++) {
+        const h = (j*15)%360, s = 200+j%3*30, c2 = 120+j%5*10;
+        push('neon', `Neon ${j+1}`, '💜', `hue-rotate(${h}deg) saturate(${s}%) contrast(${c2}%) brightness(${90+j%3*5}%)`);
+    }
+
+    // NATURE (80)
+    for (let j = 0; j < 80; j++) {
+        const h = 80 + (j%8)*15, s = 120+j%4*20, c2 = 100+j%5*6;
+        push('nature', `Nature ${j+1}`, '🌿', `hue-rotate(${h}deg) saturate(${s}%) contrast(${c2}%) brightness(${100+j%4*4}%)`);
+    }
+
+    // ARTISTIC (100)
+    for (let j = 0; j < 100; j++) {
+        const inv = j%10<3?`invert(${20+j%3*20}%) `:'';
+        const h = (j*17)%360, s = 100+j%6*30, c2 = 90+j%6*15;
+        push('artistic', `Art ${j+1}`, '🎨', `${inv}hue-rotate(${h}deg) saturate(${s}%) contrast(${c2}%)`);
+    }
+
+    // RETRO (80)
+    for (let j = 0; j < 80; j++) {
+        const sep = 20+j%6*10, s = 75+j%5*15, b = 100+j%4*6, c2 = 88+j%5*8;
+        push('retro', `Retro ${j+1}`, '🎪', `sepia(${sep}%) saturate(${s}%) brightness(${b}%) contrast(${c2}%) hue-rotate(${j%3*10-10}deg)`);
+    }
+
+    // HORROR (60)
+    for (let j = 0; j < 60; j++) {
+        const gs = 30+j%5*10, c2 = 120+j%5*10, b = 50+j%5*10, h = 0 + (j%4)*45;
+        push('horror', `Horror ${j+1}`, '👻', `grayscale(${gs}%) contrast(${c2}%) brightness(${b}%) hue-rotate(${h}deg) saturate(${80+j%3*20}%)`);
+    }
+
+    // DREAMY (80)
+    for (let j = 0; j < 80; j++) {
+        const bl = (j%4)*0.5, s = 110+j%4*20, b = 108+j%4*8, c2 = 88+j%4*5;
+        push('dreamy', `Dreamy ${j+1}`, '💫', `blur(${bl}px) saturate(${s}%) brightness(${b}%) contrast(${c2}%)`);
+    }
+
+    // FOOD (60)
+    for (let j = 0; j < 60; j++) {
+        const h = -10+(j%5)*5, s = 120+j%4*20, b = 105+j%4*8, c2 = 108+j%4*6;
+        push('food', `Food ${j+1}`, '🍕', `hue-rotate(${h}deg) saturate(${s}%) brightness(${b}%) contrast(${c2}%)`);
+    }
+
+    // PORTRAIT (60)
+    for (let j = 0; j < 60; j++) {
+        const s = 95+j%4*10, b = 105+j%5*8, c2 = 100+j%5*8;
+        push('portrait', `Portrait ${j+1}`, '🤳', `saturate(${s}%) brightness(${b}%) contrast(${c2}%) blur(${j%5<2?'0.3px':'0px'})`);
+    }
+
+    // TRAVEL (60)
+    for (let j = 0; j < 60; j++) {
+        const h = (j*11)%60-30, s = 130+j%4*15, b = 102+j%4*6, c2 = 108+j%4*7;
+        push('travel', `Travel ${j+1}`, '✈️', `hue-rotate(${h}deg) saturate(${s}%) brightness(${b}%) contrast(${c2}%)`);
+    }
+
+    // NIGHT (80)
+    for (let j = 0; j < 80; j++) {
+        const h = 200+(j%5)*15, s = 110+j%4*20, b = 70+j%5*8, c2 = 115+j%5*7;
+        push('night', `Night ${j+1}`, '🌃', `hue-rotate(${h}deg) saturate(${s}%) brightness(${b}%) contrast(${c2}%)`);
+    }
+
+    // B&W (60)
+    for (let j = 0; j < 60; j++) {
+        const gs = 60+j%5*8, c2 = 100+j%6*8, b = 90+j%5*6, sep = j%4*5;
+        push('bw', `B&W ${j+1}`, '⚫', `grayscale(${gs}%) contrast(${c2}%) brightness(${b}%) sepia(${sep}%)`);
+    }
+
+    return filters;
+}
+
+const ALL_FILTERS = generateFilters();
+console.log('Total filters:', ALL_FILTERS.length);
+
+// =====================================================================
+// STATE
+// =====================================================================
+const state = {
+    clips:[], overlays:[], selectedClipId:null,
+    currentFilter:'none', currentFilterCss:'none',
+    currentTransition:'none', currentLUT:'none', currentAnim:'none',
+    adjustments:{brightness:100,contrast:100,saturate:100,hue:0,blur:0,opacity:100,sharpen:0,vignette:0,noise:0,grain:0},
+    isPlaying:false, currentTime:0, totalDuration:0,
+    zoom:10, rotation:0, flipH:false, flipV:false,
+    exportFormat:'webm', exportRes:'720',
+    cropSettings:{x:0,y:0,w:1280,h:720,active:false},
+    chromaKey:{active:false,color:'#00ff00',threshold:80,softness:10},
+    pip:{active:false,x:20,y:20,w:320,h:180},
+    history:[], historyIndex:-1,
+};
+
+const video = document.getElementById('previewVideo');
+const canvas = document.getElementById('previewCanvas');
+const ctx = canvas.getContext('2d');
+const pip2Video = document.getElementById('pip2Video');
+const pipCanvas = document.getElementById('pipCanvas');
+const pipCtx = pipCanvas.getContext('2d');
+let rafId = null, clipIdCounter = 0;
+let currentAnim = 'none', animFrame = 0;
+
+// =====================================================================
+// FILTER UI RENDERING
+// =====================================================================
+function renderFilterUI(catFilter='all', search='') {
+    const catBar = document.getElementById('filterCatBar');
+    const grid = document.getElementById('filterGrid');
+    const countEl = document.getElementById('filterCount');
+
+    // Category bar
+    catBar.innerHTML = `<button class="fcat-btn ${catFilter==='all'?'active':''}" onclick="filterByCategory('all')">All (${ALL_FILTERS.length})</button>` +
+        FILTER_CATEGORIES.map(c => {
+            const cnt = ALL_FILTERS.filter(f=>f.cat===c.id).length;
+            return `<button class="fcat-btn ${catFilter===c.id?'active':''}" onclick="filterByCategory('${c.id}')">${c.icon} ${cnt}</button>`;
+        }).join('');
+
+    // Filter items
+    let shown = ALL_FILTERS;
+    if (catFilter !== 'all') shown = shown.filter(f=>f.cat===catFilter);
+    if (search) shown = shown.filter(f=>f.name.toLowerCase().includes(search.toLowerCase()));
+
+    countEl.textContent = `${shown.length} filters ${search?'found':'available'}`;
+
+    // Render (limit to 200 visible for performance, rest load on scroll)
+    grid.innerHTML = shown.slice(0,200).map(f => `
+        <button class="filter-btn ${state.currentFilter===f.css?'active':''}" onclick="applyFilter('${escCss(f.css)}',this)" title="${f.name}">
+            <span class="fi">${f.icon}</span>${f.name}
+        </button>`).join('');
+
+    if (shown.length > 200) {
+        grid.innerHTML += `<div style="grid-column:1/-1;text-align:center;padding:8px;font-size:0.7rem;color:var(--muted);">+ ${shown.length-200} more — search to filter</div>`;
+    }
+}
+
+function escCss(css) { return css.replace(/'/g,"\\'"); }
+
+let currentCat = 'all';
+function filterByCategory(cat) {
+    currentCat = cat;
+    renderFilterUI(cat, document.getElementById('filterSearch').value);
+}
+function searchFilters(q) { renderFilterUI(currentCat, q); }
+
+// =====================================================================
+// TAB SWITCHING
+// =====================================================================
+function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+}
+
+// =====================================================================
+// VIDEO LOADING
+// =====================================================================
+function loadVideo(input) {
+    const file = input.files[0]; if (!file) return;
+    const url = URL.createObjectURL(file);
+    video.src = url; video.volume = 0.8;
+    video.onloadedmetadata = () => {
+        const clipId = ++clipIdCounter;
+        const clip = { id:clipId, type:'video', name:file.name.replace(/\.[^.]+$/,''),
+            startTime:getLastClipEnd(), duration:video.duration, trimStart:0, trimEnd:video.duration,
+            filter:'none', transition:'none', color:'#00ffcc', file, url };
+        state.clips.push(clip); recalcDuration();
+        document.getElementById('uploadCTA').style.display='none';
+        selectClip(clipId); renderTimeline(); seekTo(0); toast('✅ Video लोड!');
+    };
+    input.value='';
+}
+
+function addImageClip(input) {
+    const file = input.files[0]; if (!file) return;
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+        const clipId = ++clipIdCounter;
+        const clip = { id:clipId, type:'image', name:file.name.replace(/\.[^.]+$/,''),
+            startTime:getLastClipEnd(), duration:5, color:'#7c3aed', url, imgEl:img };
+        state.clips.push(clip); recalcDuration();
+        document.getElementById('uploadCTA').style.display='none';
+        selectClip(clipId); renderTimeline(); toast('✅ Image जोड़ी!');
+    };
+    img.src=url; input.value='';
+}
+
+function addAudioClip(input) {
+    const file = input.files[0]; if (!file) return;
+    const url = URL.createObjectURL(file);
+    const aud = new Audio(url);
+    aud.onloadedmetadata = () => {
+        const clipId = ++clipIdCounter;
+        state.clips.push({ id:clipId, type:'audio', name:file.name.replace(/\.[^.]+$/,''),
+            startTime:0, duration:aud.duration, color:'#f59e0b', audioEl:aud, url });
+        renderTimeline(); toast('✅ Audio जोड़ा!');
+    };
+    input.value='';
+}
+
+function loadPIP(input) {
+    const file = input.files[0]; if (!file) return;
+    const url = URL.createObjectURL(file);
+    if (file.type.startsWith('video')) {
+        pip2Video.src = url;
+        pip2Video.loop = true;
+        pip2Video.muted = true;
+        pip2Video.play();
+    }
+    state.pip.active = true;
+    pipCanvas.style.display = 'block';
+    pipCanvas.style.left = state.pip.x + 'px';
+    pipCanvas.style.top = state.pip.y + 'px';
+    makePIPDraggable();
+    toast('✅ PIP जोड़ा!');
+    input.value='';
+}
+
+function makePIPDraggable() {
+    let ox,oy,sx,sy;
+    pipCanvas.onmousedown = e => {
+        ox=pipCanvas.offsetLeft; oy=pipCanvas.offsetTop; sx=e.clientX; sy=e.clientY;
+        const mv = m => { pipCanvas.style.left=(ox+m.clientX-sx)+'px'; pipCanvas.style.top=(oy+m.clientY-sy)+'px'; };
+        const up = () => { document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up); };
+        document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+    };
+}
+
+function getLastClipEnd() { return state.clips.reduce((m,c)=>Math.max(m,c.startTime+c.duration),0); }
+function recalcDuration() { state.totalDuration = getLastClipEnd(); }
+
+// =====================================================================
+// PLAYBACK
+// =====================================================================
+function togglePlay() {
+    if (!state.clips.length) return;
+    state.isPlaying = !state.isPlaying;
+    document.getElementById('playBtn').textContent = state.isPlaying ? '⏸' : '▶';
+    if (state.isPlaying) { video.play().catch(()=>{}); rafId=requestAnimationFrame(renderLoop); }
+    else { video.pause(); if(rafId) cancelAnimationFrame(rafId); }
+}
+
+function renderLoop() {
+    if (!state.isPlaying) return;
+    state.currentTime = video.currentTime;
+    if (video.ended || state.currentTime >= state.totalDuration) {
+        state.isPlaying=false; document.getElementById('playBtn').textContent='▶'; return;
+    }
+    drawFrame(); updatePIP(); updatePlayheadUI();
+    rafId = requestAnimationFrame(renderLoop);
+}
+
+function drawFrame() {
+    const W=canvas.width, H=canvas.height;
+    ctx.save(); ctx.clearRect(0,0,W,H);
+
+    // Apply CSS filter
+    ctx.filter = buildFilter();
+
+    // Transform
+    if (state.flipH || state.flipV || state.rotation) {
+        ctx.translate(W/2, H/2);
+        if (state.rotation) ctx.rotate(state.rotation * Math.PI/180);
+        if (state.flipH) ctx.scale(-1,1);
+        if (state.flipV) ctx.scale(1,-1);
+        ctx.translate(-W/2,-H/2);
+    }
+
+    // Animation transform
+    applyAnimTransform(W,H);
+
+    // Draw clip
+    const activeClip = getActiveClip();
+    if (activeClip) {
+        if (activeClip.type==='video' && video.readyState>=2) {
+            if (state.cropSettings.active) {
+                const {x,y,w,h} = state.cropSettings;
+                ctx.drawImage(video, x,y,w,h, 0,0,W,H);
+            } else {
+                ctx.drawImage(video,0,0,W,H);
+            }
+        } else if (activeClip.type==='image' && activeClip.imgEl) {
+            ctx.drawImage(activeClip.imgEl,0,0,W,H);
+        }
+    } else { ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H); }
+
+    ctx.restore();
+
+    // Post-process effects on canvas
+    if (state.currentLUT && state.currentLUT!=='none') applyLUTPost();
+    if (state.adjustments.vignette>0) drawVignette();
+    if (state.adjustments.noise>0) drawNoise();
+    if (state.adjustments.grain>0) drawGrain();
+    if (state.chromaKey.active) applyChromaPost();
+}
+
+function updatePIP() {
+    if (!state.pip.active) return;
+    pipCtx.clearRect(0,0,pipCanvas.width,pipCanvas.height);
+    if (pip2Video.readyState>=2) pipCtx.drawImage(pip2Video,0,0,pipCanvas.width,pipCanvas.height);
+}
+
+let animPhase = 0;
+function applyAnimTransform(W,H) {
+    animPhase = (animPhase + 0.05) % (Math.PI * 2);
+    switch(currentAnim) {
+        case 'pulse':
+            const sc = 1 + Math.sin(animPhase)*0.03;
+            ctx.translate(W/2,H/2); ctx.scale(sc,sc); ctx.translate(-W/2,-H/2); break;
+        case 'shake':
+            ctx.translate(Math.sin(animPhase*8)*4, Math.cos(animPhase*6)*3); break;
+        case 'zoom-in-out':
+            const z = 1 + Math.sin(animPhase)*0.05;
+            ctx.translate(W/2,H/2); ctx.scale(z,z); ctx.translate(-W/2,-H/2); break;
+        case 'bounce':
+            ctx.translate(0, Math.abs(Math.sin(animPhase))*-15); break;
+        case 'mirror':
+            if (Math.floor(animPhase/(Math.PI)%2)===0) { ctx.translate(W,0); ctx.scale(-1,1); } break;
+    }
+}
+
+function buildFilter() {
+    const a = state.adjustments;
+    const base = state.currentFilterCss && state.currentFilterCss!=='none' ? state.currentFilterCss : '';
+    const adj = `brightness(${a.brightness}%) contrast(${a.contrast}%) saturate(${a.saturate}%) hue-rotate(${a.hue}deg) blur(${a.blur}px) opacity(${a.opacity}%)`;
+    return [base, adj].filter(Boolean).join(' ');
+}
+
+function getActiveClip() {
+    const t = state.currentTime;
+    return state.clips.find(c=>c.startTime<=t && c.startTime+c.duration>t && c.type!=='audio')||null;
+}
+
+// Post-process: Vignette
+function drawVignette() {
+    const v = state.adjustments.vignette/100;
+    const W=canvas.width,H=canvas.height;
+    const grad = ctx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.7);
+    grad.addColorStop(0,'rgba(0,0,0,0)');
+    grad.addColorStop(1,`rgba(0,0,0,${v*0.85})`);
+    ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+}
+
+// Post-process: Noise
+function drawNoise() {
+    const n = state.adjustments.noise/100;
+    const W=canvas.width,H=canvas.height;
+    const idata = ctx.getImageData(0,0,W,H);
+    for (let i=0;i<idata.data.length;i+=4) {
+        const rnd=(Math.random()-0.5)*n*80;
+        idata.data[i]+=rnd; idata.data[i+1]+=rnd; idata.data[i+2]+=rnd;
+    }
+    ctx.putImageData(idata,0,0);
+}
+
+// Post-process: Grain
+function drawGrain() {
+    const g = state.adjustments.grain/200;
+    const W=canvas.width,H=canvas.height;
+    ctx.globalAlpha=g;
+    for (let i=0;i<W*H/20;i++) {
+        ctx.fillStyle=`rgba(${Math.random()>0.5?255:0},${Math.random()>0.5?255:0},${Math.random()>0.5?255:0},0.4)`;
+        ctx.fillRect(Math.random()*W, Math.random()*H, 1, 1);
+    }
+    ctx.globalAlpha=1;
+}
+
+// Chroma key post-process (simple threshold)
+function applyChromaPost() {
+    try {
+        const W=canvas.width,H=canvas.height;
+        const idata = ctx.getImageData(0,0,W,H);
+        const hex = state.chromaKey.color;
+        const kr=parseInt(hex.slice(1,3),16), kg=parseInt(hex.slice(3,5),16), kb=parseInt(hex.slice(5,7),16);
+        const thr = state.chromaKey.threshold;
+        for (let i=0;i<idata.data.length;i+=4) {
+            const dr=idata.data[i]-kr, dg=idata.data[i+1]-kg, db=idata.data[i+2]-kb;
+            const dist=Math.sqrt(dr*dr+dg*dg+db*db);
+            if (dist<thr) idata.data[i+3]=0;
+        }
+        ctx.putImageData(idata,0,0);
+    } catch(e) {}
+}
+
+// LUT overlays
+let activeLUT = 'none';
+function applyLUTPost() {
+    // Simplified LUT via pixel manipulation
+    try {
+        const W=canvas.width,H=canvas.height;
+        const idata = ctx.getImageData(0,0,Math.min(W,640),Math.min(H,360)); // performance
+        const d = idata.data;
+        for (let i=0;i<d.length;i+=4) {
+            let r=d[i],g=d[i+1],b=d[i+2];
+            switch(activeLUT) {
+                case 'teal-orange': r=Math.min(255,r*1.2+20); g=g*0.95; b=Math.min(255,b*1.1+10); break;
+                case 'duotone-rb': r=Math.min(255,r*1.5); g=g*0.3; b=Math.min(255,b*1.4); break;
+                case 'duotone-pg': r=Math.min(255,r*1.2); g=Math.min(255,g*1.4); b=Math.min(255,b*1.1); break;
+                case 'film-noir': const lum=r*0.299+g*0.587+b*0.114; r=g=b=lum*0.8; break;
+                case 'cross-proc': r=255-r; g=Math.min(255,g*1.5); b=b*0.5; break;
+                case 'bleach': r=Math.min(255,r*1.2+40); g=Math.min(255,g*1.1+30); b=Math.min(255,b*0.9+20); break;
+                case 'split-tone': if(r+g+b<384){b=Math.min(255,b+40);}else{r=Math.min(255,r+40);g=Math.min(255,g+20);} break;
+            }
+            d[i]=r; d[i+1]=g; d[i+2]=b;
+        }
+        ctx.putImageData(idata,0,0);
+    } catch(e) {}
+}
+
+// Pixel effects
+function applyPixelate() {
+    const W=canvas.width,H=canvas.height,sz=16;
+    for (let y=0;y<H;y+=sz) for (let x=0;x<W;x+=sz) {
+        const px = ctx.getImageData(x+sz/2,y+sz/2,1,1).data;
+        ctx.fillStyle=`rgb(${px[0]},${px[1]},${px[2]})`;
+        ctx.fillRect(x,y,sz,sz);
+    }
+    toast('🟫 Pixelate applied!');
+}
+function applyMosaic() {
+    const W=canvas.width,H=canvas.height,sz=8;
+    for (let y=0;y<H;y+=sz) for (let x=0;x<W;x+=sz) {
+        const px = ctx.getImageData(x,y,1,1).data;
+        ctx.strokeStyle=`rgb(${px[0]},${px[1]},${px[2]})`;
+        ctx.strokeRect(x,y,sz,sz);
+    }
+    toast('🔲 Mosaic applied!');
+}
+function applyNightVision() { state.currentFilterCss='grayscale(100%) brightness(60%) hue-rotate(120deg) saturate(400%)'; drawFrame(); toast('🟢 Night Vision!'); }
+function applyThermal() { state.currentFilterCss='hue-rotate(0deg) saturate(500%) contrast(200%) brightness(80%)'; drawFrame(); toast('🔴 Thermal!'); }
+function applyOldTV() { state.currentFilterCss='contrast(120%) brightness(90%) saturate(80%)'; addScanlines(); drawFrame(); toast('📺 Old TV!'); }
+function applyPencil() {
+    try {
+        const W=canvas.width,H=canvas.height;
+        const idata=ctx.getImageData(0,0,W,H), d=idata.data, out=new Uint8ClampedArray(d);
+        for(let y=1;y<H-1;y++) for(let x=1;x<W-1;x++) {
+            const i=(y*W+x)*4;
+            const gx=(-d[(y-1)*W*4+x*4-4]+d[(y-1)*W*4+x*4+4]-2*d[y*W*4+x*4-4]+2*d[y*W*4+x*4+4]-d[(y+1)*W*4+x*4-4]+d[(y+1)*W*4+x*4+4]);
+            const gy=(-d[(y-1)*W*4+(x-1)*4]-2*d[(y-1)*W*4+x*4]-d[(y-1)*W*4+(x+1)*4]+d[(y+1)*W*4+(x-1)*4]+2*d[(y+1)*W*4+x*4]+d[(y+1)*W*4+(x+1)*4]);
+            const mag=255-Math.min(255,Math.sqrt(gx*gx+gy*gy));
+            out[i]=out[i+1]=out[i+2]=mag; out[i+3]=255;
+        }
+        ctx.putImageData(new ImageData(out,W,H),0,0);
+        toast('✏️ Pencil applied!');
+    } catch(e) { toast('❌ Error: '+e.message); }
+}
+
+// Overlays
+function addScanlines() {
+    const W=canvas.width, H=canvas.height;
+    for(let y=0;y<H;y+=4) {
+        ctx.fillStyle='rgba(0,0,0,0.15)';
+        ctx.fillRect(0,y,W,2);
+    }
+    toast('📺 Scanlines!');
+}
+function addLensFlare() {
+    const W=canvas.width,H=canvas.height;
+    const grad=ctx.createRadialGradient(W*0.8,H*0.2,0,W*0.8,H*0.2,W*0.35);
+    grad.addColorStop(0,'rgba(255,255,200,0.7)');
+    grad.addColorStop(0.2,'rgba(255,180,100,0.3)');
+    grad.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+    toast('☀️ Lens Flare!');
+}
+function addFilmGrain() { state.adjustments.grain=40; document.getElementById('grS').value=40; document.getElementById('grv').textContent=40; drawFrame(); toast('🎞️ Film Grain!'); }
+function addVignetteOverlay() { state.adjustments.vignette=60; document.getElementById('vgS').value=60; document.getElementById('vgv').textContent=60; drawFrame(); toast('🔲 Vignette!'); }
+
+// =====================================================================
+// FILTER APPLICATION
+// =====================================================================
+function applyFilter(cssStr, btn) {
+    state.currentFilter = cssStr;
+    state.currentFilterCss = cssStr === 'none' ? '' : cssStr;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    drawFrame();
+}
+
+function updateAdjust() {
+    const ids = ['b','c','st','h','bl','o','sh','vg','ns','gr'];
+    const keys = ['brightness','contrast','saturate','hue','blur','opacity','sharpen','vignette','noise','grain'];
+    ids.forEach((id,i) => {
+        const el = document.getElementById(id+'S');
+        const val = document.getElementById(id+'v');
+        if (el) { state.adjustments[keys[i]]=+el.value; if(val) val.textContent=el.value; }
+        // update slider gradient
+        if (el) {
+            const pct=((el.value-el.min)/(el.max-el.min))*100;
+            el.style.background=`linear-gradient(to right,var(--accent) ${pct}%,var(--border) ${pct}%)`;
+        }
+    });
+    drawFrame();
+}
+
+function resetAdjustments() {
+    const defaults = {brightness:100,contrast:100,saturate:100,hue:0,blur:0,opacity:100,sharpen:0,vignette:0,noise:0,grain:0};
+    state.adjustments = {...defaults};
+    document.getElementById('bS').value=100; document.getElementById('cS').value=100;
+    document.getElementById('stS').value=100; document.getElementById('hS').value=0;
+    document.getElementById('blS').value=0; document.getElementById('oS').value=100;
+    document.getElementById('shS').value=0; document.getElementById('vgS').value=0;
+    document.getElementById('nsS').value=0; document.getElementById('grS').value=0;
+    updateAdjust(); toast('🔄 Reset!');
+}
+
+function setTransition(name, btn) {
+    state.currentTransition=name;
+    document.querySelectorAll('.trans-btn').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+}
+
+function applyCanvasAnim(name) { currentAnim=name; toast('✨ Animation: '+name); }
+function applyLUT(name) { activeLUT=name; toast('🎨 LUT: '+name); drawFrame(); }
+
+// =====================================================================
+// PLAYBACK CONTROLS
+// =====================================================================
+function updatePlayheadUI() {
+    if (!state.totalDuration) return;
+    const left = 55 + state.currentTime * state.zoom;
+    document.getElementById('playhead').style.left = left+'px';
+    document.getElementById('timeDisplay').textContent = fmtTime(state.currentTime)+' / '+fmtTime(state.totalDuration);
+}
+function fmtTime(t) { const m=Math.floor(t/60),s=Math.floor(t%60).toString().padStart(2,'0'); return `${m}:${s}`; }
+function seekTo(t) { state.currentTime=Math.max(0,Math.min(t,state.totalDuration)); video.currentTime=state.currentTime; drawFrame(); updatePlayheadUI(); }
+function skipBack() { seekTo(Math.max(0,state.currentTime-5)); }
+function skipFwd() { seekTo(Math.min(state.totalDuration,state.currentTime+5)); }
+function setVolume(v) { video.volume=v/100; document.getElementById('volVal').textContent=v; }
+function setSpeed(v) { video.playbackRate=parseFloat(v); toast('⚡ Speed: '+v+'x'); }
+function muteClip() { video.muted=!video.muted; toast(video.muted?'🔇 Muted':'🔊 Unmuted'); }
+function fadeAudio(dir) { toast(`📊 Audio Fade ${dir==='in'?'In↑':'Out↓'} — export-time effect`); }
+function reverseClip() { toast('⏪ Reverse — export-time effect'); }
+function freezeFrame() { video.pause(); state.isPlaying=false; document.getElementById('playBtn').textContent='▶'; drawFrame(); toast('⏸️ Frame frozen!'); }
+function trimSilence() { toast('🔇 Trim silence — use timeline handles'); }
+
+// =====================================================================
+// TIMELINE
+// =====================================================================
+function renderTimeline() {
+    const W = Math.max(state.totalDuration * state.zoom + 100, 600);
+    document.getElementById('tlInner').style.width = (W+55)+'px';
+    const ruler=document.getElementById('tlRuler');
+    ruler.width=W+55; ruler.style.width=(W+55)+'px';
+    const rc=ruler.getContext('2d');
+    rc.clearRect(0,0,ruler.width,20);
+    rc.fillStyle='#64748b'; rc.font='9px monospace';
+    const step = state.zoom>=20?1:state.zoom>=10?2:5;
+    for (let t=0;t<=state.totalDuration+step;t+=step) {
+        const x=55+t*state.zoom;
+        rc.fillRect(x,14,1,6); rc.fillText(fmtTime(t),x+2,10);
+    }
+    // Video track
+    document.getElementById('videoTrack').innerHTML='';
+    state.clips.filter(c=>c.type!=='audio').forEach(clip=>{
+        const el=document.createElement('div');
+        el.className='clip-block'+(clip.id===state.selectedClipId?' selected':'');
+        el.style.left=(clip.startTime*state.zoom)+'px';
+        el.style.width=(clip.duration*state.zoom)+'px';
+        el.style.background=clip.type==='image'
+            ?'linear-gradient(135deg,#7c3aed,#a855f7)'
+            :'linear-gradient(135deg,#00ffcc,#0284c7)';
+        el.innerHTML=`<div class="clip-lh" onmousedown="startTrimLeft(event,${clip.id})"></div><span class="clip-name">${clip.type==='image'?'🖼️':'🎥'} ${clip.name}</span><div class="clip-rh" onmousedown="startTrimRight(event,${clip.id})"></div>`;
+        el.addEventListener('click',e=>{e.stopPropagation();selectClip(clip.id);});
+        makeDraggable(el,clip);
+        document.getElementById('videoTrack').appendChild(el);
+    });
+    // Audio track
+    document.getElementById('audioTrack').innerHTML='';
+    state.clips.filter(c=>c.type==='audio').forEach(clip=>{
+        const el=document.createElement('div');
+        el.className='clip-block'+(clip.id===state.selectedClipId?' selected':'');
+        el.style.left=(clip.startTime*state.zoom)+'px';
+        el.style.width=(clip.duration*state.zoom)+'px';
+        el.style.background='linear-gradient(135deg,#f59e0b,#d97706)';
+        el.innerHTML=`<span class="clip-name">🎵 ${clip.name}</span>`;
+        el.addEventListener('click',e=>{e.stopPropagation();selectClip(clip.id);});
+        document.getElementById('audioTrack').appendChild(el);
+    });
+    updatePlayheadUI();
+}
+
+function makeDraggable(el,clip) {
+    let sx,sl;
+    el.addEventListener('mousedown',e=>{
+        if(e.target.classList.contains('clip-lh')||e.target.classList.contains('clip-rh')) return;
+        sx=e.clientX; sl=clip.startTime;
+        const mv=m=>{clip.startTime=Math.max(0,sl+(m.clientX-sx)/state.zoom); recalcDuration(); renderTimeline();};
+        const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+        document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+    });
+}
+function startTrimRight(e,id) {
+    e.stopPropagation();
+    const clip=state.clips.find(c=>c.id===id); if(!clip) return;
+    const sx=e.clientX,sd=clip.duration;
+    const mv=m=>{clip.duration=Math.max(0.5,sd+(m.clientX-sx)/state.zoom); recalcDuration(); renderTimeline();};
+    const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+    document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+}
+function startTrimLeft(e,id) {
+    e.stopPropagation();
+    const clip=state.clips.find(c=>c.id===id); if(!clip) return;
+    const sx=e.clientX,ss=clip.startTime,sd=clip.duration;
+    const mv=m=>{const d=(m.clientX-sx)/state.zoom; clip.startTime=Math.max(0,ss+d); clip.duration=Math.max(0.5,sd-d); recalcDuration(); renderTimeline();};
+    const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+    document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+}
+function zoomTimeline(dir) {
+    if(dir===0) { state.zoom=state.totalDuration>0?Math.min(100,Math.floor(400/state.totalDuration)):10; }
+    else state.zoom=Math.max(3,Math.min(120,state.zoom+dir*5));
+    renderTimeline();
+}
+
+document.getElementById('tlScroll').addEventListener('click',e=>{
+    const rect=document.getElementById('videoTrack').getBoundingClientRect();
+    seekTo((e.clientX-rect.left)/state.zoom);
+});
+
+// =====================================================================
+// CLIP OPERATIONS
+// =====================================================================
+function selectClip(id) {
+    state.selectedClipId=id;
+    renderTimeline();
+    renderClipProps(state.clips.find(c=>c.id===id));
+}
+
+function renderClipProps(clip) {
+    const el=document.getElementById('clipProps');
+    if (!clip) { el.innerHTML='<div style="color:var(--muted);font-size:0.75rem;">क्लिप select करें</div>'; return; }
+    el.innerHTML=`
+        <div class="prop-row"><label>Name</label><input class="prop-input" value="${clip.name}" onchange="state.clips.find(c=>c.id===${clip.id}).name=this.value;renderTimeline();"></div>
+        <div class="prop-row"><label>Duration</label><input class="prop-input" type="number" value="${clip.duration.toFixed(2)}" onchange="state.clips.find(c=>c.id===${clip.id}).duration=+this.value;recalcDuration();renderTimeline();"></div>
+        <div class="prop-row"><label>Start Time</label><input class="prop-input" type="number" value="${clip.startTime.toFixed(2)}" onchange="state.clips.find(c=>c.id===${clip.id}).startTime=+this.value;recalcDuration();renderTimeline();"></div>
+        <div class="prop-row"><label>Speed</label><select class="prop-select" onchange="document.getElementById('speedSelect').value=this.value;setSpeed(this.value);">
+            <option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option>
+            <option value="1.5">1.5x</option><option value="2">2x</option></select></div>
+        <div class="prop-row"><label>Opacity</label><input type="range" class="slider" min="0" max="100" value="100" oninput="state.adjustments.opacity=+this.value;document.getElementById('oS').value=this.value;updateAdjust();"></div>
+        <button class="del-clip-btn" onclick="deleteSelectedClip()">🗑️ Delete Clip</button>
+        <button class="del-clip-btn" style="margin-top:5px;background:rgba(124,58,237,0.1);border-color:var(--accent2);color:var(--accent2);" onclick="duplicateClip()">📋 Duplicate</button>
+    `;
+}
+
+function splitClip() {
+    const t=state.currentTime;
+    const clip=state.clips.find(c=>c.type!=='audio'&&c.startTime<=t&&c.startTime+c.duration>t);
+    if (!clip) { toast('⚠️ Active clip नहीं मिला'); return; }
+    const dur=clip.duration, sp=t-clip.startTime;
+    clip.duration=sp;
+    state.clips.push({...clip,id:++clipIdCounter,name:clip.name+' (2)',startTime:t,duration:dur-sp});
+    recalcDuration(); renderTimeline(); toast('✂️ Split हो गई!');
+}
+
+function deleteSelectedClip() {
+    if (!state.selectedClipId) { toast('⚠️ Clip select करें'); return; }
+    state.clips=state.clips.filter(c=>c.id!==state.selectedClipId);
+    state.selectedClipId=null; recalcDuration(); renderTimeline(); renderClipProps(null); toast('🗑️ Deleted!');
+}
+
+function duplicateClip() {
+    const clip=state.clips.find(c=>c.id===state.selectedClipId); if (!clip) return;
+    const newClip={...clip,id:++clipIdCounter,startTime:clip.startTime+clip.duration,name:clip.name+' Copy'};
+    state.clips.push(newClip); recalcDuration(); renderTimeline(); toast('📋 Duplicated!');
+}
+
+function undoAction() { toast('↩ Undo — coming soon'); }
+
+// =====================================================================
+// TRANSFORM
+// =====================================================================
+function flipHorizontal() { state.flipH=!state.flipH; drawFrame(); toast('↔️ Flip H'); }
+function flipVertical() { state.flipV=!state.flipV; drawFrame(); toast('↕️ Flip V'); }
+function rotateClip(deg) { state.rotation=(state.rotation+deg)%360; drawFrame(); toast(`🔄 ${state.rotation}°`); }
+function openCropModal() { openModal('cropModal'); }
+function applyCrop() {
+    state.cropSettings={x:+document.getElementById('cropX').value,y:+document.getElementById('cropY').value,w:+document.getElementById('cropW').value,h:+document.getElementById('cropH').value,active:true};
+    closeModal('cropModal'); drawFrame(); toast('✂️ Crop applied!');
+}
+
+// =====================================================================
+// CHROMA KEY
+// =====================================================================
+function openChromaModal() { openModal('chromaModal'); }
+function applyChromaKey() {
+    state.chromaKey={active:true,color:document.getElementById('chromaColor').value,threshold:+document.getElementById('chromaThresh').value,softness:+document.getElementById('chromaSoft').value};
+    closeModal('chromaModal'); drawFrame(); toast('🟩 Chroma Key active!');
+}
+
+// =====================================================================
+// TEXT OVERLAYS
+// =====================================================================
+function openTextModal() { openModal('textModal'); }
+function addTextOverlay() {
+    const text=document.getElementById('textContent').value.trim();
+    if (!text) { toast('⚠️ Text लिखें!'); return; }
+    const font=document.getElementById('textFont').value;
+    const size=+document.getElementById('textSize').value;
+    const color=document.getElementById('textColor').value;
+    const animation=document.getElementById('textAnimation').value;
+    const position=document.getElementById('textPosition').value;
+    const bg=document.getElementById('textBg').value;
+    const stroke=document.getElementById('textStroke').value;
+
+    const container=document.getElementById('overlayContainer');
+    const el=document.createElement('div');
+    el.style.cssText=`font-family:${font};font-size:${size}px;color:${color};position:absolute;pointer-events:all;padding:6px 10px;border-radius:6px;user-select:none;`;
+    el.style.textShadow=stroke==='black'?'2px 2px 3px #000,-1px -1px 2px #000':stroke==='white'?'2px 2px 3px #fff,-1px -1px 2px #fff':'2px 2px 4px rgba(0,0,0,0.8)';
+    if (bg==='black') el.style.background='rgba(0,0,0,0.75)';
+    else if (bg==='dark') el.style.background='rgba(0,0,0,0.4)';
+    else if (bg==='white') el.style.background='rgba(255,255,255,0.2)';
+    else if (bg==='gradient') el.style.background='linear-gradient(135deg,rgba(0,0,0,0.7),rgba(124,58,237,0.4))';
+    el.textContent=text;
+    el.style.animation=getTextAnim(animation);
+
+    const pos={center:'top:50%;left:50%;transform:translate(-50%,-50%)',top:'top:6%;left:50%;transform:translateX(-50%)',bottom:'bottom:6%;left:50%;transform:translateX(-50%)',topLeft:'top:6%;left:4%',topRight:'top:6%;right:4%',bottomLeft:'bottom:6%;left:4%',bottomRight:'bottom:6%;right:4%'};
+    pos[position].split(';').forEach(s=>{const[k,v]=s.split(':');if(k&&v)el.style[k.trim()]=v.trim();});
+
+    const delBtn=document.createElement('button');
+    delBtn.textContent='×';
+    delBtn.style.cssText='position:absolute;top:-8px;right:-8px;background:#ef4444;border:none;border-radius:50%;width:18px;height:18px;color:white;cursor:pointer;font-size:0.75rem;display:none;align-items:center;justify-content:center;';
+    delBtn.onclick=()=>el.remove();
+    el.appendChild(delBtn);
+    el.onmouseenter=()=>delBtn.style.display='flex';
+    el.onmouseleave=()=>delBtn.style.display='none';
+
+    let ox,oy,sx2,sy2;
+    el.onmousedown=e=>{
+        if(e.target===delBtn) return;
+        el.style.transform='none'; el.style.top=el.offsetTop+'px'; el.style.left=el.offsetLeft+'px'; el.style.bottom=''; el.style.right='';
+        ox=el.offsetLeft; oy=el.offsetTop; sx2=e.clientX; sy2=e.clientY;
+        const mv=m=>{el.style.left=(ox+m.clientX-sx2)+'px';el.style.top=(oy+m.clientY-sy2)+'px';};
+        const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+        document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+    };
+    container.style.pointerEvents='all';
+    container.appendChild(el);
+    closeModal('textModal');
+    toast('✅ Text जोड़ा!');
+}
+function getTextAnim(a) {
+    const anims={fadeIn:'textFI 0.8s ease forwards',slideLeft:'textSL 0.8s ease forwards',slideRight:'textSR 0.8s ease forwards',slideUp:'textSU 0.8s ease forwards',bounce:'textBC 1.2s ease infinite',glow:'textGW 1.5s ease-in-out infinite alternate',shake:'textSK 0.5s ease infinite',float:'textFL 3s ease-in-out infinite',spin:'textSP 4s linear infinite',flip:'textFLP 0.8s ease forwards'};
+    return anims[a]||'none';
+}
+function openTitleModal() { document.getElementById('textContent').value=''; document.getElementById('textSize').value=64; openModal('textModal'); toast('🎬 Title mode'); }
+function openSubtitleModal() { document.getElementById('textContent').value=''; document.getElementById('textPosition').value='bottom'; document.getElementById('textBg').value='black'; openModal('textModal'); }
+function addSticker(emoji) {
+    const c=document.getElementById('overlayContainer');
+    const el=document.createElement('div');
+    el.style.cssText='position:absolute;font-size:52px;top:38%;left:38%;cursor:move;user-select:none;pointer-events:all;animation:textBC 2s ease infinite;';
+    el.textContent=emoji;
+    const db=document.createElement('button');
+    db.textContent='×'; db.style.cssText='position:absolute;top:-8px;right:-8px;background:#ef4444;border:none;border-radius:50%;width:18px;height:18px;color:white;cursor:pointer;font-size:0.75rem;display:none;align-items:center;justify-content:center;';
+    db.onclick=()=>el.remove();
+    el.appendChild(db);
+    el.onmouseenter=()=>db.style.display='flex'; el.onmouseleave=()=>db.style.display='none';
+    let ox2,oy2,sx3,sy3;
+    el.onmousedown=e=>{if(e.target===db)return;ox2=el.offsetLeft;oy2=el.offsetTop;sx3=e.clientX;sy3=e.clientY;
+        const mv=m=>{el.style.left=(ox2+m.clientX-sx3)+'px';el.style.top=(oy2+m.clientY-sy3)+'px';};
+        const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);};
+        document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);};
+    c.style.pointerEvents='all'; c.appendChild(el); toast('✅ Sticker!');
+}
+function clearAllOverlays() { document.getElementById('overlayContainer').innerHTML=''; toast('🗑️ All overlays cleared'); }
+
+// =====================================================================
+// EXPORT
+// =====================================================================
+function openExportModal() { if(!state.clips.length){toast('⚠️ Video खोलें पहले');return;} openModal('exportModal'); }
+function selectExportFormat(f,el) { state.exportFormat=f; el.closest('.exp-row').querySelectorAll('.exp-opt').forEach(e=>e.classList.remove('active')); el.classList.add('active'); }
+function selectExportRes(r,el) { state.exportRes=r; el.closest('.exp-row').querySelectorAll('.exp-opt').forEach(e=>e.classList.remove('active')); el.classList.add('active'); }
+
+async function startExport() {
+    const btn=document.getElementById('expStartBtn');
+    const pw=document.getElementById('expProgress');
+    const pb=document.getElementById('expBar');
+    const st=document.getElementById('expStatus');
+    btn.disabled=true; btn.textContent='⏳ Export...';
+    pw.style.display='block'; pb.style.width='0%';
+    st.textContent='Stream record हो रहा है...';
+    const resMap={'360':[640,360],'480':[854,480],'720':[1280,720],'1080':[1920,1080]};
+    const [W,H]=resMap[state.exportRes]||[1280,720];
+    canvas.width=W; canvas.height=H;
+    const mimeType='video/webm;codecs=vp9';
+    let stream;
+    try { stream=canvas.captureStream(30); if(video.captureStream){const at=video.captureStream().getAudioTracks();at.forEach(t=>stream.addTrack(t));} }
+    catch(e) { toast('❌ Stream error'); btn.disabled=false; btn.textContent='🚀 Export'; canvas.width=1280;canvas.height=720; return; }
+    const chunks=[];
+    const recorder=new MediaRecorder(stream,{mimeType,videoBitsPerSecond:6000000});
+    recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+    recorder.onstop=()=>{
+        const blob=new Blob(chunks,{type:mimeType});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');
+        a.href=url; a.download=`sachin-ai-pro-edit-${Date.now()}.webm`; a.click();
+        URL.revokeObjectURL(url);
+        pb.style.width='100%'; st.textContent='✅ Download हो गया!';
+        btn.disabled=false; btn.textContent='🚀 Export';
+        toast('✅ Export सफल!'); canvas.width=1280;canvas.height=720;
+        setTimeout(()=>closeModal('exportModal'),1800);
+    };
+    recorder.start(100);
+    seekTo(0); await new Promise(r=>setTimeout(r,200));
+    video.play().catch(()=>{});
+    const startT=performance.now(), totalMs=state.totalDuration*1000;
+    const loop=()=>{
+        state.currentTime=video.currentTime; drawFrame();
+        pb.style.width=Math.min(100,(performance.now()-startT)/totalMs*100)+'%';
+        st.textContent=`Recording... ${Math.round((performance.now()-startT)/totalMs*100)}%`;
+        if (state.currentTime<state.totalDuration&&!video.ended) requestAnimationFrame(loop);
+        else setTimeout(()=>recorder.stop(),500);
+    };
+    requestAnimationFrame(loop);
+    video.onended=()=>setTimeout(()=>recorder.stop(),500);
+}
+
+// =====================================================================
+// MODAL HELPERS
+// =====================================================================
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// =====================================================================
+// TOAST
+// =====================================================================
+let toastT;
+function toast(msg) {
+    const el=document.getElementById('toast');
+    el.textContent=msg; el.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),2600);
+}
+
+// =====================================================================
+// CSS ANIMATIONS
+// =====================================================================
+const animStyle=document.createElement('style');
+animStyle.textContent=`
+@keyframes textFI{from{opacity:0}to{opacity:1}}
+@keyframes textSL{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes textSR{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes textSU{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+@keyframes textBC{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes textGW{from{text-shadow:0 0 8px currentColor}to{text-shadow:0 0 28px currentColor,0 0 50px currentColor}}
+@keyframes textSK{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+@keyframes textFL{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes textSP{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes textFLP{from{transform:rotateY(90deg);opacity:0}to{transform:rotateY(0deg);opacity:1}}
+`;
+document.head.appendChild(animStyle);
+
+// =====================================================================
+// INIT
+// =====================================================================
+(function init() {
+    canvas.width=1280; canvas.height=720;
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,1280,720);
+    ctx.fillStyle='rgba(0,255,204,0.6)'; ctx.font='bold 28px Segoe UI'; ctx.textAlign='center';
+    ctx.fillText('🎬 Pro Video Editor — 2000+ Filters', 640, 330);
+    ctx.fillStyle='#64748b'; ctx.font='18px Segoe UI';
+    ctx.fillText('वीडियो खोलें और एडिटिंग शुरू करें', 640, 370);
+    renderFilterUI();
+    updateAdjust();
+    renderTimeline();
+    // Count display
+    setTimeout(()=>{
+        document.getElementById('filterCount').textContent=`${ALL_FILTERS.length} filters available`;
+    },300);
+})();
+</script>
+</body>
+</html>
