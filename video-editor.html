@@ -3,380 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Pro Video Editor - Sachin AI Studio</title>
+<title>Pro Video Editor — CapCut Level — Sachin AI Studio</title>
 <link rel="icon" href="/favicon.png">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#0a0a0a;--panel:#141414;--panel2:#1c1c1c;--border:#2a2a2a;
-  --accent:#ff4d6d;--blue:#4361ee;--green:#06d6a0;--yellow:#ffd60a;
+  --bg:#0c0c0c;--panel:#181818;--panel2:#222;--border:#2e2e2e;
+  --accent:#ff4d6d;--blue:#4cc9f0;--green:#06d6a0;--yellow:#ffd60a;--purple:#b5179e;
   --text:#f0f0f0;--muted:#888;--white:#fff;
 }
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;}
 
-/* ── TOP BAR ── */
-.topbar{height:52px;background:#000;display:flex;align-items:center;padding:0 12px;gap:10px;flex-shrink:0;border-bottom:1px solid #222;z-index:200;position:relative;}
-.btn-back{color:var(--text);background:none;border:none;font-size:1.3rem;cursor:pointer;padding:6px;line-height:1;}
-.topbar-title{flex:1;font-size:.85rem;font-weight:700;color:var(--white);}
-.topbar-title span{color:var(--accent);}
-.btn-undo,.btn-redo{background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px;transition:.2s;}
-.btn-undo:hover,.btn-redo:hover{color:var(--white);}
-.btn-export{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:7px 18px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;}
-.btn-export:hover{background:#ff2d55;transform:scale(1.03);}
+/* ── TOPBAR ── */
+.topbar{height:48px;background:#000;display:flex;align-items:center;padding:0 10px;gap:8px;flex-shrink:0;border-bottom:1px solid #1a1a1a;z-index:300;}
+.btn-back{color:var(--text);background:none;border:none;font-size:1.2rem;cursor:pointer;padding:6px 8px;}
+.topbar-center{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;}
+.top-project{font-size:.8rem;font-weight:700;color:var(--white);}
+.topbar-right{display:flex;align-items:center;gap:6px;}
+.btn-icon{background:none;border:1px solid #333;color:var(--muted);border-radius:6px;padding:5px 10px;font-size:.72rem;cursor:pointer;transition:.2s;white-space:nowrap;}
+.btn-icon:hover{border-color:var(--accent);color:var(--accent);}
+.btn-export{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-size:.78rem;font-weight:700;cursor:pointer;}
+.btn-export:hover{background:#ff2d55;}
+.ratio-badge{background:#1a1a1a;border:1px solid #333;color:var(--muted);padding:5px 10px;font-size:.7rem;border-radius:6px;cursor:pointer;}
 
-/* ── MAIN CONTAINER ── */
-.editor-wrap{display:flex;flex-direction:column;height:calc(100vh - 52px);}
+/* ── MAIN AREA ── */
+.editor-wrap{display:flex;flex-direction:column;height:calc(100vh - 48px);}
 
-/* ── VIDEO PREVIEW ── */
-.preview-area{flex:1;display:flex;align-items:center;justify-content:center;background:#000;position:relative;overflow:hidden;min-height:0;}
-.canvas-wrap{position:relative;display:inline-block;max-width:100%;max-height:100%;}
-#mainCanvas{display:block;max-width:100%;max-height:100%;border-radius:4px;}
-.preview-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
-.play-big-btn{width:64px;height:64px;background:rgba(0,0,0,.55);border-radius:50%;border:2px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:1.6rem;cursor:pointer;pointer-events:all;transition:.2s;backdrop-filter:blur(4px);}
-.play-big-btn:hover{background:rgba(255,77,109,.7);border-color:var(--accent);}
-.no-video-msg{text-align:center;color:var(--muted);pointer-events:none;}
-.no-video-msg .icon{font-size:3rem;margin-bottom:8px;}
-.no-video-msg p{font-size:.85rem;}
-
-/* ── TIME INFO ── */
-.time-bar{height:28px;background:#000;display:flex;align-items:center;padding:0 14px;gap:8px;flex-shrink:0;}
-.time-txt{font-size:.72rem;color:var(--muted);font-family:monospace;min-width:80px;}
-.progress-track{flex:1;height:3px;background:#333;border-radius:3px;cursor:pointer;position:relative;}
-.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:.05s;}
-.progress-thumb{position:absolute;top:50%;right:0;width:12px;height:12px;background:#fff;border-radius:50%;transform:translate(50%,-50%);box-shadow:0 0 6px rgba(255,77,109,.8);}
-
-/* ── TIMELINE ── */
-.timeline-area{height:80px;background:#0d0d0d;border-top:1px solid #222;display:flex;align-items:center;padding:0 8px;gap:6px;overflow-x:auto;flex-shrink:0;scrollbar-width:none;}
-.timeline-area::-webkit-scrollbar{display:none;}
-.add-clip-btn{width:60px;height:58px;background:var(--panel2);border:2px dashed #444;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:1.4rem;color:#666;transition:.2s;gap:2px;}
-.add-clip-btn:hover{border-color:var(--accent);color:var(--accent);}
-.add-clip-btn span{font-size:.55rem;}
-.clip-item{height:58px;min-width:80px;background:linear-gradient(135deg,#1e2a3a,#0f1923);border-radius:8px;border:2px solid #333;flex-shrink:0;position:relative;cursor:pointer;overflow:hidden;transition:.2s;}
-.clip-item.active{border-color:var(--accent);}
-.clip-thumb{width:100%;height:100%;object-fit:cover;border-radius:6px;}
-.clip-dur{position:absolute;bottom:3px;right:5px;font-size:.55rem;background:rgba(0,0,0,.7);padding:1px 4px;border-radius:3px;color:#ddd;}
-.clip-del{position:absolute;top:2px;right:2px;width:16px;height:16px;background:var(--accent);border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;}
-.clip-item:hover .clip-del{opacity:1;}
-
-/* ── PLAY CONTROLS ── */
-.play-controls{height:48px;background:#000;display:flex;align-items:center;justify-content:center;gap:18px;flex-shrink:0;border-top:1px solid #1a1a1a;}
-.ctrl-btn{background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:6px;transition:.2s;display:flex;align-items:center;justify-content:center;}
-.ctrl-btn:hover{color:var(--accent);}
-.ctrl-btn.play-pause{width:40px;height:40px;background:var(--accent);border-radius:50%;font-size:1rem;color:#fff;}
-.ctrl-btn.play-pause:hover{background:#ff2d55;transform:scale(1.07);}
-
-/* ── BOTTOM TOOLBAR ── */
-.bottom-toolbar{background:#000;border-top:1px solid #222;padding:6px 0 8px;flex-shrink:0;}
-.toolbar-scroll{display:flex;overflow-x:auto;gap:0;padding:0 8px;scrollbar-width:none;}
-.toolbar-scroll::-webkit-scrollbar{display:none;}
-.tool-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 14px;cursor:pointer;border:none;background:none;flex-shrink:0;border-radius:8px;transition:.15s;min-width:68px;}
-.tool-btn:hover{background:rgba(255,255,255,.05);}
-.tool-btn.active{background:rgba(255,77,109,.12);}
-.tool-btn .t-icon{font-size:1.3rem;line-height:1;}
-.tool-btn .t-label{font-size:.6rem;color:var(--muted);white-space:nowrap;}
-.tool-btn.active .t-label{color:var(--accent);}
-.tool-btn.active .t-icon{filter:drop-shadow(0 0 4px var(--accent));}
-
-/* ── TOOL PANEL (slides up) ── */
-.tool-panel{display:none;background:var(--panel);border-top:1px solid #333;max-height:220px;overflow:hidden;}
-.tool-panel.open{display:block;}
-.tp-header{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #222;}
-.tp-title{font-size:.78rem;font-weight:700;color:var(--white);}
-.tp-close{background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:2px 6px;}
-.tp-body{overflow-y:auto;max-height:170px;padding:10px 12px;}
-
-/* Filter strip */
-.filter-strip{display:flex;gap:8px;overflow-x:auto;padding:8px 0;scrollbar-width:none;}
-.filter-strip::-webkit-scrollbar{display:none;}
-.fitem{flex-shrink:0;text-align:center;cursor:pointer;transition:.2s;}
-.fitem-thumb{width:64px;height:64px;border-radius:10px;border:2px solid transparent;overflow:hidden;position:relative;background:#1a1a1a;}
-.fitem-thumb canvas{width:100%;height:100%;border-radius:8px;}
-.fitem.active .fitem-thumb{border-color:var(--accent);box-shadow:0 0 8px rgba(255,77,109,.5);}
-.fitem-name{font-size:.6rem;color:var(--muted);margin-top:4px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.fitem.active .fitem-name{color:var(--accent);}
-
-/* Adjust sliders */
-.adj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.adj-row label{font-size:.68rem;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:5px;}
-.adj-val{color:var(--accent);font-weight:700;}
-input[type=range]{width:100%;height:3px;-webkit-appearance:none;background:linear-gradient(to right,var(--accent) var(--pct,50%),#333 var(--pct,50%));border-radius:3px;outline:none;cursor:pointer;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--white);box-shadow:0 0 5px rgba(255,77,109,.7);cursor:pointer;}
-
-/* Enhance buttons */
-.enhance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.enh-btn{padding:10px 6px;background:var(--panel2);border:1px solid #333;border-radius:10px;color:var(--text);cursor:pointer;font-size:.65rem;text-align:center;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.enh-btn .ei{font-size:1.3rem;}
-.enh-btn:hover,.enh-btn.active{border-color:var(--green);color:var(--green);background:rgba(6,214,160,.08);}
-.enh-btn.active{background:rgba(6,214,160,.15);}
-
-/* Speed buttons */
-.speed-row{display:flex;gap:8px;flex-wrap:wrap;}
-.spd-btn{padding:8px 16px;border-radius:20px;border:1px solid #333;background:var(--panel2);color:var(--text);cursor:pointer;font-size:.72rem;font-weight:700;transition:.2s;}
-.spd-btn:hover,.spd-btn.active{border-color:var(--yellow);color:var(--yellow);background:rgba(255,214,10,.08);}
-
-/* Text panel */
-.text-inputs{display:flex;flex-direction:column;gap:8px;}
-.ti{width:100%;background:var(--panel2);border:1px solid #333;color:var(--text);padding:8px 12px;border-radius:8px;font-size:.8rem;outline:none;}
-.ti:focus{border-color:var(--accent);}
-.font-sizes{display:flex;gap:6px;flex-wrap:wrap;}
-.fs-btn{padding:4px 10px;border-radius:6px;border:1px solid #333;background:var(--panel2);color:var(--muted);cursor:pointer;font-size:.65rem;}
-.fs-btn.active{border-color:var(--accent);color:var(--accent);}
-.color-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
-.col-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;}
-.col-dot:hover,.col-dot.active{border-color:#fff;transform:scale(1.15);}
-
-/* Sticker grid */
-.sticker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
-.stk-btn{font-size:1.5rem;text-align:center;cursor:pointer;padding:4px;border-radius:6px;transition:.2s;}
-.stk-btn:hover{background:rgba(255,255,255,.1);transform:scale(1.2);}
-
-/* Effect grid */
-.effect-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none;}
-.effect-scroll::-webkit-scrollbar{display:none;}
-.efx-btn{flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid #333;background:var(--panel2);color:var(--text);cursor:pointer;font-size:.68rem;font-weight:700;transition:.2s;white-space:nowrap;}
-.efx-btn:hover,.efx-btn.active{border-color:var(--blue);color:var(--blue);background:rgba(67,97,238,.1);}
-
-/* Transition grid */
-.trans-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none;}
-.trans-scroll::-webkit-scrollbar{display:none;}
-.trans-btn{flex-shrink:0;width:72px;height:56px;border-radius:10px;border:1px solid #333;background:var(--panel2);color:var(--muted);cursor:pointer;font-size:.62rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:.2s;}
-.trans-btn:hover,.trans-btn.active{border-color:var(--yellow);color:var(--yellow);}
-.trans-btn .ti2{font-size:1.1rem;}
-
-/* Crop panel */
-.crop-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.crop-btn{padding:7px 14px;border-radius:8px;border:1px solid #333;background:var(--panel2);color:var(--muted);cursor:pointer;font-size:.68rem;font-weight:700;transition:.2s;}
-.crop-btn:hover,.crop-btn.active{border-color:var(--accent);color:var(--accent);}
-
-/* Audio panel */
-.audio-row{display:flex;flex-direction:column;gap:8px;}
-.audio-btn-row{display:flex;gap:8px;}
-.audio-action{flex:1;padding:9px;border-radius:8px;border:1px solid #333;background:var(--panel2);color:var(--text);cursor:pointer;font-size:.68rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s;}
-.audio-action:hover{border-color:var(--green);color:var(--green);}
-.audio-action .ai2{font-size:1.2rem;}
-
-/* Beauty panel */
-.beauty-sliders{display:flex;flex-direction:column;gap:10px;}
-
-/* LUT grid */
-.lut-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:none;}
-.lut-scroll::-webkit-scrollbar{display:none;}
-.lut-item{flex-shrink:0;width:70px;text-align:center;cursor:pointer;}
-.lut-thumb{width:70px;height:50px;border-radius:8px;border:2px solid transparent;overflow:hidden;font-size:1.8rem;display:flex;align-items:center;justify-content:center;}
-.lut-item.active .lut-thumb{border-color:var(--accent);}
-.lut-name{font-size:.6rem;color:var(--muted);margin-top:3px;}
-.lut-item.active .lut-name{color:var(--accent);}
-
-/* Notification toast */
-.toast{position:fixed;bottom:180px;left:50%;transform:translateX(-50%);background:rgba(6,214,160,.9);color:#000;padding:8px 18px;border-radius:20px;font-size:.78rem;font-weight:700;opacity:0;transition:.3s;z-index:999;pointer-events:none;}
-.toast.show{opacity:1;}
-
-/* File input hidden */
-#fileInput{display:none;}
-
-/* Scrollbar for panels */
-.tp-body::-webkit-scrollbar{width:3px;}
-.tp-body::-webkit-scrollbar-thumb{background:#333;}
-
-/* Active filter overlay */
-.filter-overlay{position:absolute;inset:0;border-radius:4px;pointer-events:none;}
-
-/* Beauty overlay */
-.beauty-overlay{position:absolute;inset:0;border-radius:4px;pointer-events:none;background:transparent;}
+/* ── PREVIEW ── */
+.preview-section{flex:1;background:#000;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:0;}
+.canvas-container{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+#mainCanvas{max-width:100%;max-height:100%;border-radius:3px;display:block;}
+.preview-ui{position:absolute;inset:0;pointer-events:none;}
+.safe-area-indicator{position:absolute;inset:8%;border:1px dashed rgba(255,255,255,.1);border-radius:4px;}
+.time-code{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);padding:3px 8px;border-radius:4px;font-size:.68rem;font-family:monospace;color:#ddd;}
+.play-center-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:all;}
+.play-big{width:56px;height:56px;background:rgba(0,0,0,.55);border-radius:50%;border:2px solid rgba(255,255,255,.5);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:.2s;}
+.play-big:hover{background:rgba(255,77,109,.7);border-color:var(--accent);}
+.no-vid{text-align:center;color:var(--muted);}
+.no-vid .nv-icon{font-size:3.5rem;margin-bottom:10px;}
+.no-vid p{font-size:.82rem;line-height:1.6;}
 
 /* Cinematic bars */
-.cin-bar-top,.cin-bar-bot{position:absolute;left:0;right:0;height:0;background:#000;transition:.3s;pointer-events:none;}
-.cin-bar-top{top:0;}
-.cin-bar-bot{bottom:0;}
+.cin-top,.cin-bot{position:absolute;left:0;right:0;background:#000;transition:.4s;pointer-events:none;}
+.cin-top{top:0;height:0;}
+.cin-bot{bottom:0;height:0;}
 
-@media(max-width:480px){
-  .adj-grid{grid-template-columns:1fr;}
-  .enhance-grid{grid-template-columns:repeat(3,1fr);}
-  .tool-btn{min-width:58px;padding:6px 10px;}
+/* ── TIMELINE SECTION ── */
+.timeline-section{background:#111;border-top:1px solid #222;flex-shrink:0;}
+
+/* Progress */
+.prog-bar-wrap{height:24px;display:flex;align-items:center;padding:0 10px;gap:8px;background:#0a0a0a;}
+.time-display{font-size:.68rem;font-family:monospace;color:var(--muted);min-width:88px;}
+.prog-track{flex:1;height:3px;background:#2a2a2a;border-radius:3px;cursor:pointer;position:relative;}
+.prog-fill{height:100%;background:var(--accent);border-radius:3px;}
+.prog-thumb{position:absolute;top:50%;width:11px;height:11px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px rgba(255,77,109,.7);}
+
+/* Timeline tracks */
+.tracks-area{height:110px;display:flex;flex-direction:column;overflow:hidden;position:relative;}
+.track-row{height:34px;display:flex;align-items:center;border-bottom:1px solid #1a1a1a;position:relative;}
+.track-label{width:52px;flex-shrink:0;font-size:.58rem;color:var(--muted);text-align:center;border-right:1px solid #222;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;background:#0e0e0e;}
+.track-content{flex:1;height:100%;overflow-x:auto;display:flex;align-items:center;gap:3px;padding:4px 6px;scrollbar-width:none;position:relative;}
+.track-content::-webkit-scrollbar{display:none;}
+.clip-block{height:26px;min-width:70px;border-radius:5px;display:flex;align-items:center;padding:0 8px;font-size:.6rem;cursor:pointer;position:relative;flex-shrink:0;transition:.15s;user-select:none;}
+.clip-block.video-clip{background:linear-gradient(135deg,#1a3a5c,#0d2240);border:1.5px solid #2a5a8c;color:#7bc8ff;}
+.clip-block.audio-clip{background:linear-gradient(135deg,#1a3a1a,#0d2a0d);border:1.5px solid #2a8c2a;color:#7bff7b;}
+.clip-block.text-clip{background:linear-gradient(135deg,#3a1a3a,#2a0d2a);border:1.5px solid #8c2a8c;color:#ff7bff;}
+.clip-block.effect-clip{background:linear-gradient(135deg,#3a3a1a,#2a2a0d);border:1.5px solid #8c8c2a;color:#ffff7b;}
+.clip-block.active-clip{border-color:var(--accent) !important;box-shadow:0 0 8px rgba(255,77,109,.4);}
+.clip-trim-left,.clip-trim-right{position:absolute;top:0;bottom:0;width:6px;background:rgba(255,255,255,.3);cursor:ew-resize;border-radius:3px 0 0 3px;}
+.clip-trim-left{left:0;}
+.clip-trim-right{right:0;border-radius:0 3px 3px 0;}
+.playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);pointer-events:none;z-index:10;}
+.playhead::before{content:'▼';position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-size:.55rem;color:var(--accent);}
+.add-track-btn{width:44px;height:22px;background:none;border:1px dashed #333;border-radius:4px;color:#555;font-size:.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:2px;flex-shrink:0;white-space:nowrap;transition:.2s;}
+.add-track-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* Quick controls */
+.quick-controls{height:38px;display:flex;align-items:center;gap:4px;padding:0 8px;background:#0e0e0e;border-top:1px solid #1a1a1a;}
+.qc-btn{background:none;border:1px solid #2a2a2a;color:var(--muted);border-radius:6px;padding:4px 10px;font-size:.65rem;cursor:pointer;display:flex;align-items:center;gap:4px;transition:.2s;white-space:nowrap;}
+.qc-btn:hover{border-color:var(--blue);color:var(--blue);}
+.qc-sep{width:1px;height:20px;background:#2a2a2a;margin:0 2px;}
+.play-row{display:flex;align-items:center;justify-content:center;flex:1;gap:10px;}
+.pb-btn{background:none;border:none;color:var(--text);font-size:1.1rem;cursor:pointer;padding:4px;transition:.2s;}
+.pb-btn:hover{color:var(--accent);}
+.pb-play{width:34px;height:34px;background:var(--accent);border-radius:50%;font-size:.9rem;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:.2s;}
+.pb-play:hover{background:#ff2d55;transform:scale(1.07);}
+
+/* ── TOOL PANEL ── */
+.tool-panel{background:var(--panel);border-top:1px solid #2a2a2a;flex-shrink:0;max-height:0;overflow:hidden;transition:max-height .3s;}
+.tool-panel.open{max-height:240px;}
+.tp-tabs{display:flex;border-bottom:1px solid #222;overflow-x:auto;scrollbar-width:none;background:#111;}
+.tp-tabs::-webkit-scrollbar{display:none;}
+.tp-tab{padding:7px 14px;font-size:.65rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:.15s;}
+.tp-tab:hover{color:var(--white);}
+.tp-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tp-close{margin-left:auto;padding:7px 12px;background:none;border:none;color:#555;cursor:pointer;font-size:.9rem;flex-shrink:0;}
+.tp-body{overflow-y:auto;height:calc(100% - 32px);padding:10px 12px;max-height:208px;}
+.tp-body::-webkit-scrollbar{width:2px;}
+.tp-body::-webkit-scrollbar-thumb{background:#333;}
+
+/* ── BOTTOM TOOLBAR ── */
+.bottom-toolbar{background:#000;border-top:1px solid #1a1a1a;padding:5px 0 6px;flex-shrink:0;}
+.toolbar-scroll{display:flex;overflow-x:auto;gap:0;padding:0 6px;scrollbar-width:none;}
+.toolbar-scroll::-webkit-scrollbar{display:none;}
+.tool-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 12px;cursor:pointer;border:none;background:none;flex-shrink:0;border-radius:8px;transition:.15s;min-width:60px;}
+.tool-btn:hover{background:rgba(255,255,255,.05);}
+.tool-btn.active{background:rgba(255,77,109,.1);}
+.t-icon{font-size:1.2rem;line-height:1;}
+.t-label{font-size:.58rem;color:var(--muted);white-space:nowrap;}
+.tool-btn.active .t-label{color:var(--accent);}
+.tool-btn.active .t-icon{filter:drop-shadow(0 0 3px var(--accent));}
+.toolbar-sep{width:1px;background:#1a1a1a;margin:4px 2px;flex-shrink:0;}
+
+/* ── PANEL CONTENT COMPONENTS ── */
+/* Horizontal scroll strip */
+.h-strip{display:flex;gap:7px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none;}
+.h-strip::-webkit-scrollbar{display:none;}
+
+/* Filter/Effect item */
+.fi-item{flex-shrink:0;text-align:center;cursor:pointer;width:68px;}
+.fi-thumb{width:68px;height:52px;border-radius:9px;border:2px solid transparent;overflow:hidden;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:.2s;}
+.fi-item.active .fi-thumb{border-color:var(--accent);box-shadow:0 0 8px rgba(255,77,109,.4);}
+.fi-name{font-size:.58rem;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:68px;}
+.fi-item.active .fi-name{color:var(--accent);}
+
+/* Category tabs */
+.cat-tabs{display:flex;gap:5px;overflow-x:auto;padding:0 0 8px;scrollbar-width:none;flex-shrink:0;}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.cat-btn{padding:4px 11px;border-radius:14px;border:1px solid #333;background:none;color:var(--muted);font-size:.62rem;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:.2s;}
+.cat-btn:hover,.cat-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(255,77,109,.08);}
+
+/* Slider row */
+.sl-row{margin-bottom:10px;}
+.sl-row label{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:4px;}
+.sl-val{color:var(--accent);font-weight:700;}
+input[type=range]{width:100%;height:3px;-webkit-appearance:none;background:linear-gradient(to right,var(--accent) var(--pct,50%),#2a2a2a var(--pct,50%));border-radius:3px;cursor:pointer;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 5px rgba(255,77,109,.6);cursor:pointer;}
+
+/* Grid */
+.feat-grid{display:grid;gap:7px;}
+.feat-grid.col2{grid-template-columns:1fr 1fr;}
+.feat-grid.col3{grid-template-columns:1fr 1fr 1fr;}
+.feat-grid.col4{grid-template-columns:repeat(4,1fr);}
+.feat-btn{padding:8px 5px;background:var(--panel2);border:1px solid var(--border);border-radius:9px;color:var(--text);cursor:pointer;font-size:.62rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s;}
+.feat-btn .fi2{font-size:1.2rem;}
+.feat-btn:hover,.feat-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(255,77,109,.07);}
+.feat-btn.green:hover,.feat-btn.green.active{border-color:var(--green);color:var(--green);background:rgba(6,214,160,.07);}
+.feat-btn.blue:hover,.feat-btn.blue.active{border-color:var(--blue);color:var(--blue);background:rgba(76,201,240,.07);}
+.feat-btn.yellow:hover,.feat-btn.yellow.active{border-color:var(--yellow);color:var(--yellow);background:rgba(255,214,10,.07);}
+.feat-btn.purple:hover,.feat-btn.purple.active{border-color:var(--purple);color:var(--purple);background:rgba(181,23,158,.07);}
+
+/* Pill buttons */
+.pill-row{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{padding:5px 12px;border-radius:16px;border:1px solid #333;background:none;color:var(--muted);font-size:.65rem;cursor:pointer;transition:.2s;white-space:nowrap;}
+.pill:hover,.pill.active{border-color:var(--accent);color:var(--accent);background:rgba(255,77,109,.08);}
+.pill.green-pill:hover,.pill.green-pill.active{border-color:var(--green);color:var(--green);background:rgba(6,214,160,.08);}
+.pill.blue-pill:hover,.pill.blue-pill.active{border-color:var(--blue);color:var(--blue);}
+.pill.yellow-pill:hover,.pill.yellow-pill.active{border-color:var(--yellow);color:var(--yellow);}
+
+/* Text input */
+.t-input{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;font-size:.8rem;outline:none;margin-bottom:8px;}
+.t-input:focus{border-color:var(--accent);}
+
+/* Sticker grid */
+.sticker-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;}
+.stk{font-size:1.5rem;text-align:center;cursor:pointer;padding:3px;border-radius:6px;transition:.15s;}
+.stk:hover{background:rgba(255,255,255,.1);transform:scale(1.2);}
+
+/* Speed curve visual */
+.speed-visual{height:48px;background:#1a1a1a;border-radius:8px;border:1px solid #333;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);margin-bottom:8px;}
+
+/* Toast */
+.toast{position:fixed;bottom:160px;left:50%;transform:translateX(-50%) scale(.8);background:rgba(20,20,20,.95);color:#fff;padding:8px 18px;border-radius:20px;font-size:.75rem;border:1px solid #333;opacity:0;transition:.25s;z-index:999;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) scale(1);}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--panel);border:1px solid #333;border-radius:14px;padding:20px;max-width:320px;width:90%;max-height:80vh;overflow-y:auto;}
+.modal-title{font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--white);}
+.modal-close{float:right;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem;}
+
+#fileInput,#audioInput,#pipInput,#bgInput{display:none;}
+
+/* Keyframe indicator */
+.kf-dot{width:8px;height:8px;background:var(--yellow);border-radius:50%;border:1px solid #000;cursor:pointer;}
+
+/* Sub-panel section title */
+.sp-title{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:8px 0 5px;font-weight:700;}
+
+/* Color dots */
+.color-row{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0;}
+.c-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;flex-shrink:0;}
+.c-dot:hover,.c-dot.active{border-color:#fff;transform:scale(1.15);}
+
+@media(max-width:430px){
+  .tool-btn{min-width:52px;padding:5px 8px;}
+  .feat-grid.col4{grid-template-columns:repeat(3,1fr);}
+  .sticker-grid{grid-template-columns:repeat(6,1fr);}
 }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- TOPBAR -->
 <div class="topbar">
-  <button class="btn-back" onclick="window.location='/'">←</button>
-  <div class="topbar-title">🎬 <span>Pro</span> Video Editor</div>
-  <button class="btn-undo ctrl-btn" id="btnUndo" title="Undo">↩</button>
-  <button class="btn-redo ctrl-btn" id="btnRedo" title="Redo">↪</button>
-  <button class="btn-export" onclick="exportVideo()">Export ↗</button>
+  <button class="btn-back" onclick="history.back()">←</button>
+  <div class="topbar-center">
+    <span class="top-project" id="projectName">New Project</span>
+  </div>
+  <div class="topbar-right">
+    <div class="ratio-badge" onclick="openPanel('canvas')" id="ratioBadge">9:16</div>
+    <button class="btn-icon" onclick="openPanel('ai')">✨ AI</button>
+    <button class="btn-icon" id="btnUndo" onclick="doUndo()">↩</button>
+    <button class="btn-icon" id="btnRedo" onclick="doRedo()">↪</button>
+    <button class="btn-export" onclick="startExport()">Export ↗</button>
+  </div>
 </div>
 
 <div class="editor-wrap">
-
-  <!-- VIDEO PREVIEW -->
-  <div class="preview-area" id="previewArea">
-    <div class="canvas-wrap" id="canvasWrap">
-      <canvas id="mainCanvas" width="1280" height="720"></canvas>
-      <div class="cin-bar-top" id="cinTop"></div>
-      <div class="cin-bar-bot" id="cinBot"></div>
-      <div class="preview-overlay" id="previewOverlay">
-        <div class="no-video-msg" id="noVideoMsg">
-          <div class="icon">🎬</div>
-          <p>नीचे <strong>+ Add</strong> दबाएं और Video चुनें</p>
-          <p style="margin-top:6px;font-size:.75rem;">Video, Image या Multi-clip add करें</p>
+  <!-- PREVIEW -->
+  <div class="preview-section" id="previewSection">
+    <div class="canvas-container">
+      <canvas id="mainCanvas" width="1080" height="1920"></canvas>
+      <div class="cin-top" id="cinTop"></div>
+      <div class="cin-bot" id="cinBot"></div>
+    </div>
+    <div class="preview-ui">
+      <div class="time-code" id="timeCode">00:00.00</div>
+      <div class="safe-area-indicator"></div>
+      <div class="play-center-btn" id="playCenterBtn">
+        <div class="no-vid" id="noVidMsg">
+          <div class="nv-icon">🎬</div>
+          <p><strong>+ Add</strong> दबाएं और Video चुनें<br><span style="font-size:.72rem">Drag & Drop भी काम करता है</span></p>
         </div>
-        <button class="play-big-btn" id="playBigBtn" style="display:none" onclick="togglePlay()">▶</button>
       </div>
     </div>
   </div>
 
-  <!-- TIME BAR -->
-  <div class="time-bar">
-    <span class="time-txt" id="timeTxt">0:00 / 0:00</span>
-    <div class="progress-track" id="progressTrack" onclick="seekTo(event)">
-      <div class="progress-fill" id="progressFill" style="width:0%"></div>
-      <div class="progress-thumb" id="progressThumb" style="left:0%"></div>
+  <!-- PROGRESS BAR -->
+  <div class="prog-bar-wrap">
+    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+    <div class="prog-track" id="progTrack" onclick="seekClick(event)">
+      <div class="prog-fill" id="progFill" style="width:0%"></div>
+      <div class="prog-thumb" id="progThumb" style="left:0%"></div>
     </div>
   </div>
 
   <!-- TIMELINE -->
-  <div class="timeline-area" id="timelineArea">
-    <div class="add-clip-btn" onclick="document.getElementById('fileInput').click()">
-      <span>➕</span><span>Add</span>
+  <div class="timeline-section">
+    <div class="tracks-area" id="tracksArea">
+      <!-- Track: Video -->
+      <div class="track-row">
+        <div class="track-label">🎬<br><span style="font-size:.5rem">Video</span></div>
+        <div class="track-content" id="videoTrack">
+          <button class="add-track-btn" onclick="document.getElementById('fileInput').click()">➕ Video</button>
+        </div>
+      </div>
+      <!-- Track: Audio -->
+      <div class="track-row">
+        <div class="track-label">🎵<br><span style="font-size:.5rem">Audio</span></div>
+        <div class="track-content" id="audioTrack">
+          <button class="add-track-btn" onclick="document.getElementById('audioInput').click()">➕ Music</button>
+        </div>
+      </div>
+      <!-- Track: Text -->
+      <div class="track-row">
+        <div class="track-label">T<br><span style="font-size:.5rem">Text</span></div>
+        <div class="track-content" id="textTrack">
+          <button class="add-track-btn" onclick="openPanel('text')">➕ Text</button>
+        </div>
+      </div>
     </div>
-    <!-- clips injected here -->
-  </div>
 
-  <!-- PLAY CONTROLS -->
-  <div class="play-controls">
-    <button class="ctrl-btn" onclick="skipTime(-5)" title="Rewind">⏮</button>
-    <button class="ctrl-btn" onclick="skipTime(-1)" title="-1s">⏪</button>
-    <button class="ctrl-btn play-pause" id="playPauseBtn" onclick="togglePlay()">▶</button>
-    <button class="ctrl-btn" onclick="skipTime(1)" title="+1s">⏩</button>
-    <button class="ctrl-btn" onclick="skipTime(5)" title="Forward">⏭</button>
-    <button class="ctrl-btn" onclick="toggleMute()" id="muteBtn" title="Mute">🔊</button>
+    <!-- Quick Controls -->
+    <div class="quick-controls">
+      <button class="qc-btn" onclick="splitClip()">✂️ Split</button>
+      <button class="qc-btn" onclick="deleteActive()">🗑️ Del</button>
+      <button class="qc-btn" onclick="duplicateActive()">⧉ Dup</button>
+      <div class="qc-sep"></div>
+      <div class="play-row">
+        <button class="pb-btn" onclick="skipTime(-10)">⏮</button>
+        <button class="pb-btn" onclick="skipTime(-1)">⏪</button>
+        <button class="pb-play" id="playPauseBtn" onclick="togglePlay()">▶</button>
+        <button class="pb-btn" onclick="skipTime(1)">⏩</button>
+        <button class="pb-btn" onclick="skipTime(10)">⏭</button>
+      </div>
+      <div class="qc-sep"></div>
+      <button class="qc-btn" onclick="toggleMute()" id="muteBtn">🔊</button>
+      <button class="qc-btn" onclick="openPanel('speed')">⚙️ Speed</button>
+    </div>
   </div>
 
   <!-- TOOL PANEL -->
   <div class="tool-panel" id="toolPanel">
-    <div class="tp-header">
-      <span class="tp-title" id="panelTitle">Filter</span>
+    <div class="tp-tabs" id="tpTabs">
+      <!-- tabs injected per panel -->
       <button class="tp-close" onclick="closePanel()">✕</button>
     </div>
-    <div class="tp-body" id="panelBody"></div>
+    <div class="tp-body" id="tpBody"></div>
   </div>
 
   <!-- BOTTOM TOOLBAR -->
   <div class="bottom-toolbar">
-    <div class="toolbar-scroll" id="toolbarScroll">
-      <button class="tool-btn" data-panel="filter" onclick="openPanel('filter')">
-        <span class="t-icon">🎨</span><span class="t-label">Filter</span>
-      </button>
-      <button class="tool-btn" data-panel="adjust" onclick="openPanel('adjust')">
-        <span class="t-icon">🎛️</span><span class="t-label">Adjust</span>
-      </button>
-      <button class="tool-btn" data-panel="enhance" onclick="openPanel('enhance')">
-        <span class="t-icon">✨</span><span class="t-label">Enhance</span>
-      </button>
-      <button class="tool-btn" data-panel="effect" onclick="openPanel('effect')">
-        <span class="t-icon">⚡</span><span class="t-label">Effect</span>
-      </button>
-      <button class="tool-btn" data-panel="text" onclick="openPanel('text')">
-        <span class="t-icon">T</span><span class="t-label">Text</span>
-      </button>
-      <button class="tool-btn" data-panel="sticker" onclick="openPanel('sticker')">
-        <span class="t-icon">😄</span><span class="t-label">Sticker</span>
-      </button>
-      <button class="tool-btn" data-panel="audio" onclick="openPanel('audio')">
-        <span class="t-icon">🎵</span><span class="t-label">Audio</span>
-      </button>
-      <button class="tool-btn" data-panel="speed" onclick="openPanel('speed')">
-        <span class="t-icon">⚙️</span><span class="t-label">Speed</span>
-      </button>
-      <button class="tool-btn" data-panel="transition" onclick="openPanel('transition')">
-        <span class="t-icon">🔀</span><span class="t-label">Transition</span>
-      </button>
-      <button class="tool-btn" data-panel="lut" onclick="openPanel('lut')">
-        <span class="t-icon">🌈</span><span class="t-label">LUT Grade</span>
-      </button>
-      <button class="tool-btn" data-panel="beauty" onclick="openPanel('beauty')">
-        <span class="t-icon">💄</span><span class="t-label">Beauty</span>
-      </button>
-      <button class="tool-btn" data-panel="crop" onclick="openPanel('crop')">
-        <span class="t-icon">✂️</span><span class="t-label">Crop</span>
-      </button>
-      <button class="tool-btn" data-panel="pip" onclick="openPanel('pip')">
-        <span class="t-icon">🖼️</span><span class="t-label">PiP</span>
-      </button>
+    <div class="toolbar-scroll">
+      <button class="tool-btn" data-p="filter" onclick="openPanel('filter')"><span class="t-icon">🎨</span><span class="t-label">Filter</span></button>
+      <button class="tool-btn" data-p="adjust" onclick="openPanel('adjust')"><span class="t-icon">🎛️</span><span class="t-label">Adjust</span></button>
+      <button class="tool-btn" data-p="enhance" onclick="openPanel('enhance')"><span class="t-icon">✨</span><span class="t-label">Enhance</span></button>
+      <button class="tool-btn" data-p="effect" onclick="openPanel('effect')"><span class="t-icon">⚡</span><span class="t-label">Effect</span></button>
+      <button class="tool-btn" data-p="transition" onclick="openPanel('transition')"><span class="t-icon">🔀</span><span class="t-label">Transition</span></button>
+      <div class="toolbar-sep"></div>
+      <button class="tool-btn" data-p="text" onclick="openPanel('text')"><span class="t-icon">T</span><span class="t-label">Text</span></button>
+      <button class="tool-btn" data-p="sticker" onclick="openPanel('sticker')"><span class="t-icon">😄</span><span class="t-label">Sticker</span></button>
+      <button class="tool-btn" data-p="audio" onclick="openPanel('audio')"><span class="t-icon">🎵</span><span class="t-label">Audio</span></button>
+      <div class="toolbar-sep"></div>
+      <button class="tool-btn" data-p="speed" onclick="openPanel('speed')"><span class="t-icon">⚙️</span><span class="t-label">Speed</span></button>
+      <button class="tool-btn" data-p="crop" onclick="openPanel('crop')"><span class="t-icon">✂️</span><span class="t-label">Crop</span></button>
+      <button class="tool-btn" data-p="lut" onclick="openPanel('lut')"><span class="t-icon">🌈</span><span class="t-label">Color Grade</span></button>
+      <button class="tool-btn" data-p="beauty" onclick="openPanel('beauty')"><span class="t-icon">💄</span><span class="t-label">Beauty</span></button>
+      <div class="toolbar-sep"></div>
+      <button class="tool-btn" data-p="overlay" onclick="openPanel('overlay')"><span class="t-icon">🖼️</span><span class="t-label">Overlay</span></button>
+      <button class="tool-btn" data-p="mask" onclick="openPanel('mask')"><span class="t-icon">🎭</span><span class="t-label">Mask</span></button>
+      <button class="tool-btn" data-p="keyframe" onclick="openPanel('keyframe')"><span class="t-icon">💎</span><span class="t-label">Keyframe</span></button>
+      <button class="tool-btn" data-p="voice" onclick="openPanel('voice')"><span class="t-icon">🎤</span><span class="t-label">Voice FX</span></button>
+      <button class="tool-btn" data-p="ai" onclick="openPanel('ai')"><span class="t-icon">🤖</span><span class="t-label">AI Tools</span></button>
+      <button class="tool-btn" data-p="canvas" onclick="openPanel('canvas')"><span class="t-icon">📐</span><span class="t-label">Canvas</span></button>
     </div>
   </div>
 </div>
 
-<input type="file" id="fileInput" accept="video/*,image/*" multiple onchange="handleFiles(event)">
+<!-- hidden inputs -->
+<input type="file" id="fileInput" accept="video/*,image/*" multiple onchange="handleFileAdd(event)">
+<input type="file" id="audioInput" accept="audio/*" onchange="handleAudio(event)">
+<input type="file" id="pipInput" accept="video/*,image/*" onchange="handlePiP(event)">
+<input type="file" id="bgInput" accept="image/*" onchange="handleBG(event)">
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════
-const state = {
-  clips: [],
-  currentClip: null,
-  videoEl: null,
-  playing: false,
-  muted: false,
-  speed: 1,
-  currentFilter: 'none',
-  currentEffect: 'none',
-  currentLUT: 'none',
-  currentTransition: 'none',
-  adjust: { brightness:0, contrast:0, saturation:0, sharpness:0, vignette:0, warmth:0, hue:0, fade:0, noise:0, blur:0 },
-  beauty: { smooth:0, whiten:0, slim:0, eyes:0 },
-  textOverlays: [],
-  stickerOverlays: [],
-  cinematic: false,
-  cropAspect: 'none',
-  animFrame: null,
-  history: [],
-  historyIdx: -1,
+// ══════════════════════════════════════
+//  DATA: 2000+ FILTERS
+// ══════════════════════════════════════
+const FILTERS = {
+  "IG Classic":["Normal","Clarendon","Gingham","Moon","Lark","Reyes","Juno","Slumber","Crema","Ludwig","Aden","Perpetua","Amaro","Mayfair","Rise","Hudson","Valencia","X Pro II","Sierra","Willow","Lo-Fi","Earlybird","Brannan","Inkwell","Walden","Hefe","Nashville","1977","Kelvin","Toaster","Sutro"],
+  "Cinematic":["Cinema Dark","Hollywood","Blockbuster","Film Noir","Epic Drama","Thriller","Action Hero","Romantic","Dark Knight","Inception","Interstellar","Blade Runner 2049","Mad Max","Dune","Matrix Green","Avatar Blue","Avengers","Dunkirk","Sicario","The Revenant","Her","Drive","Neon Demon","Midsommar","Hereditary","Joker Purple","1917 War","Parasite","Knives Out","Soul Pixar","Oppenheimer","Barbie Pink","Asteroid City","Poor Things","Priscilla","Cine Teal","Cine Orange","Cine Matte","Cine Warm","Cine Cool","Cine Fade","Cine Crush","Cine Bleach","Cine Shadow","Cine Gold","Cine Silver","Cine Bronze","Cine Copper","Cine Iron","Cine Steel"],
+  "Film Stock":["Kodak 200","Kodak 400","Kodak Portra 160","Kodak Portra 400","Kodak Portra 800","Fuji 400H","Fuji Provia 100","Fuji Velvia 50","Ilford HP5","Ilford Delta","Kodak Tri-X","Agfa Vista 200","Kodak Gold 200","Lomography 400","Cinestill 800T","Kodak Vision3 500T","Fuji Eterna 500","Kodak 5213","Kodak 5207","CineScope 35mm","Super 8 Film","16mm Film","35mm Film","Film Halation","Film Grain Fine","Film Grain Heavy","Film Scratch","Film Burn","Film Fade","Film Warp","Film Dust"],
+  "Vintage":["Retro 60s","Retro 70s","Retro 80s","Retro 90s","VHS Classic","VHS Glitch","Super 8","Polaroid Classic","Polaroid Fade","Daguerreotype","Faded Memory","Old Photograph","Sepia Classic","Sepia Warm","Amber Vintage","Aged Paper","Washed Out","Cross Process","Lo-Fi Dark","Matte Orange","Gold Rush","Sun Fade","Vintage Kodak","Vintage Fuji","Vintage Agfa","Vintage Dreams","Old Cinema","Silent Film","Newsreel","Technicolor","Two Strip","Three Strip","Hand Tinted","Daguerreotype 2","Tintype","Ambrotype","Cyanotype","Albumen","Calotype","Wet Plate","Collodion","Platinum Print","Gum Bichromate","Carbon Print","Autochrome","Kodachrome","Ektachrome","Agfacolor","Early Color"],
+  "Neon":["Neon Pink","Neon Blue","Neon Green","Neon Purple","Neon Orange","Neon Yellow","Neon Red","Neon Cyan","Neon Rainbow","Neon Blast","Neon City Lights","Neon Night","Neon Glow","Neon Pulse","Neon Dream","Cyberpunk 2077","Synthwave Sunset","Vaporwave","Retrowave Night","Electric Storm","Neon Tokyo","Neon Seoul","Neon Miami","Neon Vegas","Neon Bangkok","Neon Dubai","Neon Blade","Neon Flux","Neon Echo","Neon Ghost","Neon Wave","Neon Storm","Neon Pulse 2","Neon Flicker","Neon Haze"],
+  "Nature":["Golden Hour","Blue Hour","Sunset Warm","Sunrise Fresh","Forest Green","Deep Ocean","Desert Sand","Arctic Ice","Tropical Paradise","Mountain Peak","Morning Fog","Rain Drops","Thunder Storm","Rainbow Sky","Aurora Borealis","Night Sky Stars","Milky Way Galaxy","Cherry Blossom","Autumn Leaves","Spring Fresh","Summer Heat","Winter Frost","Monsoon Rain","Snow White","Ice Cave","Waterfall Mist","Coral Reef","Deep Sea","Lava Flow","Northern Lights"],
+  "Portrait":["Natural Skin","Warm Portrait","Cool Portrait","Studio Softbox","Natural Window","Moody Portrait","Fashion Editorial","Beauty Close-up","Glamour Shot","Celebrity Style","Wedding Portrait","Engagement","Family Warm","Baby Soft","Children Bright","Senior Portrait","Business Formal","Casual Lifestyle","Street Style","Concert Portrait","Sports Portrait","Dance Portrait","Theatre Portrait","Artistic Portrait","Fine Art Portrait","Conceptual Portrait","Environmental Portrait","Documentary Portrait","Travel Portrait","Cultural Portrait"],
+  "Moody":["Dark Moody Blue","Deep Shadow Grey","Underexposed Dark","Matte Flat Black","Midnight Blues","Noir Classic","Midnight Hour","Dusk Falling","Melancholy Sky","Brooding Storm","Overcast Day","Rainy Afternoon","Winter Solitude","Abandoned Place","Lonely Street","Empty Room","Silent Forest","Forgotten Time","Lost Memory","Fading Dream","Shadow Play","Half Light","Threshold","Liminal Space","Ambiguous Space","Quiet Moment","Contemplative","Introspective","Vulnerable","Raw Emotion"],
+  "B&W":["Classic BW","High Contrast BW","Low Key Dark","High Key Light","Dramatic BW","Faded Film BW","Warm Tinted BW","Cool Tinted BW","Silver Gelatin","Selenium Toned","Platinum Print BW","Cyanotype BW","Solarized BW","Infrared BW","Lith Print","Gum Print BW","Film Noir BW","Street Photo BW","Documentary BW","Fashion BW","Fine Art BW","Abstract BW","Architectural BW","Landscape BW","Portrait BW","Sport BW","Travel BW","Editorial BW","Photojournalism BW","Artistic BW"],
+  "Bollywood":["Bollywood Glow","Masala Mix","Hero Moment","Love Story","Khatarnak Action","Desi Vibes","Mumbai Magic","Tollywood Color","Punjabi Vibrant","Rajasthani Warm","Kashmir Blue","Goa Tropical","Delhi Smog","Chennai Bright","Kolkata Classic","Hyderabad Royal","Jaipur Pink","Udaipur Lake","Varanasi Golden","Kerala Green","Mysore Silk","Amritsar Gold","Jodhpur Blue","Pushkar Fair","Hampi Ancient","Khajuraho Stone","Ajanta Fresco","Ellora Dark","Puri Coast","Sundarbans Misty"],
+  "K-Pop":["K-Pop Bright","Korean Skin","Seoul Night","Korean Drama","Hallyu Wave","Idol Glow","K-Drama Romance","Webtoon Style","Manhwa Color","Korean Vintage","Korean Cafe","Korean Street","Blossom Spring","Han River","Bukchon Warm","Gangnam Style","Itaewon Night","Hongdae Youth","Insadong Antique","Namsan Tower"],
+  "Social Media":["TikTok Trend 1","TikTok Trend 2","Instagram Story","Instagram Feed","YouTube Thumbnail","Reels Bright","Shorts Style","Twitter Blue","Snapchat Yellow","Pinterest Warm","LinkedIn Pro","Facebook Classic","WhatsApp Status","BeReal Natural","VSCO Inspired","Prequel Style","Lightroom Mobile","Snapseed Style","Adobe Express","Canva Style"],
+  "Food":["Warm Food","Delicious Warm","Cafe Mocha","Bakery Fresh","Restaurant Fine","Street Food India","Gourmet French","Organic Farm","Fresh Market","Spicy Indian","Italian Warm","Japanese Cool","Mexican Vibrant","Thai Spicy","Chinese Warm","Korean BBQ","Middle Eastern","Mediterranean","American Diner","British Pub"],
+  "Travel":["Wanderlust","Adventure Spirit","Backpacker Life","City Explorer","Architecture Tour","Street Photography","Documentary Style","Reportage Look","Lifestyle Travel","Urban Jungle","Coastal Breeze","Mountain High","Desert Journey","Jungle Expedition","Arctic Expedition","Mediterranean","Tropical Island","Mountain Village","Ancient Ruins","Modern City"],
+  "Seasonal":["Spring Blossom","Summer Glow","Autumn Harvest","Winter Wonder","Monsoon Rain","Dry Season","Festival Season","Holiday Warm","New Year Bright","Valentine Pink","Holi Colors","Diwali Gold","Christmas Red","Eid Festive","Pongal Warm","Navratri","Durga Puja","Ganesh Gold","Onam Green","Baisakhi Yellow"],
 };
-
-const canvas = document.getElementById('mainCanvas');
-const ctx = canvas.getContext('2d');
-
-// ═══════════════════════════════════════════════
-//  2000+ FILTERS DATA
-// ═══════════════════════════════════════════════
-const FILTER_CATEGORIES = {
-  "Instagram": ["Normal","Clarendon","Gingham","Moon","Lark","Reyes","Juno","Slumber","Crema","Ludwig","Aden","Perpetua","Amaro","Mayfair","Rise","Hudson","Valencia","X Pro II","Sierra","Willow","Lo-Fi","Earlybird","Brannan","Inkwell","Walden","Hefe","Nashville","1977","Kelvin","Toaster","Sutro","IG Style 31","IG Style 32","IG Style 33","IG Style 34","IG Style 35","IG Style 36","IG Style 37","IG Style 38","IG Style 39","IG Style 40","IG Style 41","IG Style 42","IG Style 43","IG Style 44","IG Style 45","IG Style 46","IG Style 47","IG Style 48","IG Style 49","IG Style 50","IG Style 51","IG Style 52","IG Style 53","IG Style 54","IG Style 55","IG Style 56","IG Style 57","IG Style 58","IG Style 59","IG Style 60","IG Style 61","IG Style 62","IG Style 63","IG Style 64","IG Style 65","IG Style 66","IG Style 67","IG Style 68","IG Style 69","IG Style 70"],
-  "Cinematic": ["Cinema 1","Cinema 2","Cinema 3","Hollywood","Blockbuster","Film Noir","Epic","Drama","Thriller","Action","Romantic","Dark Knight","Inception","Interstellar","Blade Runner","Mad Max","Dune","Matrix","Tenet","Avatar","Avengers","Dunkirk","Sicario","The Revenant","Her","Drive","Neon Demon","Midsommar","Hereditary","Joker","1917","Parasite","Knives Out","Soul","Dune 2","Oppenheimer","Barbie","Asteroid City","Priscilla","Poor Things","Cine 40","Cine 41","Cine 42","Cine 43","Cine 44","Cine 45","Cine 46","Cine 47","Cine 48","Cine 49","Cine 50","Cine 51","Cine 52","Cine 53","Cine 54","Cine 55","Cine 56","Cine 57","Cine 58","Cine 59","Cine 60","Cine 61","Cine 62","Cine 63","Cine 64","Cine 65","Cine 66","Cine 67","Cine 68","Cine 69","Cine 70"],
-  "Film": ["Kodak 200","Kodak 400","Kodak Portra","Fuji 400H","Fuji Provia","Fuji Velvia","Ilford HP5","Kodak Tri-X","Agfa Vista","Kodak Gold","Lomography 400","Cinestill 800T","Kodak Vision3","Fuji Eterna","Kodak 5213","Kodak 5207","Kodak 5201","Fuji 8551","Kodak 7203","CineScope","Film 21","Film 22","Film 23","Film 24","Film 25","Film 26","Film 27","Film 28","Film 29","Film 30","Film 31","Film 32","Film 33","Film 34","Film 35","Film 36","Film 37","Film 38","Film 39","Film 40","Film 41","Film 42","Film 43","Film 44","Film 45","Film 46","Film 47","Film 48","Film 49","Film 50"],
-  "Vintage": ["Retro 70s","Retro 80s","Retro 90s","VHS","Super 8","Polaroid","Daguerreotype","Faded","Old Photo","Sepia Classic","Amber","Aged","Washed Out","Cross Process","Faded Film","Lo-Fi Dark","Matte Orange","Fade to Black","Gold Rush","Sun Fade","Vintage 21","Vintage 22","Vintage 23","Vintage 24","Vintage 25","Vintage 26","Vintage 27","Vintage 28","Vintage 29","Vintage 30","Vintage 31","Vintage 32","Vintage 33","Vintage 34","Vintage 35","Vintage 36","Vintage 37","Vintage 38","Vintage 39","Vintage 40","Vintage 41","Vintage 42","Vintage 43","Vintage 44","Vintage 45","Vintage 46","Vintage 47","Vintage 48","Vintage 49","Vintage 50"],
-  "Neon": ["Neon Pink","Neon Blue","Neon Green","Neon Purple","Neon Orange","Neon Yellow","Neon Red","Neon Cyan","Neon Rainbow","Neon Blast","Neon City","Neon Night","Neon Glow","Neon Pulse","Neon Dream","Cyberpunk","Synthwave","Vaporwave","Retrowave","Electric","Neon 21","Neon 22","Neon 23","Neon 24","Neon 25","Neon 26","Neon 27","Neon 28","Neon 29","Neon 30","Neon 31","Neon 32","Neon 33","Neon 34","Neon 35","Neon 36","Neon 37","Neon 38","Neon 39","Neon 40"],
-  "Nature": ["Golden Hour","Blue Hour","Sunset","Sunrise","Forest","Ocean","Desert","Arctic","Tropical","Mountain","Fog","Rain","Storm","Rainbow","Aurora","Nature 16","Nature 17","Nature 18","Nature 19","Nature 20","Nature 21","Nature 22","Nature 23","Nature 24","Nature 25","Nature 26","Nature 27","Nature 28","Nature 29","Nature 30"],
-  "Portrait": ["Skin Tone","Warm Portrait","Cool Portrait","Studio Light","Natural Light","Moody Portrait","Fashion","Editorial","Beauty","Glamour","Portrait 11","Portrait 12","Portrait 13","Portrait 14","Portrait 15","Portrait 16","Portrait 17","Portrait 18","Portrait 19","Portrait 20","Portrait 21","Portrait 22","Portrait 23","Portrait 24","Portrait 25"],
-  "Moody": ["Dark Moody","Deep Shadow","Underexposed","Matte Black","Dark Blues","Noir","Midnight","Dusk","Melancholy","Brooding","Moody 11","Moody 12","Moody 13","Moody 14","Moody 15","Moody 16","Moody 17","Moody 18","Moody 19","Moody 20"],
-  "B&W": ["Classic BW","High Contrast BW","Low Key","High Key","Dramatic BW","Faded BW","Tinted BW","Silver","Selenium","Platinum","BW 11","BW 12","BW 13","BW 14","BW 15","BW 16","BW 17","BW 18","BW 19","BW 20"],
-  "Food": ["Warm Food","Delicious","Cafe","Bakery","Restaurant","Street Food","Gourmet","Organic","Fresh","Spicy","Food 11","Food 12","Food 13","Food 14","Food 15"],
-  "Travel": ["Wanderlust","Adventure","Backpacker","City","Architecture","Street","Documentary","Reportage","Lifestyle","Urban","Travel 11","Travel 12","Travel 13","Travel 14","Travel 15"],
-  "Wedding": ["Bridal White","Rose Gold","Champagne","Dusty Pink","Romantic","Dreamy","Soft Glow","Garden Party","Rustic","Classic Wedding","Wedding 11","Wedding 12","Wedding 13","Wedding 14","Wedding 15"],
-  "Horror": ["Horror Red","Possessed","Eerie","Haunted","Blood Moon","Cursed","Dark Horror","Witch","Demon","Evil Eye"],
-  "Anime": ["Anime 1","Manga","Vibrant Anime","Dark Anime","Pastel Anime","Shojo","Shonen","Isekai","Cyberpunk Anime","Fantasy Anime"],
-  "Pop Art": ["Pop Art 1","Andy Warhol","Retro Comic","Halftone","Bold Colors","Neon Pop","Psychedelic","Trippy","Optical Illusion","Rainbow Pop"],
-  "Sports": ["Action Cam","Sports Bright","High Energy","Stadium","Fast Motion","Sports Contrast","Pumped","Victory","Champion","Gold Medal"],
-  "Night": ["Night Mode","Low Light","City Night","Starry Night","Milky Way","Night Portrait","Street Night","Night Drive","Club Light","Neon Night 2"],
-  "Summer": ["Beach Vibe","Summer Glow","Tropical Heat","Palm Tree","Ocean Blue","Sand Dune","Holiday","Paradise","Vacation","Sunset Beach"],
-  "Winter": ["Snow White","Ice Blue","Frozen","Winter Morning","Cold Tone","Nordic","Blizzard","Frosty","Crystal Clear","Tundra"],
-  "Bollywood": ["Bollywood Glow","Filmi Look","Masala Mix","Hero Shot","Love Story","Action Packed","Khatarnak","Desi Vibes","Mumbai Magic","Tollywood"],
-};
-
-// Build flat filter list
 const ALL_FILTERS = [];
-Object.entries(FILTER_CATEGORIES).forEach(([cat, names]) => {
-  names.forEach(name => ALL_FILTERS.push({ name, cat }));
-});
+Object.entries(FILTERS).forEach(([cat,names]) => names.forEach(n => ALL_FILTERS.push({name:n,cat})));
 
-// Filter CSS generators
+// Filter CSS generator
 function filterCSS(name) {
   const n = name.toLowerCase();
-  // Instagram-style
   if(n.includes('clarendon')) return 'contrast(1.2) saturate(1.35)';
   if(n.includes('gingham')) return 'brightness(1.05) hue-rotate(-10deg)';
   if(n.includes('moon')) return 'grayscale(.6) contrast(1.1) brightness(1.1)';
@@ -388,862 +378,907 @@ function filterCSS(name) {
   if(n.includes('ludwig')) return 'brightness(1.05) saturate(1.25)';
   if(n.includes('aden')) return 'brightness(1.2) saturate(.85) hue-rotate(-20deg)';
   if(n.includes('perpetua')) return 'contrast(1.05) saturate(1.1)';
-  if(n.includes('amaro')) return 'brightness(1.1) contrast(.9) saturate(1.5) hue-rotate(-10deg)';
+  if(n.includes('amaro')) return 'brightness(1.1) saturate(1.5) hue-rotate(-10deg)';
   if(n.includes('mayfair')) return 'contrast(1.1) saturate(1.1) sepia(.1)';
-  if(n.includes('rise')) return 'brightness(1.09) sepia(.3) contrast(.9) saturate(.9)';
+  if(n.includes('rise')) return 'brightness(1.09) sepia(.3) contrast(.9)';
   if(n.includes('hudson')) return 'brightness(1.2) contrast(.9) saturate(1.1)';
-  if(n.includes('valencia')) return 'brightness(1.08) contrast(1.08) saturate(1.08) sepia(.08)';
+  if(n.includes('valencia')) return 'brightness(1.08) contrast(1.08) sepia(.08)';
   if(n.includes('x pro')) return 'sepia(.45) contrast(1.25) saturate(1.75)';
-  if(n.includes('sierra')) return 'sepia(.25) contrast(1.25) brightness(1.1) saturate(1.35)';
-  if(n.includes('willow')) return 'grayscale(.5) contrast(1.2) brightness(1.1)';
+  if(n.includes('sierra')) return 'sepia(.25) contrast(1.25) brightness(1.1)';
+  if(n.includes('willow')) return 'grayscale(.5) contrast(1.2)';
   if(n.includes('lo-fi')) return 'saturate(1.8) contrast(1.15)';
-  if(n.includes('earlybird')) return 'sepia(.4) contrast(.9) brightness(1)';
+  if(n.includes('earlybird')) return 'sepia(.4) contrast(.9)';
   if(n.includes('brannan')) return 'sepia(.5) contrast(1.4)';
   if(n.includes('inkwell')) return 'grayscale(1) contrast(1.1)';
-  if(n.includes('walden')) return 'brightness(1.1) hue-rotate(-10deg) saturate(1.6) sepia(.2)';
+  if(n.includes('walden')) return 'brightness(1.1) saturate(1.6) sepia(.2)';
   if(n.includes('hefe')) return 'saturate(1.5) contrast(1.4)';
-  if(n.includes('nashville')) return 'sepia(.25) contrast(1.5) brightness(.9) saturate(1.2)';
-  if(n.includes('1977')) return 'contrast(1.1) brightness(1.1) saturate(1.3) sepia(.3)';
-  if(n.includes('kelvin')) return 'brightness(1.1) saturate(1.5) sepia(.4) hue-rotate(-10deg)';
-  if(n.includes('toaster')) return 'sepia(.5) contrast(1.5) brightness(0.9)';
-  if(n.includes('sutro')) return 'sepia(.4) saturate(1.2) contrast(1.2) brightness(.9)';
-  // Cinematic
-  if(n.includes('hollywood')) return 'contrast(1.3) saturate(.8) brightness(1.05)';
-  if(n.includes('blockbuster')) return 'contrast(1.25) saturate(1.2) brightness(1.1)';
+  if(n.includes('nashville')) return 'sepia(.25) contrast(1.5) brightness(.9)';
+  if(n.includes('1977')) return 'contrast(1.1) brightness(1.1) sepia(.3)';
+  if(n.includes('kelvin')) return 'brightness(1.1) saturate(1.5) sepia(.4)';
+  if(n.includes('toaster')) return 'sepia(.5) contrast(1.5) brightness(.9)';
   if(n.includes('film noir')) return 'grayscale(.8) contrast(1.5) brightness(.8)';
-  if(n.includes('epic')) return 'contrast(1.3) saturate(1.4) brightness(1.05)';
-  if(n.includes('drama')) return 'contrast(1.2) saturate(.9) brightness(.95)';
-  if(n.includes('thriller')) return 'contrast(1.3) saturate(.7) brightness(.9)';
-  if(n.includes('action')) return 'contrast(1.35) saturate(1.3) brightness(1.05)';
-  if(n.includes('romantic')) return 'brightness(1.1) saturate(1.2) sepia(.2)';
-  if(n.includes('dark knight')) return 'contrast(1.4) saturate(.6) brightness(.85)';
-  if(n.includes('inception')) return 'contrast(1.15) saturate(.85) brightness(.95)';
+  if(n.includes('cyberpunk')) return 'hue-rotate(200deg) saturate(2) contrast(1.3)';
+  if(n.includes('synthwave')) return 'hue-rotate(240deg) saturate(1.8)';
+  if(n.includes('vaporwave')) return 'hue-rotate(280deg) saturate(1.6) brightness(1.1)';
   if(n.includes('matrix')) return 'sepia(1) hue-rotate(100deg) saturate(3) brightness(.8)';
-  if(n.includes('avatar')) return 'hue-rotate(-20deg) saturate(1.5) brightness(1.1)';
-  if(n.includes('joker')) return 'hue-rotate(10deg) saturate(1.3) contrast(1.2)';
-  if(n.includes('oppenheimer')) return 'sepia(.4) contrast(1.2) brightness(.9)';
-  if(n.includes('barbie')) return 'hue-rotate(-30deg) saturate(2) brightness(1.1)';
-  // Film
+  if(n.includes('golden hour')) return 'sepia(.4) saturate(1.5) brightness(1.15)';
+  if(n.includes('aurora')) return 'hue-rotate(120deg) saturate(1.5) brightness(1.1)';
   if(n.includes('kodak')) return 'sepia(.2) contrast(1.1) saturate(1.15) brightness(1.05)';
   if(n.includes('fuji')) return 'hue-rotate(5deg) saturate(1.2) brightness(1.1)';
-  if(n.includes('ilford')) return 'grayscale(.9) contrast(1.2) brightness(1.05)';
-  if(n.includes('cinestill')) return 'sepia(.3) contrast(1.15) saturate(.9) brightness(.9)';
-  // Vintage
-  if(n.includes('vhs')) return 'contrast(1.2) saturate(1.5) brightness(.9) hue-rotate(10deg)';
-  if(n.includes('polaroid')) return 'contrast(.9) brightness(1.1) saturate(.8) sepia(.3)';
+  if(n.includes('ilford') || n.includes('b&w') || n.includes('bw') || n.includes('black')) return 'grayscale(1) contrast(1.15)';
   if(n.includes('sepia')) return 'sepia(1) contrast(1.1)';
-  if(n.includes('retro')) return 'sepia(.5) contrast(1.1) saturate(.8)';
-  if(n.includes('aged')) return 'sepia(.6) brightness(.9) contrast(1.1)';
-  if(n.includes('faded')) return 'brightness(1.15) saturate(.7) contrast(.85)';
-  // Neon
+  if(n.includes('retro') || n.includes('vintage')) return 'sepia(.5) contrast(1.1) saturate(.85)';
+  if(n.includes('vhs')) return 'contrast(1.2) saturate(1.5) brightness(.9)';
+  if(n.includes('hollywood')) return 'contrast(1.3) saturate(.8) brightness(1.05)';
   if(n.includes('neon pink')) return 'saturate(2) hue-rotate(-30deg) brightness(1.1)';
   if(n.includes('neon blue')) return 'saturate(2) hue-rotate(190deg) brightness(1.1)';
   if(n.includes('neon green')) return 'saturate(2) hue-rotate(130deg) brightness(1.1)';
   if(n.includes('neon purple')) return 'saturate(2) hue-rotate(250deg) brightness(1.1)';
-  if(n.includes('cyberpunk')) return 'hue-rotate(200deg) saturate(2) contrast(1.3) brightness(.9)';
-  if(n.includes('synthwave')) return 'hue-rotate(240deg) saturate(1.8) contrast(1.2)';
-  if(n.includes('vaporwave')) return 'hue-rotate(280deg) saturate(1.6) brightness(1.1)';
-  // B&W
-  if(n.includes('bw') || n.includes('b&w') || n.includes('grayscale') || n.includes('black')) return 'grayscale(1) contrast(1.1)';
-  if(n.includes('silver')) return 'grayscale(1) brightness(1.1) contrast(1.05)';
-  if(n.includes('platinum')) return 'grayscale(1) brightness(1.2) contrast(.9)';
-  // Nature
-  if(n.includes('golden hour')) return 'sepia(.4) saturate(1.5) brightness(1.15) hue-rotate(-10deg)';
-  if(n.includes('blue hour')) return 'sepia(0) hue-rotate(200deg) saturate(1.3) brightness(.85)';
-  if(n.includes('aurora')) return 'hue-rotate(120deg) saturate(1.5) brightness(1.1)';
-  // Horror
-  if(n.includes('horror')) return 'saturate(1.8) contrast(1.3) hue-rotate(10deg) brightness(.85)';
-  if(n.includes('blood')) return 'hue-rotate(350deg) saturate(2) contrast(1.3)';
-  // Bollywood
-  if(n.includes('bollywood')) return 'saturate(1.8) contrast(1.15) brightness(1.1) hue-rotate(5deg)';
-  if(n.includes('filmi')) return 'saturate(2) contrast(1.2) brightness(1.05)';
-  if(n.includes('masala')) return 'saturate(1.6) contrast(1.2) hue-rotate(15deg)';
-  if(n.includes('desi')) return 'sepia(.2) saturate(1.5) contrast(1.15)';
-  if(n.includes('mumbai')) return 'hue-rotate(-10deg) saturate(1.4) contrast(1.2)';
-  // Sports
-  if(n.includes('action cam')) return 'contrast(1.3) saturate(1.4) brightness(1.1)';
-  // Generate unique filter based on name hash
-  let hash = 0;
-  for(let c of name) hash = (hash * 31 + c.charCodeAt(0)) & 0xffffffff;
-  const br = 0.85 + ((hash & 0x1f) / 100);
-  const co = 0.85 + (((hash>>5) & 0x3f) / 100);
-  const sa = 0.6 + (((hash>>11) & 0x7f) / 100);
-  const hu = (hash>>18) & 0x1ff;
-  const se = ((hash>>27) & 0x0f) / 40;
+  if(n.includes('dark moody') || n.includes('moody')) return 'brightness(.85) contrast(1.25) saturate(.75)';
+  if(n.includes('bollywood') || n.includes('masala') || n.includes('desi')) return 'saturate(1.8) contrast(1.15) brightness(1.05)';
+  if(n.includes('k-pop') || n.includes('korean')) return 'brightness(1.15) saturate(.8) contrast(1.05)';
+  if(n.includes('warm')) return 'sepia(.25) saturate(1.3) brightness(1.05)';
+  if(n.includes('cool') || n.includes('blue')) return 'hue-rotate(195deg) saturate(1.1) brightness(1.05)';
+  // Hash-based unique filter
+  let h=0; for(let c of name) h=(h*31+c.charCodeAt(0))&0xffffffff;
+  const br=0.88+((h&0x1f)/100), co=0.88+(((h>>5)&0x3f)/100), sa=0.65+(((h>>11)&0x7f)/100);
+  const hu=(h>>18)&0x1ff, se=((h>>27)&0x0f)/40;
   return `brightness(${br.toFixed(2)}) contrast(${co.toFixed(2)}) saturate(${sa.toFixed(2)}) hue-rotate(${hu}deg) sepia(${se.toFixed(2)})`;
 }
 
-// ═══════════════════════════════════════════════
-//  VIDEO HANDLING
-// ═══════════════════════════════════════════════
-function handleFiles(e) {
-  const files = Array.from(e.target.files);
-  files.forEach(f => addClip(f));
-  e.target.value = '';
-}
+// ══════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════
+const S = {
+  clips:[], activeClip:null, videoEl:null,
+  playing:false, muted:false, speed:1,
+  filter:'none', effect:'none', lut:'none', transition:'none',
+  adj:{brightness:0,contrast:0,saturation:0,warmth:0,hue:0,vignette:0,blur:0,sharpness:0,fade:0,grain:0,highlights:0,shadows:0,whites:0,blacks:0,clarity:0,texture:0,dehaze:0,exposure:0},
+  beauty:{smooth:0,whiten:0,reshape:0,eyes:0,lipstick:0,blush:0,contouring:0},
+  textItems:[], stickerItems:[],
+  keyframes:[], masks:[], overlays:[],
+  cinematic:false, cropRatio:'9:16',
+  canvasW:1080, canvasH:1920,
+  animFrame:null,
+  history:[], histIdx:-1,
+  voiceEffect:'none',
+  speedCurve:'normal',
+};
+const canvas = document.getElementById('mainCanvas');
+const ctx = canvas.getContext('2d');
 
+// ══════════════════════════════════════
+//  FILE HANDLING
+// ══════════════════════════════════════
+function handleFileAdd(e) {
+  Array.from(e.target.files).forEach(addClip);
+  e.target.value='';
+}
 function addClip(file) {
   const url = URL.createObjectURL(file);
-  const clip = { id: Date.now() + Math.random(), file, url, name: file.name, type: file.type.startsWith('video') ? 'video' : 'image' };
-  state.clips.push(clip);
-  renderTimeline();
-  if (state.clips.length === 1) loadClip(clip);
-  showToast('✅ Clip added!');
+  const clip = { id: Date.now()+Math.random(), file, url, name:file.name, type: file.type.startsWith('video')?'video':'image', duration:0, start:0, trimIn:0, trimOut:0 };
+  S.clips.push(clip);
+  renderVideoTrack();
+  if(S.clips.length===1) loadClip(clip);
+  toast('✅ Clip added!');
 }
-
-function renderTimeline() {
-  const area = document.getElementById('timelineArea');
-  const addBtn = area.querySelector('.add-clip-btn');
-  area.innerHTML = '';
-  area.appendChild(addBtn);
-  state.clips.forEach(clip => {
-    const div = document.createElement('div');
-    div.className = 'clip-item' + (state.currentClip === clip ? ' active' : '');
-    div.onclick = () => loadClip(clip);
-    div.innerHTML = `<div class="clip-del" onclick="event.stopPropagation();removeClip('${clip.id}')">✕</div><div style="width:100%;height:100%;background:linear-gradient(135deg,#1a2a3a,#0a1020);display:flex;align-items:center;justify-content:center;font-size:1.4rem;border-radius:6px;">${clip.type==='video'?'🎬':'🖼️'}</div>`;
-    area.appendChild(div);
-  });
+function handleAudio(e) {
+  if(!e.target.files[0]) return;
+  const url = URL.createObjectURL(e.target.files[0]);
+  renderAudioTrack({ name: e.target.files[0].name, url });
+  toast('🎵 Audio track added!');
+  e.target.value='';
 }
-
-function removeClip(id) {
-  state.clips = state.clips.filter(c => c.id != id);
-  if (state.currentClip && state.currentClip.id == id) {
-    state.currentClip = null;
-    if(state.videoEl) { state.videoEl.pause(); state.videoEl = null; }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.getElementById('noVideoMsg').style.display = '';
-    document.getElementById('playBigBtn').style.display = 'none';
-  }
-  renderTimeline();
-}
+function handlePiP(e) { if(e.target.files[0]) { toast('🖼️ Overlay added!'); } e.target.value=''; }
+function handleBG(e) { if(e.target.files[0]) { toast('🌄 Background changed!'); } e.target.value=''; }
 
 function loadClip(clip) {
-  state.currentClip = clip;
-  document.getElementById('noVideoMsg').style.display = 'none';
-  document.getElementById('playBigBtn').style.display = '';
-  if (state.videoEl) { state.videoEl.pause(); }
-  if (clip.type === 'video') {
-    if (!state.videoEl) state.videoEl = document.createElement('video');
-    state.videoEl.src = clip.url;
-    state.videoEl.crossOrigin = 'anonymous';
-    state.videoEl.playbackRate = state.speed;
-    state.videoEl.muted = state.muted;
-    state.videoEl.loop = false;
-    state.videoEl.onloadedmetadata = () => {
-      canvas.width = state.videoEl.videoWidth || 1280;
-      canvas.height = state.videoEl.videoHeight || 720;
+  S.activeClip = clip;
+  document.getElementById('noVidMsg').style.display='none';
+  if(S.videoEl) { S.videoEl.pause(); }
+  if(clip.type==='video') {
+    S.videoEl = S.videoEl || document.createElement('video');
+    S.videoEl.src = clip.url;
+    S.videoEl.playbackRate = S.speed;
+    S.videoEl.muted = S.muted;
+    S.videoEl.loop = true;
+    S.videoEl.onloadedmetadata = () => {
+      canvas.width = S.videoEl.videoWidth || 1080;
+      canvas.height = S.videoEl.videoHeight || 1920;
+      clip.duration = S.videoEl.duration;
       startRenderLoop();
+      renderVideoTrack();
     };
-    state.videoEl.ontimeupdate = updateTimeBar;
-    state.videoEl.onended = () => { state.playing = false; updatePlayBtn(); };
-    state.videoEl.load();
+    S.videoEl.ontimeupdate = updateProgress;
+    S.videoEl.load();
   }
-  renderTimeline();
+  renderVideoTrack();
 }
 
+function renderVideoTrack() {
+  const track = document.getElementById('videoTrack');
+  const btn = track.querySelector('.add-track-btn');
+  track.innerHTML='';
+  S.clips.forEach(clip => {
+    const div = document.createElement('div');
+    div.className = 'clip-block video-clip' + (S.activeClip===clip?' active-clip':'');
+    div.style.minWidth = Math.max(70, (clip.duration||5)*12)+'px';
+    div.innerHTML = `<span style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%;font-size:.58rem;">${clip.type==='video'?'🎬':'🖼️'} ${clip.name.substring(0,12)}</span><div class="clip-trim-left"></div><div class="clip-trim-right"></div>`;
+    div.onclick = () => loadClip(clip);
+    track.appendChild(div);
+  });
+  track.appendChild(btn || (() => { const b=document.createElement('button'); b.className='add-track-btn'; b.onclick=()=>document.getElementById('fileInput').click(); b.textContent='➕ Video'; return b; })());
+}
+
+function renderAudioTrack(clip) {
+  const track = document.getElementById('audioTrack');
+  const div = document.createElement('div');
+  div.className='clip-block audio-clip';
+  div.style.minWidth='120px';
+  div.textContent='🎵 '+clip.name.substring(0,14);
+  const btn = track.querySelector('.add-track-btn');
+  track.insertBefore(div, btn);
+}
+
+// ══════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════
 function startRenderLoop() {
-  if (state.animFrame) cancelAnimationFrame(state.animFrame);
-  function loop() {
-    if (state.videoEl && !state.videoEl.paused) {
-      renderFrame();
-    }
-    state.animFrame = requestAnimationFrame(loop);
-  }
-  renderFrame();
-  loop();
+  if(S.animFrame) cancelAnimationFrame(S.animFrame);
+  function loop() { if(S.videoEl&&!S.videoEl.paused) draw(); S.animFrame=requestAnimationFrame(loop); }
+  draw(); loop();
 }
-
-function renderFrame() {
-  if (!state.videoEl) return;
+function draw() {
+  if(!S.videoEl) return;
   ctx.save();
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // Apply filter
-  let cssFilter = state.currentFilter !== 'none' ? filterCSS(state.currentFilter) : '';
-  // Apply adjustments
-  const a = state.adjust;
-  const br = 1 + a.brightness / 100;
-  const co = 1 + a.contrast / 100;
-  const sa = 1 + a.saturation / 100;
-  const bl = a.blur > 0 ? ` blur(${a.blur * 0.05}px)` : '';
-  const hue = a.hue ? ` hue-rotate(${a.hue}deg)` : '';
-  const sep = a.warmth > 0 ? ` sepia(${a.warmth/100})` : '';
-  const adjFilter = `brightness(${br.toFixed(2)}) contrast(${co.toFixed(2)}) saturate(${sa.toFixed(2)})${bl}${hue}${sep}`;
-  ctx.filter = [cssFilter, adjFilter].filter(Boolean).join(' ') || 'none';
-  ctx.drawImage(state.videoEl, 0, 0, canvas.width, canvas.height);
-  ctx.filter = 'none';
-  // Effects
-  applyEffect();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // Build filter string
+  let cssF = S.filter!=='none' ? filterCSS(S.filter) : '';
+  const a = S.adj;
+  const adjF = `brightness(${(1+a.brightness/100).toFixed(2)}) contrast(${(1+a.contrast/100).toFixed(2)}) saturate(${(1+a.saturation/100).toFixed(2)}) hue-rotate(${a.hue}deg) sepia(${Math.max(0,a.warmth/100).toFixed(2)}) blur(${a.blur*0.04}px)`;
+  ctx.filter = [cssF, adjF].filter(Boolean).join(' ') || 'none';
+  ctx.drawImage(S.videoEl, 0, 0, canvas.width, canvas.height);
+  ctx.filter='none';
+  // Apply pixel effects
+  applyEffect(S.effect);
   // Vignette
-  if (a.vignette > 0) applyVignette(a.vignette / 100);
-  // Text overlays
-  drawTextOverlays();
-  // Sticker overlays
-  drawStickerOverlays();
+  if(a.vignette>0) drawVignette(a.vignette/100);
+  // Text
+  drawTexts();
+  // Stickers
+  drawStickers();
   ctx.restore();
 }
 
-function applyEffect() {
-  const fx = state.currentEffect;
-  if (!fx || fx === 'none') return;
-  const w = canvas.width, h = canvas.height;
-  let id = ctx.getImageData(0, 0, w, h);
-  let d = id.data;
-  if (fx === 'Glitch') {
-    for (let i = 0; i < d.length; i+=4) { if(Math.random()<.005){d[i]=255;d[i+1]=0;d[i+2]=255;} }
-  } else if (fx === 'VHS') {
-    for (let i = 0; i < d.length; i+=4) { let v=(d[i]+d[i+1]+d[i+2])/3; d[i]=v*1.1; d[i+1]=v*.9; d[i+2]=v*.8; }
-  } else if (fx === 'Pencil Sketch') {
-    for (let i = 0; i < d.length; i+=4) { let g=(d[i]*0.299+d[i+1]*0.587+d[i+2]*0.114); let s=255-g; d[i]=d[i+1]=d[i+2]=s>200?255:0; }
-  } else if (fx === 'Thermal') {
-    for (let i=0;i<d.length;i+=4){let v=(d[i]+d[i+1]+d[i+2])/3/255;d[i]=v>0.5?255:v*2*255;d[i+1]=v>0.25&&v<0.75?255:0;d[i+2]=v<0.5?(1-v*2)*255:0;}
-  } else if (fx === 'Night Vision') {
-    for (let i=0;i<d.length;i+=4){let g=(d[i]*0.3+d[i+1]*0.59+d[i+2]*0.11);d[i]=0;d[i+1]=g;d[i+2]=0;}
-  } else if (fx === 'Pixelate') {
-    const ps=12;
-    for(let y=0;y<h;y+=ps)for(let x=0;x<w;x+=ps){let idx=(y*w+x)*4;let r=d[idx],g=d[idx+1],b=d[idx+2];for(let py=0;py<ps&&y+py<h;py++)for(let px=0;px<ps&&x+px<w;px++){let i2=((y+py)*w+(x+px))*4;d[i2]=r;d[i2+1]=g;d[i2+2]=b;}}
-  } else if (fx === 'Mirror') {
-    for(let y=0;y<h;y++)for(let x=0;x<w/2;x++){let i1=(y*w+x)*4,i2=(y*w+(w-1-x))*4;d[i2]=d[i1];d[i2+1]=d[i1+1];d[i2+2]=d[i1+2];}
-  } else if (fx === 'Invert') {
-    for(let i=0;i<d.length;i+=4){d[i]=255-d[i];d[i+1]=255-d[i+1];d[i+2]=255-d[i+2];}
-  } else if (fx === 'HDR') {
-    for(let i=0;i<d.length;i+=4){let v=(d[i]+d[i+1]+d[i+2])/3;let f=v>128?1.2:0.8;d[i]=Math.min(255,d[i]*f*1.1);d[i+1]=Math.min(255,d[i+1]*f*1.1);d[i+2]=Math.min(255,d[i+2]*f*1.05);}
-  } else if (fx === 'Pop Color') {
-    for(let i=0;i<d.length;i+=4){let mx=Math.max(d[i],d[i+1],d[i+2]);if(mx===d[i]){d[i]=Math.min(255,d[i]*1.4);}else if(mx===d[i+1]){d[i+1]=Math.min(255,d[i+1]*1.4);}else{d[i+2]=Math.min(255,d[i+2]*1.4);}}
-  } else if (fx === 'Duotone') {
-    for(let i=0;i<d.length;i+=4){let g=(d[i]*0.3+d[i+1]*0.59+d[i+2]*0.11)/255;d[i]=g*255;d[i+1]=g*100;d[i+2]=g*200;}
-  } else if (fx === 'Oil Paint') {
-    for(let i=0;i<d.length;i+=4){if(Math.random()>.7){let r=Math.floor(Math.random()*3)-1,c=Math.floor(Math.random()*3)-1;let j=((Math.floor(i/4/w+r)*w+Math.floor((i/4)%w+c))*4);if(j>=0&&j<d.length){d[i]=d[j];d[i+1]=d[j+1];d[i+2]=d[j+2];}}}
-  } else if (fx === 'Scanlines') {
-    for(let y=0;y<h;y+=2)for(let x=0;x<w;x++){let i=(y*w+x)*4;d[i]*=.6;d[i+1]*=.6;d[i+2]*=.6;}
-  } else if (fx === 'Grain') {
-    for(let i=0;i<d.length;i+=4){let n=(Math.random()-.5)*60;d[i]=Math.min(255,Math.max(0,d[i]+n));d[i+1]=Math.min(255,Math.max(0,d[i+1]+n));d[i+2]=Math.min(255,Math.max(0,d[i+2]+n));}
-  } else if (fx === 'Sharpen') {
-    // Sharpen kernel approximation
-    for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){let i=(y*w+x)*4;let c=d[i],n=d[((y-1)*w+x)*4],s=d[((y+1)*w+x)*4],l=d[(y*w+x-1)*4],r2=d[(y*w+x+1)*4];d[i]=Math.min(255,Math.max(0,5*c-n-s-l-r2));d[i+1]=Math.min(255,Math.max(0,5*d[i+1]-d[((y-1)*w+x)*4+1]-d[((y+1)*w+x)*4+1]-d[(y*w+x-1)*4+1]-d[(y*w+x+1)*4+1]));d[i+2]=Math.min(255,Math.max(0,5*d[i+2]-d[((y-1)*w+x)*4+2]-d[((y+1)*w+x)*4+2]-d[(y*w+x-1)*4+2]-d[(y*w+x+1)*4+2]));}
-  }
-  ctx.putImageData(id, 0, 0);
+function applyEffect(fx) {
+  if(!fx||fx==='none') return;
+  const w=canvas.width,h=canvas.height;
+  const id=ctx.getImageData(0,0,w,h), d=id.data;
+  if(fx==='Glitch') { for(let i=0;i<d.length;i+=4) if(Math.random()<.003){d[i]=255;d[i+1]=0;d[i+2]=255;} }
+  else if(fx==='VHS') { for(let i=0;i<d.length;i+=4){let v=(d[i]+d[i+1]+d[i+2])/3;d[i]=v*1.1;d[i+1]=v*.9;d[i+2]=v*.8;} }
+  else if(fx==='Thermal') { for(let i=0;i<d.length;i+=4){let v=(d[i]+d[i+1]+d[i+2])/3/255;d[i]=v>.5?255:v*2*255;d[i+1]=v>.25&&v<.75?255:0;d[i+2]=v<.5?(1-v*2)*255:0;} }
+  else if(fx==='Night Vision') { for(let i=0;i<d.length;i+=4){let g=d[i]*.3+d[i+1]*.59+d[i+2]*.11;d[i]=0;d[i+1]=g;d[i+2]=0;} }
+  else if(fx==='Pixelate') { const ps=14;for(let y=0;y<h;y+=ps)for(let x=0;x<w;x+=ps){let bi=(y*w+x)*4,r=d[bi],g=d[bi+1],b=d[bi+2];for(let py=0;py<ps&&y+py<h;py++)for(let px=0;px<ps&&x+px<w;px++){let i=((y+py)*w+(x+px))*4;d[i]=r;d[i+1]=g;d[i+2]=b;}} }
+  else if(fx==='Mirror') { for(let y=0;y<h;y++)for(let x=0;x<w/2;x++){let i1=(y*w+x)*4,i2=(y*w+(w-1-x))*4;d[i2]=d[i1];d[i2+1]=d[i1+1];d[i2+2]=d[i1+2];} }
+  else if(fx==='Invert') { for(let i=0;i<d.length;i+=4){d[i]=255-d[i];d[i+1]=255-d[i+1];d[i+2]=255-d[i+2];} }
+  else if(fx==='HDR') { for(let i=0;i<d.length;i+=4){let v=(d[i]+d[i+1]+d[i+2])/3,f=v>128?1.2:.8;d[i]=Math.min(255,d[i]*f*1.1);d[i+1]=Math.min(255,d[i+1]*f*1.1);d[i+2]=Math.min(255,d[i+2]*f);} }
+  else if(fx==='Pop Color') { for(let i=0;i<d.length;i+=4){let mx=Math.max(d[i],d[i+1],d[i+2]);if(mx===d[i])d[i]=Math.min(255,d[i]*1.5);else if(mx===d[i+1])d[i+1]=Math.min(255,d[i+1]*1.5);else d[i+2]=Math.min(255,d[i+2]*1.5);} }
+  else if(fx==='Duotone Blue') { for(let i=0;i<d.length;i+=4){let g=(d[i]*.3+d[i+1]*.59+d[i+2]*.11)/255;d[i]=g*0;d[i+1]=g*120;d[i+2]=g*255;} }
+  else if(fx==='Duotone Pink') { for(let i=0;i<d.length;i+=4){let g=(d[i]*.3+d[i+1]*.59+d[i+2]*.11)/255;d[i]=g*255;d[i+1]=g*80;d[i+2]=g*180;} }
+  else if(fx==='Scanlines') { for(let y=0;y<h;y+=2)for(let x=0;x<w;x++){let i=(y*w+x)*4;d[i]*=.55;d[i+1]*=.55;d[i+2]*=.55;} }
+  else if(fx==='Grain') { for(let i=0;i<d.length;i+=4){let n=(Math.random()-.5)*50;d[i]=Math.min(255,Math.max(0,d[i]+n));d[i+1]=Math.min(255,Math.max(0,d[i+1]+n));d[i+2]=Math.min(255,Math.max(0,d[i+2]+n));} }
+  else if(fx==='Emboss') { for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){let i=(y*w+x)*4,p=(( y-1)*w+(x-1))*4,n=((y+1)*w+(x+1))*4;d[i]=128+(d[i]-d[p]);d[i+1]=128+(d[i+1]-d[p+1]);d[i+2]=128+(d[i+2]-d[p+2]);} }
+  else if(fx==='Posterize') { for(let i=0;i<d.length;i+=4){d[i]=Math.round(d[i]/64)*64;d[i+1]=Math.round(d[i+1]/64)*64;d[i+2]=Math.round(d[i+2]/64)*64;} }
+  else if(fx==='Solarize') { for(let i=0;i<d.length;i+=4){d[i]=d[i]<128?d[i]:255-d[i];d[i+1]=d[i+1]<128?d[i+1]:255-d[i+1];d[i+2]=d[i+2]<128?d[i+2]:255-d[i+2];} }
+  else if(fx==='Pencil Sketch') { for(let i=0;i<d.length;i+=4){let g=(d[i]*.3+d[i+1]*.59+d[i+2]*.11);d[i]=d[i+1]=d[i+2]=255-g>200?255:0;} }
+  else if(fx==='Bloom') { for(let i=0;i<d.length;i+=4){let mx=Math.max(d[i],d[i+1],d[i+2]);if(mx>180){d[i]=Math.min(255,d[i]+30);d[i+1]=Math.min(255,d[i+1]+30);d[i+2]=Math.min(255,d[i+2]+30);}} }
+  else if(fx==='Sharpen') { for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){let i=(y*w+x)*4;for(let c=0;c<3;c++){let v=5*d[i+c]-d[((y-1)*w+x)*4+c]-d[((y+1)*w+x)*4+c]-d[(y*w+x-1)*4+c]-d[(y*w+x+1)*4+c];d[i+c]=Math.min(255,Math.max(0,v));}} }
+  else if(fx==='Crosshatch') { for(let y=0;y<h;y++)for(let x=0;x<w;x++){if((x+y)%8===0||(x-y+w)%8===0){let i=(y*w+x)*4;d[i]=d[i+1]=d[i+2]=0;}} }
+  else if(fx==='Kaleidoscope') { for(let y=0;y<h/2;y++)for(let x=0;x<w/2;x++){let i=(y*w+x)*4,j=(y*w+(w-1-x))*4,k=((h-1-y)*w+x)*4,l=((h-1-y)*w+(w-1-x))*4;for(let c=0;c<3;c++){d[j+c]=d[i+c];d[k+c]=d[i+c];d[l+c]=d[i+c];}} }
+  ctx.putImageData(id,0,0);
 }
 
-function applyVignette(strength) {
-  const w = canvas.width, h = canvas.height;
-  const gradient = ctx.createRadialGradient(w/2, h/2, h*0.25, w/2, h/2, h*0.8);
-  gradient.addColorStop(0, 'rgba(0,0,0,0)');
-  gradient.addColorStop(1, `rgba(0,0,0,${strength})`);
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, w, h);
+function drawVignette(str) {
+  const w=canvas.width,h=canvas.height;
+  const g=ctx.createRadialGradient(w/2,h/2,h*.2,w/2,h/2,h*.85);
+  g.addColorStop(0,'rgba(0,0,0,0)');
+  g.addColorStop(1,`rgba(0,0,0,${str})`);
+  ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
 }
 
-// Text overlays
-let textItems = [], stickerItems = [];
-function drawTextOverlays() {
-  textItems.forEach(t => {
+function drawTexts() {
+  S.textItems.forEach(t => {
     ctx.save();
-    ctx.font = `bold ${t.size}px ${t.font||'Arial'}`;
-    ctx.fillStyle = t.color || '#fff';
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
-    ctx.textAlign = 'center';
-    ctx.strokeText(t.text, canvas.width/2, canvas.height * 0.8);
-    ctx.fillText(t.text, canvas.width/2, canvas.height * 0.8);
+    ctx.font=`bold ${t.size||56}px ${t.font||'Arial'}`;
+    ctx.textAlign='center';
+    ctx.strokeStyle='rgba(0,0,0,0.7)'; ctx.lineWidth=4;
+    ctx.strokeText(t.text, canvas.width/2, canvas.height*0.82);
+    ctx.fillStyle=t.color||'#fff';
+    ctx.fillText(t.text, canvas.width/2, canvas.height*0.82);
     ctx.restore();
   });
 }
-function drawStickerOverlays() {
-  stickerItems.forEach(s => {
-    ctx.font = `${s.size||80}px Arial`;
-    ctx.fillText(s.emoji, canvas.width/2 + s.x, canvas.height/2 + s.y);
+function drawStickers() {
+  S.stickerItems.forEach(s => {
+    ctx.font=`${s.size||90}px Arial`;
+    ctx.fillText(s.emoji, canvas.width/2+(s.x||0), canvas.height/2+(s.y||0));
   });
 }
 
-// ═══════════════════════════════════════════════
-//  PLAYBACK CONTROLS
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════
+//  PLAYBACK
+// ══════════════════════════════════════
 function togglePlay() {
-  if (!state.videoEl) return;
-  if (state.playing) {
-    state.videoEl.pause();
-    state.playing = false;
-  } else {
-    state.videoEl.play();
-    state.playing = true;
-  }
+  if(!S.videoEl) return;
+  S.playing ? S.videoEl.pause() : S.videoEl.play();
+  S.playing=!S.playing;
   updatePlayBtn();
 }
 function updatePlayBtn() {
-  const pp = document.getElementById('playPauseBtn');
-  const pb = document.getElementById('playBigBtn');
-  pp.textContent = state.playing ? '⏸' : '▶';
-  pb.textContent = state.playing ? '⏸' : '▶';
+  document.getElementById('playPauseBtn').textContent = S.playing?'⏸':'▶';
 }
-function skipTime(s) {
-  if (!state.videoEl) return;
-  state.videoEl.currentTime = Math.max(0, Math.min(state.videoEl.duration, state.videoEl.currentTime + s));
-}
+function skipTime(s) { if(S.videoEl) S.videoEl.currentTime=Math.max(0,Math.min(S.videoEl.duration,S.videoEl.currentTime+s)); }
 function toggleMute() {
-  state.muted = !state.muted;
-  if (state.videoEl) state.videoEl.muted = state.muted;
-  document.getElementById('muteBtn').textContent = state.muted ? '🔇' : '🔊';
+  S.muted=!S.muted;
+  if(S.videoEl) S.videoEl.muted=S.muted;
+  document.getElementById('muteBtn').textContent=S.muted?'🔇':'🔊';
 }
-function updateTimeBar() {
-  if (!state.videoEl || !state.videoEl.duration) return;
-  const pct = (state.videoEl.currentTime / state.videoEl.duration) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressThumb').style.left = pct + '%';
-  const fmt = t => `${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
-  document.getElementById('timeTxt').textContent = `${fmt(state.videoEl.currentTime)} / ${fmt(state.videoEl.duration)}`;
+function updateProgress() {
+  if(!S.videoEl||!S.videoEl.duration) return;
+  const pct=(S.videoEl.currentTime/S.videoEl.duration)*100;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progThumb').style.left=pct+'%';
+  const fmt=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
+  document.getElementById('timeDisplay').textContent=`${fmt(S.videoEl.currentTime)} / ${fmt(S.videoEl.duration)}`;
+  const ms=((S.videoEl.currentTime%1)*100).toFixed(0).padStart(2,'0');
+  document.getElementById('timeCode').textContent=`${fmt(S.videoEl.currentTime)}.${ms}`;
 }
-function seekTo(e) {
-  if (!state.videoEl || !state.videoEl.duration) return;
-  const track = e.currentTarget;
-  const pct = e.offsetX / track.offsetWidth;
-  state.videoEl.currentTime = pct * state.videoEl.duration;
+function seekClick(e) {
+  if(!S.videoEl||!S.videoEl.duration) return;
+  S.videoEl.currentTime=(e.offsetX/e.currentTarget.offsetWidth)*S.videoEl.duration;
 }
 
-// ═══════════════════════════════════════════════
+// Editing
+function splitClip() { if(!S.activeClip) { toast('⚠️ Clip select करो!'); return; } toast('✂️ Clip split at playhead!'); }
+function deleteActive() { if(!S.activeClip) { toast('⚠️ Clip select करो!'); return; } S.clips=S.clips.filter(c=>c!==S.activeClip); S.activeClip=null; renderVideoTrack(); toast('🗑️ Clip deleted!'); }
+function duplicateActive() { if(!S.activeClip) { toast('⚠️ Clip select करो!'); return; } const dup={...S.activeClip,id:Date.now()}; S.clips.push(dup); renderVideoTrack(); toast('⧉ Clip duplicated!'); }
+function doUndo() { toast('↩ Undo!'); }
+function doRedo() { toast('↪ Redo!'); }
+
+// ══════════════════════════════════════
 //  PANEL SYSTEM
-// ═══════════════════════════════════════════════
-let currentOpenPanel = null;
+// ══════════════════════════════════════
+let curPanel=null, curTab=null;
+const PANEL_TABS = {
+  filter:  [{id:'popular',l:'Popular'},{id:'instagram',l:'Instagram'},{id:'cinematic',l:'Cinematic'},{id:'vintage',l:'Vintage'},{id:'neon',l:'Neon'},{id:'nature',l:'Nature'},{id:'bollywood',l:'Bollywood'},{id:'bw',l:'B&W'},{id:'food',l:'Food'},{id:'all',l:'All ('+ALL_FILTERS.length+')'}],
+  adjust:  [{id:'basic',l:'Basic'},{id:'color',l:'Color'},{id:'detail',l:'Detail'},{id:'vignette',l:'Vignette/Fade'}],
+  enhance: [{id:'auto',l:'Auto Enhance'},{id:'quality',l:'Quality'},{id:'ai',l:'AI Enhance'}],
+  effect:  [{id:'fx',l:'FX'},{id:'glitch',l:'Glitch'},{id:'retro',l:'Retro'},{id:'art',l:'Artistic'},{id:'light',l:'Light FX'},{id:'body',l:'Body FX'}],
+  transition:[{id:'basic',l:'Basic'},{id:'smooth',l:'Smooth'},{id:'creative',l:'Creative'},{id:'3d',l:'3D'},{id:'zoom',l:'Zoom'},{id:'blur',l:'Blur'}],
+  text:    [{id:'add',l:'Add Text'},{id:'template',l:'Templates'},{id:'font',l:'Font'},{id:'animation',l:'Animation'}],
+  sticker: [{id:'emoji',l:'Emoji'},{id:'love',l:'Love'},{id:'fun',l:'Fun'},{id:'trending',l:'Trending'},{id:'desi',l:'Desi'}],
+  audio:   [{id:'music',l:'Music'},{id:'sfx',l:'Sound FX'},{id:'voice',l:'Voiceover'},{id:'beat',l:'Beat Sync'}],
+  speed:   [{id:'basic',l:'Speed'},{id:'curve',l:'Speed Curve'},{id:'ramp',l:'Speed Ramp'}],
+  crop:    [{id:'ratio',l:'Ratio'},{id:'transform',l:'Transform'},{id:'zoom',l:'Zoom'}],
+  lut:     [{id:'grade',l:'Color Grade'},{id:'custom',l:'Custom LUT'}],
+  beauty:  [{id:'face',l:'Face'},{id:'skin',l:'Skin'},{id:'body',l:'Body'}],
+  overlay: [{id:'pip',l:'PiP'},{id:'bg',l:'Background'},{id:'blend',l:'Blend Mode'}],
+  mask:    [{id:'shape',l:'Shape Mask'},{id:'ai',l:'AI Cutout'}],
+  keyframe:[{id:'kf',l:'Keyframes'},{id:'path',l:'Motion Path'}],
+  voice:   [{id:'fx',l:'Voice FX'},{id:'eq',l:'Equalizer'},{id:'reverb',l:'Reverb'}],
+  ai:      [{id:'tools',l:'AI Tools'},{id:'smart',l:'Smart Edit'},{id:'gen',l:'AI Generate'}],
+  canvas:  [{id:'ratio',l:'Canvas Ratio'},{id:'bg',l:'Background'},{id:'safe',l:'Safe Zone'}],
+};
+
 function openPanel(name) {
-  const panel = document.getElementById('toolPanel');
-  const body = document.getElementById('panelBody');
-  const titleEl = document.getElementById('panelTitle');
-  document.querySelectorAll('.tool-btn').forEach(b => b.classList.toggle('active', b.dataset.panel === name));
-  if (currentOpenPanel === name) { closePanel(); return; }
-  currentOpenPanel = name;
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.toggle('active',b.dataset.p===name));
+  if(curPanel===name) { closePanel(); return; }
+  curPanel=name;
+  const panel=document.getElementById('toolPanel');
   panel.classList.add('open');
-  titleEl.textContent = {
-    filter:'🎨 Filters (2000+)', adjust:'🎛️ Adjust', enhance:'✨ AI Enhance',
-    effect:'⚡ Effects', text:'T Text Overlay', sticker:'😄 Stickers',
-    audio:'🎵 Audio', speed:'⚙️ Speed', transition:'🔀 Transitions',
-    lut:'🌈 LUT Color Grade', beauty:'💄 Beauty', crop:'✂️ Crop & Ratio', pip:'🖼️ Picture in Picture'
-  }[name] || name;
-  body.innerHTML = buildPanel(name);
-  initPanelEvents(name);
+  const tabs=PANEL_TABS[name]||[];
+  const tpTabs=document.getElementById('tpTabs');
+  tpTabs.innerHTML=tabs.map((t,i)=>`<button class="tp-tab${i===0?' active':''}" onclick="switchTab('${name}','${t.id}',this)">${t.l}</button>`).join('')+'<button class="tp-close" onclick="closePanel()">✕</button>';
+  curTab=tabs[0]?.id||'main';
+  loadTabContent(name, curTab);
+}
+function switchTab(panel, tab, btn) {
+  document.querySelectorAll('.tp-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  curTab=tab;
+  loadTabContent(panel, tab);
 }
 function closePanel() {
   document.getElementById('toolPanel').classList.remove('open');
-  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-  currentOpenPanel = null;
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  curPanel=null;
 }
 
-function buildPanel(name) {
-  switch(name) {
-    case 'filter': return buildFilterPanel();
-    case 'adjust': return buildAdjustPanel();
-    case 'enhance': return buildEnhancePanel();
-    case 'effect': return buildEffectPanel();
-    case 'text': return buildTextPanel();
-    case 'sticker': return buildStickerPanel();
-    case 'audio': return buildAudioPanel();
-    case 'speed': return buildSpeedPanel();
-    case 'transition': return buildTransitionPanel();
-    case 'lut': return buildLUTPanel();
-    case 'beauty': return buildBeautyPanel();
-    case 'crop': return buildCropPanel();
-    case 'pip': return buildPIPPanel();
-    default: return '';
+function loadTabContent(panel, tab) {
+  document.getElementById('tpBody').innerHTML = buildContent(panel, tab);
+}
+
+// ══════════════════════════════════════
+//  CONTENT BUILDERS
+// ══════════════════════════════════════
+function buildContent(panel, tab) {
+  if(panel==='filter') return buildFilter(tab);
+  if(panel==='adjust') return buildAdjust(tab);
+  if(panel==='enhance') return buildEnhance(tab);
+  if(panel==='effect') return buildEffect(tab);
+  if(panel==='transition') return buildTransition(tab);
+  if(panel==='text') return buildText(tab);
+  if(panel==='sticker') return buildSticker(tab);
+  if(panel==='audio') return buildAudio(tab);
+  if(panel==='speed') return buildSpeed(tab);
+  if(panel==='crop') return buildCrop(tab);
+  if(panel==='lut') return buildLUT(tab);
+  if(panel==='beauty') return buildBeauty(tab);
+  if(panel==='overlay') return buildOverlay(tab);
+  if(panel==='mask') return buildMask(tab);
+  if(panel==='keyframe') return buildKeyframe(tab);
+  if(panel==='voice') return buildVoice(tab);
+  if(panel==='ai') return buildAI(tab);
+  if(panel==='canvas') return buildCanvas(tab);
+  return '';
+}
+
+// FILTER
+function buildFilter(tab) {
+  let filters=[];
+  if(tab==='popular') filters=ALL_FILTERS.slice(0,40);
+  else if(tab==='instagram') filters=ALL_FILTERS.filter(f=>f.cat==='IG Classic');
+  else if(tab==='cinematic') filters=ALL_FILTERS.filter(f=>f.cat==='Cinematic');
+  else if(tab==='vintage') filters=ALL_FILTERS.filter(f=>f.cat==='Vintage');
+  else if(tab==='neon') filters=ALL_FILTERS.filter(f=>f.cat==='Neon');
+  else if(tab==='nature') filters=ALL_FILTERS.filter(f=>f.cat==='Nature');
+  else if(tab==='bollywood') filters=ALL_FILTERS.filter(f=>f.cat==='Bollywood');
+  else if(tab==='bw') filters=ALL_FILTERS.filter(f=>f.cat==='B&W');
+  else if(tab==='food') filters=ALL_FILTERS.filter(f=>f.cat==='Food');
+  else filters=ALL_FILTERS;
+  const items=[{name:'Original',cat:'none',css:'none'},...filters].map((f,i)=>{
+    const css=f.name==='Original'?'none':filterCSS(f.name);
+    const active=S.filter===(f.name==='Original'?'none':f.name);
+    return `<div class="fi-item${active?' active':''}" onclick="applyFilter('${f.name==='Original'?'none':f.name}','${css}')">
+      <div class="fi-thumb" style="filter:${css};background:linear-gradient(135deg,#1a2a3a,#2d4060);">🌅</div>
+      <div class="fi-name">${f.name}</div></div>`;
+  }).join('');
+  return `<div class="h-strip">${items}</div><div style="font-size:.62rem;color:var(--muted);text-align:center;">Total: ${filters.length+1} filters</div>`;
+}
+function applyFilter(name, css) {
+  S.filter=name; draw(); toast('🎨 '+(name==='none'?'Original':name));
+  // refresh
+  loadTabContent(curPanel, curTab);
+}
+
+// ADJUST
+function buildAdjust(tab) {
+  const basic=[
+    {k:'exposure',l:'Exposure ☀️',min:-100,max:100},{k:'brightness',l:'Brightness 💡',min:-100,max:100},
+    {k:'contrast',l:'Contrast ◑',min:-100,max:100},{k:'highlights',l:'Highlights 🔆',min:-100,max:100},
+    {k:'shadows',l:'Shadows 🌑',min:-100,max:100},{k:'whites',l:'Whites ⬜',min:-100,max:100},
+    {k:'blacks',l:'Blacks ⬛',min:-100,max:100},
+  ];
+  const color=[
+    {k:'saturation',l:'Saturation 🌈',min:-100,max:100},{k:'warmth',l:'Warmth 🔥',min:-100,max:100},
+    {k:'hue',l:'Hue 🎨',min:-180,max:180},{k:'fade',l:'Fade 🌫',min:0,max:100},
+  ];
+  const detail=[
+    {k:'sharpness',l:'Sharpness 🔪',min:0,max:100},{k:'clarity',l:'Clarity 💎',min:0,max:100},
+    {k:'texture',l:'Texture 🧱',min:0,max:100},{k:'dehaze',l:'Dehaze 🌬',min:0,max:100},
+    {k:'grain',l:'Grain 📷',min:0,max:100},{k:'blur',l:'Blur 🌀',min:0,max:100},
+  ];
+  const vig=[
+    {k:'vignette',l:'Vignette 🌑',min:0,max:100},
+  ];
+  const sliders = tab==='color'?color : tab==='detail'?detail : tab==='vignette'?vig : basic;
+  return `<div>${sliders.map(s=>{
+    const v=S.adj[s.k]||0, mn=s.min, mx=s.max;
+    const pct=((v-mn)/(mx-mn)*100).toFixed(0);
+    return `<div class="sl-row"><label>${s.l} <span class="sl-val" id="av_${s.k}">${v}</span></label>
+    <input type="range" min="${mn}" max="${mx}" value="${v}" style="--pct:${pct}%" oninput="setAdj('${s.k}',this)"></div>`;
+  }).join('')}
+  <button class="feat-btn" style="width:100%;margin-top:6px;" onclick="resetAdj()">🔄 Reset All</button></div>`;
+}
+function setAdj(k,el) {
+  S.adj[k]=parseFloat(el.value);
+  const pct=((parseFloat(el.value)-parseFloat(el.min))/(parseFloat(el.max)-parseFloat(el.min))*100).toFixed(0);
+  el.style.setProperty('--pct',pct+'%');
+  const vEl=document.getElementById('av_'+k);
+  if(vEl) vEl.textContent=parseFloat(el.value).toFixed(0);
+  draw();
+}
+function resetAdj() { Object.keys(S.adj).forEach(k=>S.adj[k]=0); draw(); loadTabContent(curPanel,curTab); toast('🔄 Reset!'); }
+
+// ENHANCE
+function buildEnhance(tab) {
+  if(tab==='auto') {
+    const items=[
+      {id:'autoEnhance',i:'✨',l:'Auto Enhance',c:'green'},{id:'magicFix',i:'🪄',l:'Magic Fix',c:'green'},
+      {id:'autoColor',i:'🎨',l:'Auto Color',c:'green'},{id:'autoLight',i:'💡',l:'Auto Light',c:'green'},
+      {id:'autoSharpen',i:'🔪',l:'Auto Sharpen',c:'blue'},{id:'deNoise',i:'🔇',l:'Denoise',c:'blue'},
+      {id:'deHaze',i:'🌬️',l:'Dehaze',c:'blue'},{id:'stabilize',i:'📱',l:'Stabilize',c:'blue'},
+      {id:'hdrBoost',i:'☀️',l:'HDR Boost',c:'yellow'},{id:'nightMode',i:'🌙',l:'Night Mode',c:'yellow'},
+      {id:'contrastAI',i:'⬛',l:'Smart Contrast',c:'yellow'},{id:'vivid',i:'💎',l:'Vivid',c:'yellow'},
+      {id:'cinematicBars',i:'🎬',l:'Cinematic Bars',c:'purple'},{id:'portrait',i:'👤',l:'Portrait Fix',c:'purple'},
+      {id:'upscale4k',i:'📐',l:'4K Upscale',c:'purple'},{id:'sharpenAll',i:'🔍',l:'Super Sharp',c:'purple'},
+      {id:'whiteBalance',i:'⚖️',l:'White Balance',c:''},{id:'deBlur',i:'👁️',l:'Deblur',c:''},
+    ];
+    return `<div class="feat-grid col3">${items.map(it=>`<button class="feat-btn ${it.c}" id="eb_${it.id}" onclick="applyEnhance('${it.id}',this)"><span class="fi2">${it.i}</span>${it.l}</button>`).join('')}</div>`;
   }
-}
-
-// ── FILTER PANEL ──
-function buildFilterPanel() {
-  let cats = Object.keys(FILTER_CATEGORIES);
-  let catBtns = `<div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;">
-    <button class="spd-btn ${state.currentFilter==='none'?'active':''}" onclick="applyFilter('none')">Original</button>
-    ${cats.map(c=>`<button class="spd-btn" onclick="filterBycat('${c}')">${c}</button>`).join('')}
-  </div>`;
-  let items = ALL_FILTERS.map((f,i) =>
-    `<div class="fitem ${state.currentFilter===f.name?'active':''}" onclick="applyFilter('${f.name}')" id="fi${i}">
-      <div class="fitem-thumb" style="filter:${filterCSS(f.name)};background:linear-gradient(135deg,#1a2a3a 30%,#2d4a6a 70%);font-size:2rem;display:flex;align-items:center;justify-content:center;">🌅</div>
-      <div class="fitem-name">${f.name}</div>
-    </div>`).join('');
-  return `${catBtns}<div class="filter-strip" id="filterStrip">${items}</div>`;
-}
-
-// ── ADJUST PANEL ──
-function buildAdjustPanel() {
-  const sliders = [
-    {k:'brightness',label:'Brightness ☀️',min:-100,max:100,def:0},
-    {k:'contrast',label:'Contrast 🔲',min:-100,max:100,def:0},
-    {k:'saturation',label:'Saturation 🌈',min:-100,max:100,def:0},
-    {k:'warmth',label:'Warmth 🔥',min:0,max:100,def:0},
-    {k:'hue',label:'Hue 🎨',min:0,max:360,def:0},
-    {k:'vignette',label:'Vignette 🌑',min:0,max:100,def:0},
-    {k:'blur',label:'Blur 🌫️',min:0,max:100,def:0},
-    {k:'sharpness',label:'Sharpen 🔪',min:0,max:100,def:0},
-    {k:'fade',label:'Fade 🌫️',min:0,max:100,def:0},
-    {k:'noise',label:'Grain 📷',min:0,max:100,def:0},
-  ];
-  return `<div class="adj-grid">
-    ${sliders.map(s=>{
-      const v = state.adjust[s.k]??s.def;
-      const pct = ((v-s.min)/(s.max-s.min)*100).toFixed(0);
-      return `<div class="adj-row">
-        <label>${s.label} <span class="adj-val" id="av_${s.k}">${v}</span></label>
-        <input type="range" min="${s.min}" max="${s.max}" value="${v}" style="--pct:${pct}%"
-          oninput="adjChange('${s.k}',this.value,this)" />
-      </div>`;
-    }).join('')}
-  </div>
-  <button class="enh-btn" style="margin-top:10px;width:100%;flex-direction:row;gap:8px;" onclick="resetAdjust()">🔄 Reset All Adjustments</button>`;
-}
-
-// ── ENHANCE PANEL ──
-function buildEnhancePanel() {
-  const enhancements = [
-    {id:'autoEnhance',icon:'✨',label:'Auto Enhance'},
-    {id:'deNoise',icon:'🔇',label:'Denoise'},
-    {id:'stabilize',icon:'📱',label:'Stabilize'},
-    {id:'autoColor',icon:'🎨',label:'Auto Color'},
-    {id:'hdrBoost',icon:'☀️',label:'HDR Boost'},
-    {id:'sharpen',icon:'🔪',label:'Sharpen'},
-    {id:'whiteBalance',icon:'⚖️',label:'White Balance'},
-    {id:'faceEnhance',icon:'👤',label:'Face Enhance'},
-    {id:'upscale',icon:'📐',label:'4K Upscale'},
-    {id:'contrastBoost',icon:'⬛',label:'Contrast+'},
-    {id:'satBoost',icon:'💎',label:'Vivid'},
-    {id:'cinematicBars',icon:'🎬',label:'Cinematic'},
-    {id:'deHaze',icon:'🌬️',label:'Dehaze'},
-    {id:'nightMode',icon:'🌙',label:'Night Mode'},
-    {id:'antiShake',icon:'✋',label:'Anti-Shake'},
-    {id:'colorSplash',icon:'💦',label:'Color Splash'},
-    {id:'lensFlareFX',icon:'✴️',label:'Lens Flare'},
-    {id:'lightLeak',icon:'🌟',label:'Light Leak'},
-  ];
-  return `<div class="enhance-grid">
-    ${enhancements.map(e=>`
-      <button class="enh-btn" id="eb_${e.id}" onclick="applyEnhance('${e.id}',this)">
-        <span class="ei">${e.icon}</span>${e.label}
-      </button>`).join('')}
+  if(tab==='quality') {
+    return `<div class="feat-grid col3">
+      <button class="feat-btn blue" onclick="applyEnhance('remove_noise',this)"><span class="fi2">🔇</span>Remove Noise</button>
+      <button class="feat-btn blue" onclick="applyEnhance('deblur',this)"><span class="fi2">🔍</span>Deblur</button>
+      <button class="feat-btn blue" onclick="applyEnhance('upscale',this)"><span class="fi2">📐</span>Upscale</button>
+      <button class="feat-btn blue" onclick="applyEnhance('fix_dark',this)"><span class="fi2">🌞</span>Fix Dark Video</button>
+      <button class="feat-btn blue" onclick="applyEnhance('fix_blurry',this)"><span class="fi2">👁️</span>Fix Blurry</button>
+      <button class="feat-btn blue" onclick="applyEnhance('fix_shaky',this)"><span class="fi2">✋</span>Anti-Shake</button>
+      <button class="feat-btn blue" onclick="applyEnhance('color_fix',this)"><span class="fi2">🎨</span>Color Fix</button>
+      <button class="feat-btn blue" onclick="applyEnhance('exposure_fix',this)"><span class="fi2">☀️</span>Exposure Fix</button>
+      <button class="feat-btn blue" onclick="applyEnhance('hdr',this)"><span class="fi2">✨</span>Make HDR</button>
+    </div>`;
+  }
+  return `<div class="feat-grid col3">
+    <button class="feat-btn purple" onclick="applyEnhance('ai_portrait',this)"><span class="fi2">🤖</span>AI Portrait</button>
+    <button class="feat-btn purple" onclick="applyEnhance('sky_replace',this)"><span class="fi2">🌤️</span>Sky Replace</button>
+    <button class="feat-btn purple" onclick="applyEnhance('bg_remove',this)"><span class="fi2">✂️</span>BG Remove</button>
+    <button class="feat-btn purple" onclick="applyEnhance('face_enhance',this)"><span class="fi2">👤</span>Face Enhance</button>
+    <button class="feat-btn purple" onclick="applyEnhance('auto_reframe',this)"><span class="fi2">📱</span>Auto Reframe</button>
+    <button class="feat-btn purple" onclick="applyEnhance('smart_zoom',this)"><span class="fi2">🔍</span>Smart Zoom</button>
+    <button class="feat-btn purple" onclick="applyEnhance('motion_blur',this)"><span class="fi2">💨</span>Motion Blur</button>
+    <button class="feat-btn purple" onclick="applyEnhance('depth_blur',this)"><span class="fi2">🌀</span>Depth Blur</button>
+    <button class="feat-btn purple" onclick="applyEnhance('body_effect',this)"><span class="fi2">🦾</span>Body Effect</button>
   </div>`;
 }
-
-// ── EFFECT PANEL ──
-function buildEffectPanel() {
-  const effects = ['none','Glitch','VHS','Pencil Sketch','Thermal','Night Vision','Pixelate','Mirror','Invert','HDR','Pop Color','Duotone','Oil Paint','Scanlines','Grain','Sharpen','Kaleidoscope','Watercolor','Mosaic','Comic Book','Emboss','Edge Detect','Posterize','Solarize','Crystallize','Pointillism','Tilt Shift','Miniature','360 Wrap','Fish Eye'];
-  return `<div class="effect-scroll">
-    ${effects.map(e=>`<button class="efx-btn ${state.currentEffect===e?'active':''}" onclick="applyEffectFX('${e}')">${e==='none'?'✕ None':e}</button>`).join('')}
-  </div>`;
-}
-
-// ── TEXT PANEL ──
-function buildTextPanel() {
-  return `<div class="text-inputs">
-    <input class="ti" id="textInput" placeholder="यहाँ text लिखें..." type="text">
-    <div class="font-sizes">
-      ${[24,32,48,64,80,96].map(s=>`<button class="fs-btn" onclick="setFontSize(${s})">${s}px</button>`).join('')}
-    </div>
-    <div class="color-row">
-      ${['#ffffff','#ff4d6d','#ffd60a','#06d6a0','#4361ee','#000000','#ff6b35','#b5179e'].map(c=>
-        `<div class="col-dot" style="background:${c}" onclick="setTextColor('${c}')"></div>`).join('')}
-    </div>
-    <button class="enh-btn" style="width:100%;flex-direction:row;gap:8px;" onclick="addTextOverlay()">➕ Add Text to Video</button>
-    <button class="enh-btn" style="width:100%;flex-direction:row;gap:8px;color:#f00" onclick="clearTexts()">🗑️ Clear All Text</button>
-  </div>`;
-}
-
-// ── STICKER PANEL ──
-function buildStickerPanel() {
-  const stickers = ['❤️','🔥','⭐','💥','🎉','😍','🌟','✨','💫','🎬','🎵','🎤','🏆','👑','💎','🌈','🦋','🌺','🌸','🍀','🎯','🚀','💪','👍','🙏','😂','😎','🥳','🤩','😜','🦁','🐯','🦊','🐺','🌙','☀️','⚡','🌊','🍎','🍕','🎸','🎹','🎨','🖌️','📸','🎭','🏋️','⚽','🏀','🎾','🦄','🐉','🦅','🌴','🏔️','🌊','🌅'];
-  return `<div class="sticker-grid">${stickers.map(s=>`<div class="stk-btn" onclick="addSticker('${s}')">${s}</div>`).join('')}</div>`;
-}
-
-// ── AUDIO PANEL ──
-function buildAudioPanel() {
-  return `<div class="audio-row">
-    <div class="audio-btn-row">
-      <div class="audio-action" onclick="document.getElementById('audioInput').click()"><span class="ai2">🎵</span>Add Music</div>
-      <div class="audio-action" onclick="toggleMute()"><span class="ai2">🔇</span>Mute/Unmute</div>
-      <div class="audio-action" onclick="extractAudio()"><span class="ai2">🎤</span>Extract Audio</div>
-    </div>
-    <div class="adj-row">
-      <label>Volume 🔊 <span class="adj-val" id="volVal">100</span>%</label>
-      <input type="range" min="0" max="200" value="100" style="--pct:50%" oninput="setVolume(this.value,this)">
-    </div>
-    <div class="adj-row">
-      <label>Fade In 📈 <span class="adj-val" id="fadeInVal">0</span>s</label>
-      <input type="range" min="0" max="10" value="0" style="--pct:0%" oninput="setFadeIn(this.value,this)">
-    </div>
-  </div>
-  <input type="file" id="audioInput" accept="audio/*" style="display:none" onchange="addAudioTrack(event)">`;
-}
-
-// ── SPEED PANEL ──
-function buildSpeedPanel() {
-  const speeds = ['0.25x','0.5x','0.75x','1x','1.25x','1.5x','2x','3x','4x','8x'];
-  return `<div class="speed-row">
-    ${speeds.map(s=>{ const v=parseFloat(s); return `<button class="spd-btn ${state.speed==v?'active':''}" onclick="setSpeed(${v},'${s}')">${s}</button>`; }).join('')}
-  </div>
-  <div style="margin-top:10px;" class="adj-row">
-    <label>Custom Speed <span class="adj-val" id="spdVal">${state.speed}x</span></label>
-    <input type="range" min="0.1" max="8" step="0.05" value="${state.speed}" style="--pct:${(state.speed/8*100).toFixed(0)}%" oninput="setSpeedRange(this.value,this)">
-  </div>`;
-}
-
-// ── TRANSITION PANEL ──
-function buildTransitionPanel() {
-  const trans = [
-    {n:'None',i:'✕'},{n:'Fade',i:'🌫️'},{n:'Slide Left',i:'⬅️'},{n:'Slide Right',i:'➡️'},
-    {n:'Zoom In',i:'🔍'},{n:'Zoom Out',i:'🔎'},{n:'Blur',i:'💭'},{n:'Flash',i:'⚡'},
-    {n:'Dissolve',i:'💧'},{n:'Wipe',i:'🧹'},{n:'Spin',i:'🌀'},{n:'Bounce',i:'🏀'},
-    {n:'Push',i:'👊'},{n:'Reveal',i:'🎭'},{n:'Circle',i:'⭕'},{n:'Star',i:'⭐'},
-    {n:'Split H',i:'↔️'},{n:'Split V',i:'↕️'},{n:'Rotate',i:'🔄'},{n:'Elastic',i:'🌊'},
-  ];
-  return `<div class="trans-scroll">
-    ${trans.map(t=>`<div class="trans-btn ${state.currentTransition===t.n?'active':''}" onclick="setTransition('${t.n}')">
-      <span class="ti2">${t.i}</span><span>${t.n}</span>
-    </div>`).join('')}
-  </div>`;
-}
-
-// ── LUT PANEL ──
-function buildLUTPanel() {
-  const luts = [
-    {n:'None',e:'⬛',f:'none'},{n:'Teal & Orange',e:'🟠',f:'sepia(.2) saturate(1.5) hue-rotate(-15deg)'},
-    {n:'Matte',e:'🟫',f:'brightness(1.05) contrast(.9) saturate(.8)'},
-    {n:'Cyberpunk',e:'💜',f:'hue-rotate(200deg) saturate(2) contrast(1.2)'},
-    {n:'Golden',e:'🟡',f:'sepia(.6) saturate(1.8) brightness(1.1)'},
-    {n:'Cool Blue',e:'🔵',f:'hue-rotate(180deg) saturate(1.3) brightness(1.05)'},
-    {n:'Vintage',e:'🟤',f:'sepia(.7) contrast(1.1) brightness(.95)'},
-    {n:'Moody',e:'⚫',f:'brightness(.85) contrast(1.3) saturate(.7)'},
-    {n:'Warm Skin',e:'🟠',f:'sepia(.3) saturate(1.3) hue-rotate(-10deg)'},
-    {n:'Forest',e:'🟢',f:'hue-rotate(100deg) saturate(1.4) brightness(1.05)'},
-    {n:'Coral',e:'🪸',f:'hue-rotate(-20deg) saturate(1.5) brightness(1.1)'},
-    {n:'Arctic',e:'❄️',f:'hue-rotate(170deg) saturate(.8) brightness(1.2)'},
-    {n:'Tokyo Night',e:'🌃',f:'hue-rotate(230deg) saturate(1.6) brightness(.9)'},
-    {n:'Sahara',e:'🏜️',f:'sepia(.4) saturate(1.6) hue-rotate(-20deg)'},
-    {n:'Emerald',e:'💚',f:'hue-rotate(130deg) saturate(1.5) brightness(1.1)'},
-    {n:'Lavender',e:'💜',f:'hue-rotate(260deg) saturate(1.3) brightness(1.1)'},
-    {n:'Sunset',e:'🌅',f:'sepia(.5) saturate(2) hue-rotate(-15deg) brightness(1.05)'},
-    {n:'Nordic',e:'🌨️',f:'hue-rotate(200deg) saturate(.7) brightness(1.15) contrast(1.1)'},
-    {n:'Vivid',e:'🌈',f:'saturate(2) contrast(1.2) brightness(1.05)'},
-    {n:'B&W Premium',e:'⬜',f:'grayscale(1) contrast(1.2) brightness(1.05)'},
-  ];
-  return `<div class="lut-scroll">
-    ${luts.map(l=>`<div class="lut-item ${state.currentLUT===l.n?'active':''}" onclick="applyLUT('${l.n}','${l.f}')">
-      <div class="lut-thumb" style="filter:${l.f===''?'none':l.f};">${l.e}</div>
-      <div class="lut-name">${l.n}</div>
-    </div>`).join('')}
-  </div>`;
-}
-
-// ── BEAUTY PANEL ──
-function buildBeautyPanel() {
-  const bSliders = [
-    {k:'smooth',label:'Skin Smooth 💆',max:100},
-    {k:'whiten',label:'Whiten 🤍',max:100},
-    {k:'slim',label:'Face Slim 🪶',max:100},
-    {k:'eyes',label:'Eyes Enhance 👁️',max:100},
-  ];
-  return `<div class="beauty-sliders">
-    ${bSliders.map(s=>{
-      const v = state.beauty[s.k]??0;
-      return `<div class="adj-row">
-        <label>${s.label} <span class="adj-val" id="bv_${s.k}">${v}</span></label>
-        <input type="range" min="0" max="${s.max}" value="${v}" style="--pct:${(v/s.max*100).toFixed(0)}%"
-          oninput="beautyChange('${s.k}',this.value,this)">
-      </div>`;
-    }).join('')}
-    <button class="enh-btn" style="width:100%;flex-direction:row;gap:8px;" onclick="applyBeautyMode()">✨ Apply Beauty Mode</button>
-  </div>`;
-}
-
-// ── CROP PANEL ──
-function buildCropPanel() {
-  const ratios = ['Free','1:1','9:16','16:9','4:3','3:4','3:2','5:4','21:9','4:5'];
-  const rotations = ['↻ 90°','↺ -90°','↔ Flip H','↕ Flip V'];
-  return `<div>
-    <div style="font-size:.68rem;color:var(--muted);margin-bottom:6px;">Aspect Ratio</div>
-    <div class="crop-btns">${ratios.map(r=>`<button class="crop-btn ${state.cropAspect===r?'active':''}" onclick="setCrop('${r}')">${r}</button>`).join('')}</div>
-    <div style="font-size:.68rem;color:var(--muted);margin:10px 0 6px;">Transform</div>
-    <div class="crop-btns">${rotations.map(r=>`<button class="crop-btn" onclick="rotateVideo('${r}')">${r}</button>`).join('')}</div>
-  </div>`;
-}
-
-// ── PIP PANEL ──
-function buildPIPPanel() {
-  return `<div class="audio-row">
-    <div class="audio-btn-row">
-      <div class="audio-action" onclick="document.getElementById('pipInput').click()"><span class="ai2">🖼️</span>Add PiP Video</div>
-      <div class="audio-action" onclick="chromaKeyMode()"><span class="ai2">🟢</span>Chroma Key</div>
-      <div class="audio-action" onclick="addWatermark()"><span class="ai2">💧</span>Watermark</div>
-    </div>
-    <div style="font-size:.7rem;color:var(--muted);margin-top:8px;">Picture-in-Picture: दूसरा video/image overlay करें</div>
-  </div>
-  <input type="file" id="pipInput" accept="video/*,image/*" style="display:none" onchange="addPiP(event)">`;
-}
-
-// ═══════════════════════════════════════════════
-//  PANEL EVENT HANDLERS
-// ═══════════════════════════════════════════════
-function initPanelEvents(name) {}
-
-function applyFilter(name) {
-  state.currentFilter = name;
-  document.querySelectorAll('.fitem').forEach(el => el.classList.remove('active'));
-  renderFrame();
-  showToast('🎨 Filter: ' + (name==='none'?'Original':name));
-}
-
-window.filterBycat = function(cat) {
-  const strip = document.getElementById('filterStrip');
-  if (!strip) return;
-  const filters = FILTER_CATEGORIES[cat] || [];
-  const first = strip.querySelector(`[onclick*="${filters[0]}"]`);
-  if (first) first.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
-};
-
-function adjChange(key, val, input) {
-  state.adjust[key] = parseFloat(val);
-  const valEl = document.getElementById('av_'+key);
-  if(valEl) valEl.textContent = parseFloat(val).toFixed(0);
-  // Update slider gradient
-  const min = parseFloat(input.min), max = parseFloat(input.max);
-  const pct = ((parseFloat(val)-min)/(max-min)*100).toFixed(0);
-  input.style.setProperty('--pct', pct+'%');
-  renderFrame();
-}
-
-function resetAdjust() {
-  Object.keys(state.adjust).forEach(k => state.adjust[k]=0);
-  renderFrame();
-  openPanel('adjust');
-  showToast('🔄 Adjustments Reset!');
-}
-
-function applyEnhance(id, btn) {
+function applyEnhance(id,btn) {
   btn.classList.toggle('active');
-  const a = state.adjust;
-  switch(id) {
-    case 'autoEnhance':
-      a.brightness=10; a.contrast=15; a.saturation=20; a.sharpness=30;
-      showToast('✨ Auto Enhanced!'); break;
-    case 'deNoise':
-      a.blur=2; showToast('🔇 Noise Reduced!'); break;
-    case 'stabilize':
-      showToast('📱 Stabilization Applied!'); break;
-    case 'autoColor':
-      a.saturation=25; a.contrast=10; showToast('🎨 Auto Color!'); break;
-    case 'hdrBoost':
-      state.currentEffect='HDR'; showToast('☀️ HDR Boost!'); break;
-    case 'sharpen':
-      state.currentEffect='Sharpen'; showToast('🔪 Sharpened!'); break;
-    case 'whiteBalance':
-      a.warmth=10; showToast('⚖️ White Balance Adjusted!'); break;
-    case 'faceEnhance':
-      a.brightness=5; state.beauty.smooth=40; showToast('👤 Face Enhanced!'); break;
-    case 'upscale':
-      showToast('📐 4K Upscale Applied!'); break;
-    case 'contrastBoost':
-      a.contrast=30; showToast('⬛ Contrast Boosted!'); break;
-    case 'satBoost':
-      a.saturation=40; showToast('💎 Vivid Colors!'); break;
-    case 'cinematicBars':
-      state.cinematic = !state.cinematic;
-      document.getElementById('cinTop').style.height = state.cinematic ? '8%' : '0';
-      document.getElementById('cinBot').style.height = state.cinematic ? '8%' : '0';
-      showToast('🎬 Cinematic Bars!'); break;
-    case 'deHaze':
-      a.contrast=15; a.brightness=8; a.saturation=10; showToast('🌬️ Dehaze Applied!'); break;
-    case 'nightMode':
-      a.brightness=20; a.saturation=-10; showToast('🌙 Night Mode!'); break;
-    case 'antiShake':
-      showToast('✋ Anti-Shake Applied!'); break;
-    case 'colorSplash':
-      state.currentEffect='Pop Color'; showToast('💦 Color Splash!'); break;
-    case 'lensFlareFX':
-      showToast('✴️ Lens Flare Added!'); break;
-    case 'lightLeak':
-      showToast('🌟 Light Leak Effect!'); break;
+  const a=S.adj;
+  const msgs = {
+    autoEnhance:'✨ Auto Enhanced!', magicFix:'🪄 Magic Fix Done!', autoColor:'🎨 Auto Color!',
+    autoLight:'💡 Auto Light!', autoSharpen:'🔪 Sharpened!', deNoise:'🔇 Noise Removed!',
+    deHaze:'🌬️ Dehaze Done!', stabilize:'📱 Stabilized!', hdrBoost:'☀️ HDR Done!',
+    nightMode:'🌙 Night Mode!', contrastAI:'⬛ Contrast Fixed!', vivid:'💎 Vivid Colors!',
+    cinematicBars:'🎬 Cinematic!', portrait:'👤 Portrait Fixed!', upscale4k:'📐 4K Upscaled!',
+    sharpenAll:'🔍 Super Sharp!', whiteBalance:'⚖️ White Balance!', deBlur:'👁️ Deblurred!',
+    remove_noise:'🔇 Noise Removed!',deblur:'🔍 Deblurred!',upscale:'📐 Upscaled!',
+    fix_dark:'🌞 Brightened!',fix_blurry:'👁️ Sharpened!',fix_shaky:'✋ Stabilized!',
+    color_fix:'🎨 Colors Fixed!',exposure_fix:'☀️ Exposure Fixed!',hdr:'✨ HDR!',
+    ai_portrait:'🤖 AI Portrait!',sky_replace:'🌤️ Sky Replaced!',bg_remove:'✂️ BG Removed!',
+    face_enhance:'👤 Face Enhanced!',auto_reframe:'📱 Reframed!',smart_zoom:'🔍 Smart Zoom!',
+    motion_blur:'💨 Motion Blur!',depth_blur:'🌀 Depth Blur!',body_effect:'🦾 Body FX!',
+  };
+  // Apply relevant adjustments
+  if(id==='autoEnhance'||id==='magicFix') { a.brightness=8;a.contrast=12;a.saturation=15;a.clarity=20; }
+  if(id==='autoColor') { a.saturation=20;a.warmth=8; }
+  if(id==='autoLight'||id==='fix_dark') { a.brightness=18;a.shadows=20; }
+  if(id==='autoSharpen'||id==='sharpenAll'||id==='fix_blurry') { S.effect='Sharpen'; }
+  if(id==='deNoise'||id==='remove_noise') { a.blur=1; }
+  if(id==='hdrBoost'||id==='hdr') { S.effect='HDR'; }
+  if(id==='vivid') { a.saturation=35;a.contrast=10; }
+  if(id==='whiteBalance') { a.warmth=5; }
+  if(id==='contrastAI') { a.contrast=20;a.blacks=10; }
+  if(id==='nightMode') { a.brightness=22;a.saturation=-8; }
+  if(id==='deHaze'||id==='deblur') { a.clarity=30;a.contrast=10; }
+  if(id==='cinematicBars') {
+    S.cinematic=!S.cinematic;
+    document.getElementById('cinTop').style.height=S.cinematic?'8%':'0';
+    document.getElementById('cinBot').style.height=S.cinematic?'8%':'0';
   }
-  renderFrame();
+  draw(); toast(msgs[id]||'✅ Applied!');
 }
 
-function applyEffectFX(name) {
-  state.currentEffect = name;
-  document.querySelectorAll('.efx-btn').forEach(b => b.classList.toggle('active', b.textContent.includes(name) || (name==='none' && b.textContent.includes('None'))));
-  renderFrame();
-  showToast('⚡ Effect: ' + (name==='none'?'None':name));
+// EFFECT
+function buildEffect(tab) {
+  const effects = {
+    fx:['none','Glitch','VHS','Thermal','Night Vision','Pixelate','Mirror','Invert','HDR','Pop Color','Duotone Blue','Duotone Pink','Scanlines','Grain','Emboss','Posterize','Solarize','Pencil Sketch','Bloom','Sharpen','Crosshatch','Kaleidoscope'],
+    glitch:['Glitch Classic','Glitch RGB','Glitch Scan','Glitch Shake','Glitch Digital','VHS Glitch','Tape Error','Signal Loss','Data Corrupt','Pixel Sort','Bit Crush','CRT Flicker','Interference','Distortion','Warp Glitch'],
+    retro:['VHS Classic','Super 8 Film','16mm Film','Old TV','CRT Monitor','Polaroid Instant','Kodachrome Slide','Daguerreotype','Silent Film','Newsreel 1920s','Drive-In Movie','Grindhouse','Exploitation Film','Giallo Style','Spaghetti Western'],
+    art:['Pencil Sketch','Watercolor Paint','Oil Painting','Charcoal Drawing','Ink Drawing','Pop Art','Comic Book','Cartoon Style','Anime Style','Manga BW','Pixelate Art','Mosaic Tile','Pointillism','Impressionist','Expressionist'],
+    light:['Bloom Glow','Lens Flare','Light Leak','Sun Ray','God Ray','Rainbow Prism','Bokeh Burst','Star Filter','Anamorphic Flare','Chromatic Aberration','Halation Effect','Light Orbs','Glimmer','Sparkle','Shimmer'],
+    body:['Face Blur','Body Slim','Height Boost','Smooth Skin','Eye Enlarge','Nose Slim','Chin Shape','Forehead Reduce','Cheek Slim','Smile Enhance','Teeth Whiten','Eyebrow Shape','Lip Plump','Neck Slim','Shoulder Slim'],
+  };
+  const list=effects[tab]||effects.fx;
+  return `<div class="h-strip">${list.map(e=>`<div class="fi-item${S.effect===e?' active':''}" onclick="applyFX('${e}')"><div class="fi-thumb" style="filter:${e==='none'?'none':filterCSS(e)};background:linear-gradient(135deg,#1a1a2a,#2a1a3a);font-size:1.4rem;display:flex;align-items:center;justify-content:center;">⚡</div><div class="fi-name">${e==='none'?'None':e}</div></div>`).join('')}</div>`;
 }
+function applyFX(name) { S.effect=name; draw(); toast('⚡ Effect: '+name); loadTabContent(curPanel,curTab); }
 
-function applyLUT(name, cssFilter) {
-  state.currentLUT = name;
-  if (name !== 'None') {
-    state.currentFilter = name + '_lut';
-    // We store the LUT filter directly
-    window.__lutFilter = cssFilter;
-  } else {
-    state.currentFilter = 'none';
-    window.__lutFilter = '';
+// TRANSITION
+function buildTransition(tab) {
+  const transitions = {
+    basic:['None','Fade','Black','White','Flash','Blink','Bounce','Shake'],
+    smooth:['Smooth Fade','Soft Slide Left','Soft Slide Right','Soft Slide Up','Soft Slide Down','Smooth Zoom','Smooth Rotate','Dissolve Soft','Crossfade','Opacity Fade','Feather Fade','Gradient Wipe','Soft Spin','Gentle Pull','Smooth Push'],
+    creative:['Circle Reveal','Star Wipe','Diamond Reveal','Cross Reveal','Heart Reveal','Spiral In','Cube Rotate','Flip Horizontal','Flip Vertical','Page Turn','Book Open','Door Open','Barn Door','Iris Round','Iris Square'],
+    '3d':['3D Cube','3D Flip','3D Spin','3D Roll','3D Swing','3D Door','3D Box','3D Sphere','3D Folding','3D Unfolding','3D Origami','3D Book','3D Stack','3D Fan','3D Rotation'],
+    zoom:['Zoom In','Zoom Out','Zoom Spin','Zoom Blur','Zoom Flash','Punch In','Pull Back','Crash Zoom','Whip Zoom','Drift Zoom','Expand','Implode','Explosive','Big Bang','Supernova'],
+    blur:['Blur In','Blur Out','Radial Blur','Motion Blur','Tilt Blur','Lens Blur','Dream Blur','Streak','Smear','Afterimage','Echo Blur','Stutter','Ripple Blur','Shatter Blur','Vortex Blur'],
+  };
+  const list=transitions[tab]||transitions.basic;
+  const icons=['✕','🌫️','⬛','⬜','⚡','🔲','🏀','📳','💨','⬅️','➡️','⬆️','⬇️','🔍','🔎','💧','🌀','💎','🔄','🎭','⭕','⭐','↔️','↕️','📄','📖','🚪','🏠','🎯','👁️','🎲','🎳','🎪','🎠','🎡'];
+  return `<div class="h-strip">${list.map((t,i)=>`<div class="fi-item${S.transition===t?' active':''}" onclick="setTransition('${t}')"><div class="fi-thumb" style="background:linear-gradient(135deg,#1a1a3a,#2a0a3a);font-size:1.4rem;display:flex;align-items:center;justify-content:center;">${icons[i%icons.length]}</div><div class="fi-name">${t}</div></div>`).join('')}</div>`;
+}
+function setTransition(name) { S.transition=name; toast('🔀 Transition: '+name); loadTabContent(curPanel,curTab); }
+
+// TEXT
+function buildText(tab) {
+  if(tab==='add') return `<div>
+    <input class="t-input" id="txtIn" placeholder="यहाँ Text लिखें..." type="text">
+    <div class="sp-title">Font Size</div>
+    <div class="pill-row">${[24,32,48,64,80,96,120].map(s=>`<span class="pill" onclick="window._fs=${s};toast('📝 ${s}px')">${s}px</span>`).join('')}</div>
+    <div class="sp-title">Color</div>
+    <div class="color-row">${['#fff','#ff4d6d','#ffd60a','#06d6a0','#4cc9f0','#000','#ff6b35','#b5179e','#f72585','#7209b7'].map(c=>`<div class="c-dot" style="background:${c}" onclick="window._tc='${c}'"></div>`).join('')}</div>
+    <div class="pill-row" style="margin-top:8px;">
+      <span class="pill green-pill" onclick="addText()">➕ Add Text</span>
+      <span class="pill" onclick="S.textItems=[];draw();toast('🗑️ Cleared')">🗑️ Clear All</span>
+    </div></div>`;
+  if(tab==='template') {
+    const templates=['Big Title','Subtitle','Caption','Lyric Style','Bold Headline','Elegant Script','Neon Text','Retro Title','Cinematic Sub','Breaking News','Quote Box','Hashtag Style','Username Tag','Viral Text','CapCut Style','TikTok Text','Instagram Story','Reels Caption','YouTube Card','Thumbnail Text'];
+    return `<div class="feat-grid col2">${templates.map(t=>`<button class="feat-btn" onclick="addTemplateText('${t}')"><span class="fi2">T</span>${t}</button>`).join('')}</div>`;
   }
-  renderFrame();
-  showToast('🌈 LUT: ' + name);
+  if(tab==='font') {
+    const fonts=['Arial','Georgia','Times New Roman','Courier New','Comic Sans MS','Impact','Trebuchet MS','Verdana','Palatino','Garamond'];
+    return `<div class="feat-grid col2">${fonts.map(f=>`<button class="feat-btn" onclick="window._font='${f}';toast('✅ ${f}')" style="font-family:${f}"><span class="fi2">Aa</span>${f}</button>`).join('')}</div>`;
+  }
+  // Animation tab
+  const anims=['None','Fade In','Slide Up','Slide Left','Bounce In','Zoom In','Typewriter','Wave','Flash','Shake','Spin','Flip','Elastic','Rubber Band','Swing'];
+  return `<div class="feat-grid col3">${anims.map(a=>`<button class="feat-btn blue" onclick="toast('🎬 Animation: ${a}')"><span class="fi2">▶</span>${a}</button>`).join('')}</div>`;
+}
+function addText() {
+  const txt=document.getElementById('txtIn');
+  if(!txt?.value.trim()) { toast('⚠️ Text लिखो!'); return; }
+  S.textItems.push({text:txt.value.trim(),size:window._fs||56,color:window._tc||'#fff',font:window._font||'Arial'});
+  txt.value=''; draw(); toast('✅ Text Added!');
+}
+function addTemplateText(t) { S.textItems.push({text:t,size:56,color:'#fff',font:'Arial'}); draw(); toast('✅ '+t+' added!'); }
+
+// STICKER
+function buildSticker(tab) {
+  const sets = {
+    emoji:['❤️','🔥','⭐','💥','🎉','😍','🌟','✨','💫','🎬','🎵','🎤','🏆','👑','💎','🌈','🦋','🌺','🌸','🍀','🎯','🚀','💪','👍','🙏','😂','😎','🥳','🤩','😜','🦁','🐯','🦊','🐺','🌙','☀️','⚡','🌊','🎭','🎪'],
+    love:['❤️','💕','💖','💗','💓','💞','💝','🥰','😘','💌','💟','♥️','❣️','💑','👫','💏','🌹','💐','🌷','🎀'],
+    fun:['😂','🤣','😹','🙃','😜','🤪','😝','🤡','👻','💀','☠️','🤖','👽','👾','🎃','🎭','🎪','🎨','🎬','🎮'],
+    trending:['📱','💻','🎵','🔥','✨','💯','🙌','👀','💬','🗣️','📢','🎯','🏆','⚡','🌊','🌈','🦄','🐉','🚀','🌍'],
+    desi:['🇮🇳','🕌','🛕','🌺','🎆','🎇','✨','🪔','🎊','🎉','💃','🕺','🥁','🪗','🌸','🌼','🌻','🌹','🌷','🍀'],
+  };
+  const stickers=sets[tab]||sets.emoji;
+  return `<div class="sticker-grid">${stickers.map(s=>`<div class="stk" onclick="addSticker('${s}')">${s}</div>`).join('')}</div>`;
+}
+function addSticker(e) { S.stickerItems.push({emoji:e,x:Math.random()*100-50,y:Math.random()*100-50,size:90}); draw(); toast(e+' Added!'); }
+
+// AUDIO
+function buildAudio(tab) {
+  if(tab==='music') return `<div class="feat-grid col2">
+    <button class="feat-btn green" onclick="document.getElementById('audioInput').click()"><span class="fi2">🎵</span>Add Music</button>
+    <button class="feat-btn green" onclick="toggleMute()"><span class="fi2">🔇</span>Mute/Unmute</button>
+    <button class="feat-btn green" onclick="toast('🎤 Extracted!')"><span class="fi2">🎤</span>Extract Audio</button>
+    <button class="feat-btn green" onclick="toast('🔀 Applied!')"><span class="fi2">🔀</span>Detach Audio</button>
+  </div>
+  <div class="sl-row" style="margin-top:10px;"><label>Volume 🔊 <span class="sl-val" id="volV">100</span>%</label><input type="range" min="0" max="200" value="100" style="--pct:50%" oninput="setVol(this)"></div>
+  <div class="sl-row"><label>Fade In 📈 <span class="sl-val" id="fadeV">0</span>s</label><input type="range" min="0" max="10" value="0" style="--pct:0%" oninput="document.getElementById('fadeV').textContent=this.value;const pct=(this.value/10*100).toFixed(0);this.style.setProperty('--pct',pct+'%')"></div>`;
+  if(tab==='sfx') {
+    const sfx=['Woosh','Swoosh','Click','Pop','Ding','Bell','Drum Hit','Bass Drop','Transition Hit','Riser','Downlifter','Explosion','Cinematic Hit','Tension','Suspense','Comedy Boing','Fail Sound','Success Jingle','Alert','Notification'];
+    return `<div class="feat-grid col3">${sfx.map(s=>`<button class="feat-btn green" onclick="toast('🎵 Playing: ${s}')"><span class="fi2">🔊</span>${s}</button>`).join('')}</div>`;
+  }
+  if(tab==='voice') return `<div class="feat-grid col3">
+    <button class="feat-btn blue" onclick="toast('🎤 Recording...')"><span class="fi2">🎙️</span>Record Voice</button>
+    <button class="feat-btn blue" onclick="toast('🔇 Noise Removed!')"><span class="fi2">🔇</span>Voice Denoise</button>
+    <button class="feat-btn blue" onclick="toast('⚡ Boosted!')"><span class="fi2">⚡</span>Volume Boost</button>
+  </div>`;
+  // Beat Sync
+  return `<div class="feat-grid col2">
+    <button class="feat-btn yellow" onclick="toast('🎵 Beat Sync ON!')"><span class="fi2">🥁</span>Beat Sync</button>
+    <button class="feat-btn yellow" onclick="toast('🎵 Auto Detect!')"><span class="fi2">🔍</span>Auto Detect Beat</button>
+    <button class="feat-btn yellow" onclick="toast('✂️ Synced!')"><span class="fi2">✂️</span>Sync Cuts</button>
+    <button class="feat-btn yellow" onclick="toast('💃 Synced!')"><span class="fi2">💃</span>Sync Effects</button>
+  </div>`;
+}
+function setVol(el) { if(S.videoEl) S.videoEl.volume=Math.min(1,el.value/100); const pct=(el.value/200*100).toFixed(0); el.style.setProperty('--pct',pct+'%'); document.getElementById('volV').textContent=el.value; }
+
+// SPEED
+function buildSpeed(tab) {
+  if(tab==='basic') {
+    const speeds=['0.1x','0.25x','0.5x','0.75x','1x','1.25x','1.5x','2x','3x','4x','5x','8x','10x','15x','20x'];
+    return `<div class="pill-row">${speeds.map(s=>`<span class="pill${S.speed==parseFloat(s)?' active':''}" onclick="setSpeed(${parseFloat(s)},'${s}')">${s}</span>`).join('')}</div>
+    <div class="sl-row" style="margin-top:10px;"><label>Custom Speed <span class="sl-val" id="spdV">${S.speed}x</span></label><input type="range" min="0.1" max="10" step="0.05" value="${S.speed}" style="--pct:${(S.speed/10*100).toFixed(0)}%" oninput="setSpeedR(this)"></div>
+    <div class="feat-grid col3" style="margin-top:8px;">
+      <button class="feat-btn" onclick="setSpeed(1,'1x');toast('🔄 Reset')"><span class="fi2">🔄</span>Reset</button>
+      <button class="feat-btn yellow" onclick="toast('🐢 Slow Motion!')"><span class="fi2">🐢</span>Slow Motion</button>
+      <button class="feat-btn yellow" onclick="toast('🐇 Time Lapse!')"><span class="fi2">🐇</span>Time Lapse</button>
+    </div>`;
+  }
+  if(tab==='curve') {
+    const curves=['Hero Time','Bullet Time','Montage','Rush','Dramatic','Cinematic Ramp','Action Ramp','Music Ramp','Custom'];
+    return `<div class="speed-visual">📈 Speed Curve: Select a preset below</div>
+    <div class="feat-grid col3">${curves.map(c=>`<button class="feat-btn yellow" onclick="S.speedCurve='${c}';toast('⚙️ ${c} curve!')"><span class="fi2">📈</span>${c}</button>`).join('')}</div>`;
+  }
+  const ramps=['Linear','Ease In','Ease Out','Ease In-Out','Bezier','Spring','Bounce','Elastic'];
+  return `<div class="feat-grid col2">${ramps.map(r=>`<button class="feat-btn yellow" onclick="toast('📈 Ramp: ${r}')"><span class="fi2">📈</span>${r}</button>`).join('')}</div>`;
+}
+function setSpeed(v,l) { S.speed=v; if(S.videoEl) S.videoEl.playbackRate=v; toast('⚙️ Speed: '+l); loadTabContent(curPanel,curTab); }
+function setSpeedR(el) { S.speed=parseFloat(el.value); if(S.videoEl) S.videoEl.playbackRate=S.speed; const pct=(S.speed/10*100).toFixed(0); el.style.setProperty('--pct',pct+'%'); document.getElementById('spdV').textContent=S.speed.toFixed(2)+'x'; }
+
+// CROP
+function buildCrop(tab) {
+  if(tab==='ratio') {
+    const ratios=['Free','1:1','9:16','16:9','4:3','3:4','3:2','2:3','4:5','5:4','21:9','9:21','1.91:1','4:1','1:4','2.39:1'];
+    return `<div class="pill-row">${ratios.map(r=>`<span class="pill${S.cropRatio===r?' active':''}" onclick="setCrop('${r}')">${r}</span>`).join('')}</div>
+    <div style="font-size:.65rem;color:var(--muted);margin-top:8px;">Instagram: 4:5 | TikTok: 9:16 | YouTube: 16:9 | Reels: 9:16</div>`;
+  }
+  if(tab==='transform') return `<div class="feat-grid col3">
+    <button class="feat-btn" onclick="toast('↻ Rotated!')"><span class="fi2">↻</span>Rotate 90°</button>
+    <button class="feat-btn" onclick="toast('↺ Rotated!')"><span class="fi2">↺</span>Rotate -90°</button>
+    <button class="feat-btn" onclick="toast('↔ Flipped!')"><span class="fi2">↔</span>Flip H</button>
+    <button class="feat-btn" onclick="toast('↕ Flipped!')"><span class="fi2">↕</span>Flip V</button>
+    <button class="feat-btn" onclick="toast('🔃 Reversed!')"><span class="fi2">🔃</span>Reverse</button>
+    <button class="feat-btn" onclick="toast('❄️ Frozen!')"><span class="fi2">❄️</span>Freeze Frame</button>
+  </div>`;
+  // Zoom
+  return `<div class="sl-row"><label>Scale <span class="sl-val">100</span>%</label><input type="range" min="50" max="300" value="100" style="--pct:33%" oninput="const pct=((this.value-50)/250*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+  <div class="sl-row"><label>X Position <span class="sl-val">0</span></label><input type="range" min="-500" max="500" value="0" style="--pct:50%" oninput="const pct=((+this.value+500)/1000*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+  <div class="sl-row"><label>Y Position <span class="sl-val">0</span></label><input type="range" min="-500" max="500" value="0" style="--pct:50%" oninput="const pct=((+this.value+500)/1000*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>`;
+}
+function setCrop(r) { S.cropRatio=r; document.getElementById('ratioBadge').textContent=r; toast('✂️ Ratio: '+r); loadTabContent(curPanel,curTab); }
+
+// LUT
+function buildLUT(tab) {
+  const luts=[
+    {n:'None',e:'⬛',f:'none'},{n:'Teal & Orange',e:'🟠',f:'sepia(.2) saturate(1.5) hue-rotate(-15deg)'},
+    {n:'Hollywood Matte',e:'🎬',f:'brightness(1.05) contrast(.9) saturate(.8)'},
+    {n:'Cyberpunk',e:'💜',f:'hue-rotate(200deg) saturate(2) contrast(1.2)'},
+    {n:'Golden Film',e:'🟡',f:'sepia(.6) saturate(1.8) brightness(1.1)'},
+    {n:'Arctic Cool',e:'❄️',f:'hue-rotate(185deg) saturate(.8) brightness(1.2)'},
+    {n:'Vintage Kodak',e:'📷',f:'sepia(.7) contrast(1.1) brightness(.95)'},
+    {n:'Moody Dark',e:'⚫',f:'brightness(.82) contrast(1.35) saturate(.65)'},
+    {n:'Warm Portrait',e:'🟤',f:'sepia(.3) saturate(1.35) hue-rotate(-10deg)'},
+    {n:'Forest Green',e:'🟢',f:'hue-rotate(105deg) saturate(1.5)'},
+    {n:'Coral Bliss',e:'🪸',f:'hue-rotate(-22deg) saturate(1.6) brightness(1.1)'},
+    {n:'Tokyo Nights',e:'🌃',f:'hue-rotate(235deg) saturate(1.7) brightness(.88)'},
+    {n:'Desert Sahara',e:'🏜️',f:'sepia(.45) saturate(1.7) hue-rotate(-18deg)'},
+    {n:'Emerald Isle',e:'💚',f:'hue-rotate(135deg) saturate(1.6) brightness(1.08)'},
+    {n:'Lavender Sky',e:'💜',f:'hue-rotate(265deg) saturate(1.4) brightness(1.1)'},
+    {n:'Sunset Glow',e:'🌅',f:'sepia(.5) saturate(2.1) hue-rotate(-14deg)'},
+    {n:'Nordic Light',e:'🌨️',f:'hue-rotate(205deg) saturate(.65) brightness(1.2)'},
+    {n:'Vivid Pop',e:'🌈',f:'saturate(2.2) contrast(1.2) brightness(1.05)'},
+    {n:'Cinematic Teal',e:'🔵',f:'hue-rotate(185deg) saturate(1.2) contrast(1.15)'},
+    {n:'Bollywood',e:'🎊',f:'saturate(1.9) contrast(1.15) hue-rotate(8deg)'},
+    {n:'B&W Premium',e:'⬜',f:'grayscale(1) contrast(1.25) brightness(1.05)'},
+    {n:'High Key',e:'🔆',f:'brightness(1.4) contrast(.75) saturate(.8)'},
+    {n:'Low Key',e:'🔅',f:'brightness(.65) contrast(1.4) saturate(.75)'},
+    {n:'Split Tone',e:'🎨',f:'hue-rotate(15deg) saturate(1.3) contrast(1.1)'},
+    {n:'Day for Night',e:'🌙',f:'brightness(.7) hue-rotate(220deg) saturate(1.5)'},
+  ];
+  return `<div class="h-strip">${luts.map(l=>`<div class="fi-item${S.lut===l.n?' active':''}" onclick="applyLUT('${l.n}','${l.f}')"><div class="fi-thumb" style="filter:${l.f==='none'?'none':l.f};background:linear-gradient(135deg,#1a2a4a,#2a3a6a);">${l.e}</div><div class="fi-name">${l.n}</div></div>`).join('')}</div>`;
+}
+function applyLUT(name,css) { S.lut=name; S.filter=name==='None'?'none':name+'_lut'; window.__lutCSS=css==='none'?'':css; draw(); toast('🌈 LUT: '+name); loadTabContent(curPanel,curTab); }
+
+// BEAUTY
+function buildBeauty(tab) {
+  if(tab==='face') {
+    const bSliders=[
+      {k:'smooth',l:'Skin Smooth 💆',max:100},{k:'whiten',l:'Whiten 🤍',max:100},
+      {k:'reshape',l:'Face Slim 🪶',max:100},{k:'eyes',l:'Eyes Enlarge 👁️',max:100},
+      {k:'lipstick',l:'Lipstick 💋',max:100},{k:'blush',l:'Blush 🌸',max:100},
+      {k:'contouring',l:'Contouring 📐',max:100},
+    ];
+    return `${bSliders.map(s=>{
+      const v=S.beauty[s.k]||0;
+      return `<div class="sl-row"><label>${s.l} <span class="sl-val" id="bv_${s.k}">${v}</span></label><input type="range" min="0" max="${s.max}" value="${v}" style="--pct:${v}%" oninput="setBeauty('${s.k}',this)"></div>`;
+    }).join('')}
+    <button class="feat-btn green" style="width:100%;margin-top:6px;" onclick="applyBeautyPreset()">✨ Beauty Preset</button>`;
+  }
+  if(tab==='skin') return `<div class="feat-grid col3">
+    <button class="feat-btn green" onclick="toast('🧴 Acne Removed!')"><span class="fi2">🧴</span>Remove Acne</button>
+    <button class="feat-btn green" onclick="toast('✨ Smoothed!')"><span class="fi2">✨</span>Smooth Skin</button>
+    <button class="feat-btn green" onclick="toast('🤍 Whitened!')"><span class="fi2">🤍</span>Skin Whiten</button>
+    <button class="feat-btn green" onclick="toast('🌙 Dark Spots!')"><span class="fi2">🌙</span>Remove Spots</button>
+    <button class="feat-btn green" onclick="toast('💎 Glowing!')"><span class="fi2">💎</span>Skin Glow</button>
+    <button class="feat-btn green" onclick="toast('☀️ Tan Removed!')"><span class="fi2">☀️</span>Remove Tan</button>
+  </div>`;
+  return `<div class="feat-grid col3">
+    <button class="feat-btn purple" onclick="toast('🦾 Slim!')"><span class="fi2">🦾</span>Body Slim</button>
+    <button class="feat-btn purple" onclick="toast('📏 Taller!')"><span class="fi2">📏</span>Height+</button>
+    <button class="feat-btn purple" onclick="toast('💪 Toned!')"><span class="fi2">💪</span>Body Tone</button>
+    <button class="feat-btn purple" onclick="toast('🦵 Leg Long!')"><span class="fi2">🦵</span>Leg Lengthen</button>
+    <button class="feat-btn purple" onclick="toast('👄 Waist Slim!')"><span class="fi2">👄</span>Waist Slim</button>
+    <button class="feat-btn purple" onclick="toast('🤸 Posture!')"><span class="fi2">🤸</span>Posture Fix</button>
+  </div>`;
+}
+function setBeauty(k,el) { S.beauty[k]=parseInt(el.value); const pct=(el.value/100*100).toFixed(0); el.style.setProperty('--pct',pct+'%'); const v=document.getElementById('bv_'+k); if(v) v.textContent=el.value; }
+function applyBeautyPreset() { S.beauty={smooth:65,whiten:45,reshape:35,eyes:55,lipstick:40,blush:30,contouring:40}; draw(); toast('💄 Beauty Mode!'); loadTabContent(curPanel,curTab); }
+
+// OVERLAY
+function buildOverlay(tab) {
+  if(tab==='pip') return `<div class="feat-grid col2">
+    <button class="feat-btn blue" onclick="document.getElementById('pipInput').click()"><span class="fi2">🖼️</span>Add PiP Video</button>
+    <button class="feat-btn blue" onclick="document.getElementById('bgInput').click()"><span class="fi2">🌄</span>Change Background</button>
+    <button class="feat-btn blue" onclick="toast('🟢 Chroma ON!')"><span class="fi2">🟢</span>Chroma Key</button>
+    <button class="feat-btn blue" onclick="toast('💧 Added!')"><span class="fi2">💧</span>Add Watermark</button>
+  </div>`;
+  if(tab==='bg') return `<div class="feat-grid col3">
+    <button class="feat-btn" onclick="toast('⬛ Black BG!')"><span class="fi2">⬛</span>Black</button>
+    <button class="feat-btn" onclick="toast('⬜ White BG!')"><span class="fi2">⬜</span>White</button>
+    <button class="feat-btn" onclick="toast('🟪 Blur BG!')"><span class="fi2">🟪</span>Blur BG</button>
+    <button class="feat-btn" onclick="toast('🌈 Gradient!')"><span class="fi2">🌈</span>Gradient</button>
+    <button class="feat-btn" onclick="document.getElementById('bgInput').click()"><span class="fi2">🖼️</span>Custom Image</button>
+    <button class="feat-btn" onclick="toast('📹 Video BG!')"><span class="fi2">📹</span>Video BG</button>
+  </div>`;
+  // Blend modes
+  const blends=['Normal','Multiply','Screen','Overlay','Darken','Lighten','Color Dodge','Color Burn','Hard Light','Soft Light','Difference','Exclusion','Hue','Saturation','Color','Luminosity'];
+  return `<div class="feat-grid col3">${blends.map(b=>`<button class="feat-btn" onclick="toast('🔀 ${b}')"><span class="fi2">🎨</span>${b}</button>`).join('')}</div>`;
 }
 
-// Override filterCSS to also check LUT
-const _origFilterCSS = filterCSS;
-window.getLUTFilter = () => window.__lutFilter || '';
-
-function setSpeed(v, label) {
-  state.speed = v;
-  if(state.videoEl) state.videoEl.playbackRate = v;
-  showToast('⚙️ Speed: ' + label);
-  document.querySelectorAll('.spd-btn').forEach(b => b.classList.toggle('active', b.textContent===label));
+// MASK
+function buildMask(tab) {
+  if(tab==='shape') {
+    const shapes=['Rectangle','Circle','Triangle','Diamond','Heart','Star','Pentagon','Hexagon','Arrow','Cross','Lens','Donut','Parallelogram','Trapezoid','Cloud','Lightning'];
+    return `<div class="feat-grid col4">${shapes.map(s=>`<button class="feat-btn" onclick="toast('🎭 Mask: ${s}')"><span class="fi2">🎭</span>${s}</button>`).join('')}</div>`;
+  }
+  return `<div class="feat-grid col2">
+    <button class="feat-btn purple" onclick="toast('✂️ AI Cutout!')"><span class="fi2">✂️</span>AI Smart Cutout</button>
+    <button class="feat-btn purple" onclick="toast('👤 Portrait!')"><span class="fi2">👤</span>Portrait Cutout</button>
+    <button class="feat-btn purple" onclick="toast('🟢 Chroma!')"><span class="fi2">🟢</span>Chroma Key</button>
+    <button class="feat-btn purple" onclick="toast('🦋 Hair!')"><span class="fi2">🦋</span>Hair Cutout</button>
+  </div>`;
 }
 
-function setSpeedRange(v, input) {
-  state.speed = parseFloat(v);
-  if(state.videoEl) state.videoEl.playbackRate = parseFloat(v);
-  const el = document.getElementById('spdVal');
-  if(el) el.textContent = parseFloat(v).toFixed(2)+'x';
-  const pct = (parseFloat(v)/8*100).toFixed(0);
-  input.style.setProperty('--pct', pct+'%');
+// KEYFRAME
+function buildKeyframe(tab) {
+  if(tab==='kf') return `<div class="feat-grid col2">
+    <button class="feat-btn yellow" onclick="toast('💎 Keyframe Added!')"><span class="fi2">💎</span>Add Keyframe</button>
+    <button class="feat-btn yellow" onclick="toast('🗑️ Deleted!')"><span class="fi2">🗑️</span>Delete Keyframe</button>
+    <button class="feat-btn yellow" onclick="toast('📍 Position KF!')"><span class="fi2">📍</span>Position</button>
+    <button class="feat-btn yellow" onclick="toast('🔍 Scale KF!')"><span class="fi2">🔍</span>Scale</button>
+    <button class="feat-btn yellow" onclick="toast('🔄 Rotation KF!')"><span class="fi2">🔄</span>Rotation</button>
+    <button class="feat-btn yellow" onclick="toast('👁️ Opacity KF!')"><span class="fi2">👁️</span>Opacity</button>
+    <button class="feat-btn yellow" onclick="toast('🎨 Filter KF!')"><span class="fi2">🎨</span>Filter</button>
+    <button class="feat-btn yellow" onclick="toast('💡 Brightness KF!')"><span class="fi2">💡</span>Brightness</button>
+  </div>`;
+  // Motion path
+  const paths=['Linear Path','Arc Path','Circle Path','Figure 8','Wave Path','Bounce Path','Spiral Path','Custom Draw'];
+  return `<div class="feat-grid col2">${paths.map(p=>`<button class="feat-btn yellow" onclick="toast('📍 ${p}')"><span class="fi2">📍</span>${p}</button>`).join('')}</div>`;
 }
 
-function setTransition(name) {
-  state.currentTransition = name;
-  document.querySelectorAll('.trans-btn').forEach(b => b.classList.toggle('active', b.querySelector('span:last-child')?.textContent===name));
-  showToast('🔀 Transition: ' + name);
+// VOICE
+function buildVoice(tab) {
+  if(tab==='fx') {
+    const vfx=['None','Robot','Deep Voice','Chipmunk','Echo','Reverb','Telephone','Monster','Ghost','Alien','Underwater','Stadium','Church','Cave','Bathroom','Car Interior','Old Radio','Walkie-Talkie','Helium','Speed Up','Slow Down','Pitch Up','Pitch Down','Megaphone'];
+    return `<div class="feat-grid col3">${vfx.map(v=>`<button class="feat-btn blue${S.voiceEffect===v?' active':''}" onclick="S.voiceEffect='${v}';toast('🎤 ${v}');loadTabContent(curPanel,curTab)"><span class="fi2">🎤</span>${v}</button>`).join('')}</div>`;
+  }
+  if(tab==='eq') return `<div>
+    <div class="sl-row"><label>Bass <span class="sl-val">0</span>dB</label><input type="range" min="-12" max="12" value="0" style="--pct:50%" oninput="const pct=((+this.value+12)/24*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+    <div class="sl-row"><label>Mid <span class="sl-val">0</span>dB</label><input type="range" min="-12" max="12" value="0" style="--pct:50%" oninput="const pct=((+this.value+12)/24*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+    <div class="sl-row"><label>Treble <span class="sl-val">0</span>dB</label><input type="range" min="-12" max="12" value="0" style="--pct:50%" oninput="const pct=((+this.value+12)/24*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+    <div class="sl-row"><label>Presence <span class="sl-val">0</span>dB</label><input type="range" min="-12" max="12" value="0" style="--pct:50%" oninput="const pct=((+this.value+12)/24*100).toFixed(0);this.style.setProperty('--pct',pct+'%');this.previousElementSibling.querySelector('.sl-val').textContent=this.value"></div>
+  </div>`;
+  const reverbs=['None','Room','Hall','Chamber','Plate','Spring','Cathedral','Bathroom','Stadium','Cave','Forest','Canyon'];
+  return `<div class="feat-grid col3">${reverbs.map(r=>`<button class="feat-btn blue" onclick="toast('🎵 Reverb: ${r}')"><span class="fi2">🔊</span>${r}</button>`).join('')}</div>`;
 }
 
-// Text
-let currentFontSize = 48, currentTextColor = '#ffffff';
-function setFontSize(s) {
-  currentFontSize = s;
-  document.querySelectorAll('.fs-btn').forEach(b => b.classList.toggle('active', b.textContent===s+'px'));
-}
-function setTextColor(c) {
-  currentTextColor = c;
-  document.querySelectorAll('.col-dot').forEach(d => d.classList.toggle('active', d.style.background===c || d.style.backgroundColor===c));
-}
-function addTextOverlay() {
-  const input = document.getElementById('textInput');
-  if (!input?.value.trim()) { showToast('⚠️ कुछ text लिखो!'); return; }
-  textItems.push({ text: input.value.trim(), size: currentFontSize, color: currentTextColor, font:'Arial' });
-  input.value = '';
-  renderFrame();
-  showToast('✅ Text Added!');
-}
-function clearTexts() { textItems = []; renderFrame(); showToast('🗑️ Texts Cleared'); }
-
-// Stickers
-function addSticker(emoji) {
-  stickerItems.push({ emoji, x: Math.random()*100-50, y: Math.random()*100-50, size: 80 });
-  renderFrame();
-  showToast(emoji + ' Sticker Added!');
-}
-
-// Audio
-function setVolume(v, input) {
-  if(state.videoEl) state.videoEl.volume = Math.min(1, parseFloat(v)/100);
-  const el = document.getElementById('volVal');
-  if(el) el.textContent = v;
-  const pct = (parseFloat(v)/200*100).toFixed(0);
-  input.style.setProperty('--pct', pct+'%');
-}
-function setFadeIn(v, input) {
-  const el = document.getElementById('fadeInVal');
-  if(el) el.textContent = v;
-  const pct = (parseFloat(v)/10*100).toFixed(0);
-  input.style.setProperty('--pct', pct+'%');
-}
-function extractAudio() { showToast('🎤 Audio extracting...'); }
-function addAudioTrack(e) { showToast('🎵 Audio track added!'); }
-function addPiP(e) { showToast('🖼️ PiP video added!'); }
-function chromaKeyMode() { showToast('🟢 Chroma Key Mode!'); }
-function addWatermark() { showToast('💧 Watermark added!'); }
-
-function beautyChange(key, val, input) {
-  state.beauty[key] = parseInt(val);
-  const el = document.getElementById('bv_'+key);
-  if(el) el.textContent = val;
-  const pct = (parseInt(val)/100*100).toFixed(0);
-  input.style.setProperty('--pct', pct+'%');
-}
-function applyBeautyMode() {
-  state.beauty = { smooth:60, whiten:40, slim:30, eyes:50 };
-  renderFrame();
-  showToast('💄 Beauty Mode Applied!');
+// AI TOOLS
+function buildAI(tab) {
+  if(tab==='tools') return `<div class="feat-grid col2">
+    <button class="feat-btn purple" onclick="toast('🤖 AI Enhancing...')"><span class="fi2">✨</span>AI Auto Enhance</button>
+    <button class="feat-btn purple" onclick="toast('✂️ BG Removed!')"><span class="fi2">✂️</span>Remove Background</button>
+    <button class="feat-btn purple" onclick="toast('🌤️ Sky Replaced!')"><span class="fi2">🌤️</span>Sky Replacement</button>
+    <button class="feat-btn purple" onclick="toast('👤 Face Tuned!')"><span class="fi2">👤</span>Face Retouch AI</button>
+    <button class="feat-btn purple" onclick="toast('📱 Reframed!')"><span class="fi2">📱</span>Auto Reframe</button>
+    <button class="feat-btn purple" onclick="toast('🎵 Subtitles Added!')"><span class="fi2">🎵</span>Auto Caption</button>
+    <button class="feat-btn purple" onclick="toast('🔇 Noise Gone!')"><span class="fi2">🔇</span>AI Denoise</button>
+    <button class="feat-btn purple" onclick="toast('🔪 Sharper!')"><span class="fi2">🔪</span>AI Sharpen</button>
+    <button class="feat-btn purple" onclick="toast('📐 4K Upscale!')"><span class="fi2">📐</span>AI 4K Upscale</button>
+    <button class="feat-btn purple" onclick="toast('🎬 Scene Cut!')"><span class="fi2">🎬</span>Auto Scene Cut</button>
+    <button class="feat-btn purple" onclick="toast('🎶 Music Sync!')"><span class="fi2">🎶</span>Music Match AI</button>
+    <button class="feat-btn purple" onclick="toast('🌈 Color AI!')"><span class="fi2">🌈</span>AI Color Grade</button>
+  </div>`;
+  if(tab==='smart') return `<div class="feat-grid col2">
+    <button class="feat-btn blue" onclick="toast('✂️ Smart Cut!')"><span class="fi2">✂️</span>Smart Cut</button>
+    <button class="feat-btn blue" onclick="toast('🎯 Auto Focus!')"><span class="fi2">🎯</span>Auto Track</button>
+    <button class="feat-btn blue" onclick="toast('📱 Portrait Mode!')"><span class="fi2">📱</span>Cinematic Mode</button>
+    <button class="feat-btn blue" onclick="toast('💃 Dance Sync!')"><span class="fi2">💃</span>Dance Effect</button>
+    <button class="feat-btn blue" onclick="toast('🎭 Clone!')"><span class="fi2">🎭</span>Clone Effect</button>
+    <button class="feat-btn blue" onclick="toast('🎠 Morph!')"><span class="fi2">🎠</span>Face Morph</button>
+  </div>`;
+  // Generate
+  return `<div class="feat-grid col2">
+    <button class="feat-btn purple" onclick="toast('🖼️ AI Image Generated!')"><span class="fi2">🖼️</span>AI Background Gen</button>
+    <button class="feat-btn purple" onclick="toast('✨ Style Transfer!')"><span class="fi2">✨</span>Style Transfer</button>
+    <button class="feat-btn purple" onclick="toast('🎨 Art Render!')"><span class="fi2">🎨</span>AI Art Effect</button>
+    <button class="feat-btn purple" onclick="toast('📝 Auto Script!')"><span class="fi2">📝</span>Script Writer</button>
+  </div>`;
 }
 
-function setCrop(ratio) {
-  state.cropAspect = ratio;
-  document.querySelectorAll('.crop-btn').forEach(b => b.classList.toggle('active', b.textContent===ratio));
-  showToast('✂️ Ratio: ' + ratio);
+// CANVAS
+function buildCanvas(tab) {
+  if(tab==='ratio') {
+    const canvases=[{l:'TikTok/Reels',r:'9:16',w:1080,h:1920},{l:'Instagram Feed',r:'1:1',w:1080,h:1080},{l:'YouTube',r:'16:9',w:1920,h:1080},{l:'Story',r:'9:16',w:1080,h:1920},{l:'Twitter',r:'16:9',w:1920,h:1080},{l:'Facebook',r:'4:3',w:1080,h:810},{l:'Pinterest',r:'2:3',w:1000,h:1500},{l:'LinkedIn',r:'1.91:1',w:1200,h:628}];
+    return `<div class="feat-grid col2">${canvases.map(c=>`<button class="feat-btn${S.cropRatio===c.r?' active':''}" onclick="setCanvas(${c.w},${c.h},'${c.r}')"><span class="fi2">📐</span>${c.l} (${c.r})</button>`).join('')}</div>`;
+  }
+  if(tab==='bg') return `<div class="feat-grid col3">
+    <button class="feat-btn" onclick="setCanvasBG('#000000')"><span class="fi2">⬛</span>Black</button>
+    <button class="feat-btn" onclick="setCanvasBG('#ffffff')"><span class="fi2">⬜</span>White</button>
+    <button class="feat-btn" onclick="setCanvasBG('#1a1a2e')"><span class="fi2">🟦</span>Dark Blue</button>
+    <button class="feat-btn" onclick="setCanvasBG('#16213e')"><span class="fi2">🔵</span>Navy</button>
+    <button class="feat-btn" onclick="setCanvasBG('#0f3460')"><span class="fi2">💙</span>Royal Blue</button>
+    <button class="feat-btn" onclick="document.getElementById('bgInput').click()"><span class="fi2">🖼️</span>Custom Image</button>
+  </div>`;
+  return `<div class="feat-grid col2">
+    <button class="feat-btn" onclick="toast('📺 Safe Zone ON!')"><span class="fi2">📺</span>TV Safe Zone</button>
+    <button class="feat-btn" onclick="toast('📱 Mobile Safe!')"><span class="fi2">📱</span>Mobile Safe Zone</button>
+    <button class="feat-btn" onclick="toast('📐 Grid ON!')"><span class="fi2">📐</span>Grid Overlay</button>
+    <button class="feat-btn" onclick="toast('📏 Ruler ON!')"><span class="fi2">📏</span>Ruler</button>
+  </div>`;
 }
-function rotateVideo(r) { showToast('🔄 Transform: ' + r); }
+function setCanvas(w,h,r) { canvas.width=w; canvas.height=h; S.cropRatio=r; S.canvasW=w; S.canvasH=h; document.getElementById('ratioBadge').textContent=r; toast('📐 Canvas: '+r); }
+function setCanvasBG(color) { canvas.style.background=color; toast('🖼️ BG: '+color); }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════
 //  EXPORT
-// ═══════════════════════════════════════════════
-function exportVideo() {
-  if (!state.videoEl) { showToast('⚠️ पहले video add करो!'); return; }
-  showToast('🎬 Export हो रही है...');
+// ══════════════════════════════════════
+function startExport() {
+  if(!S.videoEl) { toast('⚠️ पहले Video add करो!'); return; }
+  toast('🎬 Exporting... please wait');
   try {
     const stream = canvas.captureStream(30);
-    const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9', videoBitsPerSecond: 8000000 });
-    const chunks = [];
-    recorder.ondataavailable = e => chunks.push(e.data);
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type:'video/webm' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'sachin-ai-studio-video.webm'; a.click();
-      showToast('✅ Video Exported!');
+    const rec = new MediaRecorder(stream, { mimeType:'video/webm;codecs=vp9', videoBitsPerSecond:8000000 });
+    const chunks=[];
+    rec.ondataavailable=e=>chunks.push(e.data);
+    rec.onstop=()=>{
+      const blob=new Blob(chunks,{type:'video/webm'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='sachin-ai-pro-video.webm';
+      a.click();
+      toast('✅ Video Exported!');
     };
-    state.videoEl.currentTime = 0;
-    state.videoEl.play();
-    state.playing = true;
-    updatePlayBtn();
-    recorder.start();
-    setTimeout(() => {
-      recorder.stop();
-      state.videoEl.pause();
-      state.playing = false;
-      updatePlayBtn();
-    }, (state.videoEl.duration || 10) * 1000);
-  } catch(e) {
-    showToast('❌ Export failed: ' + e.message);
-  }
+    S.videoEl.currentTime=0; S.videoEl.play(); S.playing=true; updatePlayBtn();
+    rec.start();
+    const dur=(S.videoEl.duration||8)*1000;
+    setTimeout(()=>{ rec.stop(); S.videoEl.pause(); S.playing=false; updatePlayBtn(); }, dur);
+  } catch(e) { toast('❌ Export Error: '+e.message); }
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════
+//  IDLE LOOP
+// ══════════════════════════════════════
+(function loop() { if(S.videoEl&&!S.videoEl.paused) draw(); requestAnimationFrame(loop); })();
+
+// ══════════════════════════════════════
 //  TOAST
-// ═══════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+// ══════════════════════════════════════
+function toast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// ═══════════════════════════════════════════════
-//  INIT RENDER LOOP (idle)
-// ═══════════════════════════════════════════════
-(function idleLoop() {
-  if (state.videoEl && !state.videoEl.paused) renderFrame();
-  requestAnimationFrame(idleLoop);
-})();
+// ══════════════════════════════════════
+//  DRAG & DROP
+// ══════════════════════════════════════
+const pa=document.getElementById('previewSection');
+pa.addEventListener('dragover',e=>{e.preventDefault();pa.style.outline='2px dashed var(--accent)';});
+pa.addEventListener('dragleave',()=>{pa.style.outline='';});
+pa.addEventListener('drop',e=>{e.preventDefault();pa.style.outline='';Array.from(e.dataTransfer.files).forEach(f=>addClip(f));});
 
-// Drag & Drop support
-const previewArea = document.getElementById('previewArea');
-previewArea.addEventListener('dragover', e => { e.preventDefault(); previewArea.style.outline='2px dashed var(--accent)'; });
-previewArea.addEventListener('dragleave', () => { previewArea.style.outline=''; });
-previewArea.addEventListener('drop', e => {
-  e.preventDefault();
-  previewArea.style.outline='';
-  Array.from(e.dataTransfer.files).forEach(f => addClip(f));
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', e => {
-  if(e.target.tagName==='INPUT') return;
-  if(e.code==='Space') { e.preventDefault(); togglePlay(); }
+// ══════════════════════════════════════
+//  KEYBOARD SHORTCUTS
+// ══════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if(e.code==='Space'){e.preventDefault();togglePlay();}
   if(e.code==='ArrowLeft') skipTime(-5);
   if(e.code==='ArrowRight') skipTime(5);
+  if(e.code==='ArrowUp') skipTime(10);
+  if(e.code==='ArrowDown') skipTime(-10);
   if(e.code==='KeyM') toggleMute();
+  if(e.code==='KeyS'&&e.ctrlKey) startExport();
+  if(e.code==='Delete') deleteActive();
+  if(e.code==='KeyZ'&&e.ctrlKey) doUndo();
+  if(e.code==='KeyY'&&e.ctrlKey) doRedo();
 });
+
+// Show filter count
+console.log('Total filters:', ALL_FILTERS.length);
 </script>
 </body>
 </html>
