@@ -96,9 +96,9 @@ ${state.type==='rap'?'16 bars का Hindi rap लिखो, rhyming के स�
 सिर्फ ${state.type} लिखो, कोई explanation नहीं।`;
   try{
     // Direct Gemini call below
-    const d=await r.json();
     if(!r.ok)throw new Error(d.error||'Error');
-    document.getElementById('result').textContent=d.result;
+    const result=await callAI(prompt);
+    document.getElementById('result').textContent=result;
     document.getElementById('resultCard').style.display='block';
     document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
   }catch(e){const err=document.getElementById('err');err.textContent='❌ '+e.message;err.style.display='block';}
