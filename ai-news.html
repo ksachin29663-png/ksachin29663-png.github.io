@@ -95,8 +95,8 @@ ${state.atype==='Simple Explanation'?'Explain in very simple language (like expl
 Be objective, factual, and balanced. Use emojis for readability.`;
   try{
     // Direct Gemini call below
-    const d=await r.json();if(!r.ok)throw new Error(d.error||'Error');
-    document.getElementById('result').textContent=d.result;
+    const result=await callAI(prompt);
+    document.getElementById('result').textContent=result;
     document.getElementById('resultCard').style.display='block';
     document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
   }catch(e){const err=document.getElementById('err');err.textContent='❌ '+e.message;err.style.display='block';}
