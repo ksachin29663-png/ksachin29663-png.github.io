@@ -4,19 +4,26 @@
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="192x192" href="/logo192.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous">
-// Direct Gemini API call (works on GitHub Pages - no server needed)
-async function callGemini(prompt) {
-  const API_KEY = 'AIzaSyCgPxlnzNhLKFKEiYTUI93X_NnrnEpvTrw';
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + API_KEY;
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({contents:[{parts:[{text: prompt}]}]})
-  });
-  const d = await r.json();
-  if (!r.ok) throw new Error(d.error?.message || 'Gemini API Error');
-  return d?.candidates?.[0]?.content?.parts?.[0]?.text || 'कोई जवाब नहीं मिला।';
+
+
+
+// Universal AI - FREE, No API Key needed (Pollinations.AI)
+async function callAI(prompt) {
+  try {
+    const r = await fetch('https://text.pollinations.ai/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({messages:[{role:'system',content:'You are a helpful Hindi AI assistant. Always respond in Hindi or Hinglish as requested.'},{role:'user',content:prompt}], model:'openai', seed:Math.floor(Math.random()*9999)})
+    });
+    if (!r.ok) throw new Error('AI Error ' + r.status);
+    const text = await r.text();
+    return text || 'कोई जवाब नहीं मिला।';
+  } catch(e) {
+    throw new Error('AI से connect नहीं हो सका: ' + e.message);
+  }
 }
+// Alias for backward compat
+const callGemini = callAI;
 
 </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>AI Translator - सचिन एआई</title>
 <style>*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}body{background:#060810;color:#e1e7f0;min-height:100vh;display:flex;flex-direction:column}header{background:linear-gradient(135deg,#0a0e1a,#031408);border-bottom:1px solid rgba(74,222,128,.4);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}.back{color:#4ade80;text-decoration:none;font-size:1.3rem}.pt{font-size:1.05rem;font-weight:700;color:#4ade80}.ps{font-size:.75rem;color:#64748b}main{flex:1;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:14px}
