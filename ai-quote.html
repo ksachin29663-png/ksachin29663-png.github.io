@@ -171,16 +171,8 @@ const callGemini = callAI;
             document.getElementById('genBtn').disabled = true;
             document.getElementById('spinnerTxt').style.display = 'block';
             try {
-                const API_KEY = 'AIzaSyCgPxlnzNhLKFKEiYTUI93X_NnrnEpvTrw';
-                const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + API_KEY;
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `Write one short, powerful motivational quote about "${topic}" in Hindi or Hinglish. Maximum 2 lines. No explanation, just the quote itself.` }] }] })
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error?.message || 'API Error');
-                quote = (data?.candidates?.[0]?.content?.parts?.[0]?.text || '').replace(/["'`]/g, '').trim();
+                const aiQuote = await callAI(`Write one short, powerful motivational quote about "${topic}" in Hindi or Hinglish. Maximum 2 lines. No explanation, just the quote itself.`);
+                quote = aiQuote.replace(/["'`]/g, '').trim();
                 if (!quote || quote.length < 5) quote = 'मेहनत करो, मंज़िल मिलेगी।';
                 document.getElementById('quoteText').value = quote;
             } catch (e) {
