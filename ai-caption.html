@@ -168,13 +168,16 @@ HASHTAGS:
 [hashtags here separated by spaces]`;
 
         try {
-            const res = await fetch('/analyze-image', {
+            const API_KEY = 'AIzaSyCgPxlnzNhLKFKEiYTUI93X_NnrnEpvTrw';
+            const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + API_KEY;
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ imageBase64, mimeType: imageMime, instruction })
+                body: JSON.stringify({ contents: [{ parts: [{ inline_data: { mime_type: imageMime, data: imageBase64 } }, { text: instruction }] }] })
             });
             const data = await res.json();
-            const raw = data.prompt || '';
+            if (!res.ok) throw new Error(data.error?.message || 'API Error');
+            const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
             const captionMatch = raw.match(/CAPTION:\s*([\s\S]*?)(?:HASHTAGS:|$)/i);
             const hashtagMatch = raw.match(/HASHTAGS:\s*([\s\S]*?)$/i);
             const caption = captionMatch ? captionMatch[1].trim() : raw;
