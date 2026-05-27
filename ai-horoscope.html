@@ -99,8 +99,8 @@ For Career: Best career paths, skills to develop, timing for opportunities.
 Write everything in clear Hindi. Use ✨ emojis. Make it personal and specific. Add practical tips and remedies.`;
   try{
     // Direct Gemini call below
-    const d=await r.json();if(!r.ok)throw new Error(d.error||'Error');
-    document.getElementById('result').textContent=d.result;
+    const result=await callAI(prompt);
+    document.getElementById('result').textContent=result;
     document.getElementById('resultCard').style.display='block';
     document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
   }catch(e){const err=document.getElementById('err');err.textContent='❌ '+e.message;err.style.display='block';}
