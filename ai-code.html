@@ -270,16 +270,21 @@
         switchTab('code');
 
         try {
-            const res = await fetch('/generate-code', {
+            const API_KEY = 'AIzaSyCgPxlnzNhLKFKEiYTUI93X_NnrnEpvTrw';
+            const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + API_KEY;
+            const langPrompts = {html:'Write a complete beautiful HTML page with CSS and JS embedded. Return ONLY raw HTML code.',css:'Write complete CSS code. Return ONLY raw CSS.',javascript:'Write clean ES6+ JavaScript. Return ONLY raw JS code.',python:'Write clean Python code. Return ONLY raw Python code.',react:'Write a React functional component. Return ONLY raw JSX.',nodejs:'Write Node.js code. Return ONLY raw code.',sql:'Write SQL queries. Return ONLY raw SQL.',java:'Write Java code. Return ONLY raw Java.',cpp:'Write C++ code. Return ONLY raw C++.',php:'Write PHP code. Return ONLY raw PHP.'};
+            const sysHint = langPrompts[currentLang] || 'Write clean code. Return ONLY raw code, no markdown.';
+            const fullPrompt = sysHint + '\n\nUser: ' + prompt + '\n\nReturn ONLY the code, no explanation, no markdown fences.';
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ description: prompt, language: currentLang })
+                body: JSON.stringify({ contents: [{ parts: [{ text: fullPrompt }] }] })
             });
-            if (!res.ok) throw new Error('Server error: ' + res.status);
             const data = await res.json();
-            if (data.error) throw new Error(data.error);
-
-            currentCode = data.code;
+            if (!res.ok) throw new Error(data.error?.message || 'API Error');
+            let code = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            code = code.replace(/^```[\w]*\n?/gm,'').replace(/^```$/gm,'').trim();
+            currentCode = code;
             displayCode(currentCode, currentLang);
 
             // Enable preview for HTML
