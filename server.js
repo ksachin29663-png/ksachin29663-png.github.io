@@ -15,7 +15,7 @@ app.use(express.json({ limit: '50mb' }));
 if (!fs.existsSync('uploads')) { fs.mkdirSync('uploads'); }
 const upload = multer({ dest: 'uploads/' });
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyCgPxlnzNhLKFKEiYTUI93X_NnrnEpvTrw';
 
 // ---- Gemini Image-to-Prompt Endpoint ----
 app.post('/analyze-image', async (req, res) => {
